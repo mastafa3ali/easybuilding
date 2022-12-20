@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->string('title');
+            $table->string('name');
+            $table->longText('description')->nullable();
             $table->tinyInteger('type');
+            $table->decimal('guarantee_amount', 10);
+            $table->json('properties');
+            $table->decimal('price', 10);
+            $table->foreignId('company_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });
@@ -30,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('products');
     }
 };
