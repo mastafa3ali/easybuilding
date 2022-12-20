@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -19,7 +18,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $table = 'users';
-    protected $fillable = ['name', 'phone', 'email', 'image', 'description', 'type', 'special', 'active'];
+    protected $fillable = ['name', 'phone', 'email', 'image', 'description', 'type', 'active'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -58,7 +57,6 @@ class User extends Authenticatable
 
     public static function boot()
     {
-
         parent::boot();
         static::deleted(function ($item) {
             $item->deleted_by = auth()->id();

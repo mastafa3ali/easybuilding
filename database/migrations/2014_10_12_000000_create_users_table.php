@@ -19,8 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('email')->nullable();
             $table->string('image')->nullable();
+            $table->string('passport')->nullable();
+            $table->string('licence')->nullable();
             $table->longText('description')->nullable();
-            $table->boolean('special')->default(false);
             $table->boolean('active')->default(true);
             $table->tinyInteger('type');
             $table->timestamp('email_verified_at')->nullable();
