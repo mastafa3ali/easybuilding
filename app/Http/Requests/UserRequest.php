@@ -22,9 +22,7 @@ class UserRequest extends FormRequest
         } else {
             $rules['password'] = 'nullable|min:8';
         }
-        if (auth()->user()->hasRole('admin')) {
-            //$rules['teacher_id'] = 'required';
-        }
+
         return $rules;
     }
 }

@@ -61,9 +61,9 @@
                             <label class="form-label">{{ __('users.type') }}</label>
                             <select class="form-control input" name="type">
                                 <option value="">{{ __('users.select') }}</option>
-                                    <option value="1" {{ ($item->type??null)==1 ? 'selected' : '' }}>{{ __('users.types.1') }}</option>
-                                    <option value="2" {{ ($item->type??null)==2 ? 'selected' : '' }}>{{ __('users.types.2') }}</option>
-                                    <option value="3" {{ ($item->type??null)==3 ? 'selected' : '' }}>{{ __('users.types.3') }}</option>
+                                    <option value="1" {{ ($item->type ?? null) == 1 ? 'selected' : '' }}>{{ __('users.types.1') }}</option>
+                                    <option value="2" {{ ($item->type ?? null) == 2 ? 'selected' : '' }}>{{ __('users.types.2') }}</option>
+                                    <option value="3" {{ ($item->type ?? null) == 3 ? 'selected' : '' }}>{{ __('users.types.3') }}</option>
                             </select>
                             @error('type')
                             <span class="error">{{ $message }}</span>
@@ -77,7 +77,8 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-              
+                    </div>
+                    <div class="row">
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('users.image') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">
@@ -88,6 +89,34 @@
                                 <br>
                                 @if(isset($item) && !empty($item->image))
                                     <img src="{{ $item->photo }}"
+                                         class="img-fluid img-thumbnail">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4 @error('passport') is-invalid @enderror">
+                            <label class="form-label" for="passport">{{ __('users.passport') }}</label>
+                            <input type="file" class="form-control input" name="passport" id="passport">
+                            @error('passport')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(isset($item) && !empty($item->passport))
+                                    <img src="{{ $item->passport }}"
+                                         class="img-fluid img-thumbnail">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4 @error('licence') is-invalid @enderror">
+                            <label class="form-label" for="licence">{{ __('users.licence') }}</label>
+                            <input type="file" class="form-control input" name="licence" id="licence">
+                            @error('licence')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(isset($item) && !empty($item->licence))
+                                    <img src="{{ $item->licence }}"
                                          class="img-fluid img-thumbnail">
                                 @endif
                             </div>

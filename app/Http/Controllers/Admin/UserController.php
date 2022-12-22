@@ -72,7 +72,8 @@ class UserController extends Controller
     protected function processForm($request, $id = null)
     {
         $item = $id == null ? new User() : User::find($id);
-        $item = $item->fill($request->all());
+        $data= $request->except(['_token', '_method', 'password']);
+        $item = $item->fill($data);
         if ($item->save()) {
             if ($request->filled('password')) {
                 $item->password = Hash::make($request->password);
@@ -82,15 +83,23 @@ class UserController extends Controller
                 $item->image = storeFile($request->file('image'), 'users');
                 $item->save();
             }
+            if ($request->hasFile('passport')) {
+                $item->passport = storeFile($request->file('passport'), 'users');
+                $item->save();
+            }
+            if ($request->hasFile('licence')) {
+                $item->licence = storeFile($request->file('licence'), 'users');
+                $item->save();
+            }
             $item->roles()->detach();
             if ($request->filled('type')) {
                 $role = null;
                 if ($request->type == User::TYPE_ADMIN) {
                     $role = Role::where('name', 'admin')->first();
-                } elseif ($request->type == User::TYPE_SUPERVISOR) {
-                    $role = Role::where('name', 'supervisors')->first();
-                } elseif ($request->type == User::TYPE_STUDENT) {
-                    $role = Role::where('name', 'student')->first();
+                } elseif ($request->type == User::TYPE_COMPANY) {
+                    $role = Role::where('name', 'company')->first();
+                } elseif ($request->type == User::TYPE_OWNER) {
+                    $role = Role::where('name', 'owner')->first();
                 }
                 if ($role) {
                     $item->syncRoles([$role->id]);

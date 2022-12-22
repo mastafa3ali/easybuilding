@@ -18,7 +18,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $table = 'users';
-    protected $fillable = ['name', 'phone', 'email', 'image', 'description', 'type', 'active'];
+    protected $fillable = ['name', 'phone', 'email', 'image', 'description', 'type', 'active', 'passport', 'licence'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,14 +41,22 @@ class User extends Authenticatable
 
     public const TYPE_ADMIN = 1;
 
-    public const TYPE_SUPERVISOR = 2;
+    public const TYPE_COMPANY = 2;
 
-    public const TYPE_STUDENT = 3;
+    public const TYPE_OWNER = 3;
 
     protected $appends = ['photo'];
     public function getPhotoAttribute()
     {
         return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/users/' . $this->attributes['image']) : null) : null;
+    }
+    public function getPassportAttribute()
+    {
+        return array_key_exists('passport', $this->attributes) ? ($this->attributes['passport'] != null ? asset('storage/users/' . $this->attributes['passport']) : null) : null;
+    }
+    public function getLicenceAttribute()
+    {
+        return array_key_exists('licence', $this->attributes) ? ($this->attributes['licence'] != null ? asset('storage/users/' . $this->attributes['licence']) : null) : null;
     }
     public function compleatTrack()
     {
