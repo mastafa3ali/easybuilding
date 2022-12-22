@@ -89,6 +89,8 @@
                 {
                     "targets": -1,
                     "render": function (data, type, row) {
+                        var showUrl = '{{ route("admin.users.show", ":id") }}';
+                        showUrl = showUrl.replace(':id', row.id);
                         var editUrl = '{{ route("admin.users.edit", ":id") }}';
                         editUrl = editUrl.replace(':id', row.id);
 
@@ -100,6 +102,12 @@
                                             <i data-feather="more-vertical" class="font-medium-2"></i>
                                     </button>
                                     <div class="dropdown-menu">
+                                        @canany('users.show')
+                                        <a class="dropdown-item" href="`+showUrl+`">
+                                        <i data-feather="eye" class="font-medium-2"></i>
+                                            <span>{{ __('users.actions.show') }}</span>
+                                        </a>
+                                        @endcan
                                         @canany('users.edit')
                                         <a class="dropdown-item" href="`+editUrl+`">
                                         <i data-feather="edit-2" class="font-medium-2"></i>

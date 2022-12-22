@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->longText('description')->nullable();
             $table->boolean('active')->default(true);
             $table->tinyInteger('type');
+            $table->tinyInteger('rate')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('reset_code')->nullable();
