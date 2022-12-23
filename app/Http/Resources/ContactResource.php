@@ -11,16 +11,14 @@ class ContactResource extends JsonResource
         return [
             'id'    => $this->id,
             'name'  => $this->name,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'message' => $this->message,
+            'reason' => $this->reason,
+            'problem' => $this->problem,
         ];
     }
 
     public function with($request)
     {
         return [
-            'version' => '1.0',
             'success' => true,
             'status'  => 200
         ];

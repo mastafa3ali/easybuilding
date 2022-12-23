@@ -27,9 +27,8 @@
                     <thead>
                     <tr>
                         <th>{{ __('contacts.name') }}</th>
-                        <th>{{ __('contacts.email') }}</th>
-                        <th>{{ __('contacts.subject') }}</th>
-                        <th>{{ __('contacts.notes') }}</th>
+                        <th>{{ __('contacts.reason') }}</th>
+                        <th>{{ __('contacts.problem') }}</th>
                         @canany('contacts.delete')
                             <th width="15%" class="text-center">{{ __('contacts.options') }}</th>
                         @endcanany
@@ -70,9 +69,8 @@
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'subject', name: 'subject'},
-                {data: 'note', name: 'note'},
+                {data: 'reason', name: 'reason'},
+                {data: 'problem', name: 'problem'},
                     @canany('contacts.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany

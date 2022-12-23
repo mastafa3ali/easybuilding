@@ -43,16 +43,16 @@
                             <span class="text-danger error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-1 col-md-12 @error('about_video_url') is-invalid @enderror">
+                        {{-- <div class="mb-1 col-md-12 @error('about_video_url') is-invalid @enderror">
                             <label class="form-label" for="about_video_url">
                                 <span class="required">{{ __('settings.video_url') }}</span>
                             </label>
-                            <?php $about_video_url = $items->where('key', 'about_video_url')->first()->value ?? old('about_video_url'); ?>
+                            <?php //$about_video_url = $items->where('key', 'about_video_url')->first()->value ?? old('about_video_url'); ?>
                             <input type="text" class="form-control form-control-solid editor" name="about_video_url" id="about_video_url" value="{{ $about_video_url }}">
                             @error('about_video_url')
                             <span class="text-danger error">{{ $message }}</span>
                             @enderror
-                        </div>
+                        </div> --}}
                          <div class="mb-1 col-md-12 @error('about_image') is-invalid @enderror">
                             <label class="form-label" for="about_image">{{ __('settings.image') }}</label>
                             <input type="file" class="form-control input" name="about_image" id="about_image">
