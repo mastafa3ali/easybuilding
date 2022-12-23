@@ -42,8 +42,8 @@ class AuthController extends Controller
 
         if (Hash::check($request->password, $user->password)) {
             Auth::login($user, $remember);
-            if ($user->type == User::TYPE_SUPERVISOR) {
-                Session::put('supervisorId', $user->id);
+            if ($user->type == User::TYPE_COMPANY) {
+                Session::put('companyId', $user->id);
             }
             return to_route('admin.home');
         }

@@ -13,10 +13,10 @@ use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class CategoryController extends Controller
 {
-    private $viewIndex  = 'admin.pages.categoies.index';
-    private $viewEdit   = 'admin.pages.categoies.create_edit';
-    private $viewShow   = 'admin.pages.categoies.show';
-    private $route      = 'admin.categoies';
+    private $viewIndex  = 'admin.pages.categories.index';
+    private $viewEdit   = 'admin.pages.categories.create_edit';
+    private $viewShow   = 'admin.pages.categories.show';
+    private $route      = 'admin.categories';
 
     public function index(Request $request): View
     {
@@ -44,7 +44,7 @@ class CategoryController extends Controller
     {
         $item = Category::findOrFail($id);
         if ($item->delete()) {
-            flash(__('categoies.messages.deleted'))->success();
+            flash(__('categories.messages.deleted'))->success();
         }
         return to_route($this->route . '.index');
     }
@@ -52,7 +52,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request): RedirectResponse
     {
         if ($this->processForm($request)) {
-            flash(__('categoies.messages.created'))->success();
+            flash(__('categories.messages.created'))->success();
         }
         return to_route($this->route . '.index');
     }
@@ -61,7 +61,7 @@ class CategoryController extends Controller
     {
         $item = Category::findOrFail($id);
         if ($this->processForm($request, $id)) {
-            flash(__('categoies.messages.updated'))->success();
+            flash(__('categories.messages.updated'))->success();
         }
         return to_route($this->route . '.index');
     }
@@ -69,8 +69,14 @@ class CategoryController extends Controller
     protected function processForm($request, $id = null): Category|null
     {
         $item = $id == null ? new Category() : Category::find($id);
-        $item = $item->fill($request->all());
+        $data= $request->except(['_token', '_method']);
+
+        $item = $item->fill($data);
         if ($item->save()) {
+            if ($request->hasFile('image')) {
+                $item->image = storeFile($request->file('image'), 'categories');
+                $item->save();
+            }
             return $item;
         }
         return null;
@@ -80,7 +86,11 @@ class CategoryController extends Controller
     {
         $data = Category::select('*');
         return FacadesDataTables::of($data)
-            ->addIndexColumn()
-            ->make(true);
+        ->addIndexColumn()   
+        ->addColumn('photo', function ($item) {
+                return '<img src="' . $item->photo . '" height="100px" width="100px">';
+            })
+            ->rawColumns(['photo'])
+        ->make(true);
     }
 }

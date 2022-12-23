@@ -34,7 +34,7 @@
                     <thead>
                     <tr>
                         <th>{{ __('sliders.default.name') }}</th>
-                        <th>{{ __('sliders.default.image') }}</th>
+                        <th>{{ __('sliders.photo') }}</th>
                         @canany('sliders.edit','sliders.delete')
                             <th width="15%" class="text-center">{{ __('sliders.options') }}</th>
                         @endcanany

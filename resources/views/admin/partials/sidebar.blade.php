@@ -23,14 +23,6 @@
                 </a>
             </li>
      
-            @canany('newghaith.view')
-            <li class=" nav-item {{ request()->routeIs('admin.newghaith') ? 'open' : '' }}">
-                <a class="d-flex align-items-center {{ request()->routeIs('admin.newghaith') ? 'active' : '' }}" href="{{ route('admin.newghaith.index') }}">
-                    <i data-feather="user-check"></i>
-                    <span class="menu-title text-truncate" data-i18n="Dashboards">{{ __('admin.newghaith') }}</span>
-                </a>
-            </li>
-            @endcanany
             @can('sliders.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.sliders.index') }} ">
@@ -44,38 +36,6 @@
                 <a class="d-flex align-items-center" href="{{ route('admin.categories.index') }} ">
                     <i data-feather="circle"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.categories') }}</span>
-                </a>
-            </li>
-            @endcan
-            @can('sections.view')
-            <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.sections.index') }} ">
-                    <i data-feather="circle"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.sections') }}</span>
-                </a>
-            </li>
-            @endcan
-            @can('tracks.view')
-            <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.tracks.index') }} ">
-                    <i data-feather="circle"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.tracks') }}</span>
-                </a>
-            </li>
-            @endcan
-            @can('readingcycles.view')
-            <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.readingcycles.index') }} ">
-                    <i data-feather="circle"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.readingcycles') }}</span>
-                </a>
-            </li>
-            @endcan
-            @can('teams.view')
-            <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.teams.index') }} ">
-                    <i data-feather="circle"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.teams') }}</span>
                 </a>
             </li>
             @endcan

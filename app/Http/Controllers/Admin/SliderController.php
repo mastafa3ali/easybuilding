@@ -74,8 +74,9 @@ class SliderController extends Controller
     protected function processForm($request, $id = null): Slider|null
     {
         $item = $id == null ? new Slider() : Slider::find($id);
-        $item = $item->fill($request->all());
-        if ($item->save()) {
+        $data= $request->except(['_token', '_method']);
+
+        $item = $item->fill($data);        if ($item->save()) {
             if ($request->hasFile('image')) {
                 $item->image = storeFile($request->file('image'), 'sliders');
                 $item->save();

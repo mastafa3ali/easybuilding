@@ -7,6 +7,10 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::post('admin/login', [App\Http\Controllers\Admin\AuthController::class, 'postLogin'])->name('admin.postLogin');
     Route::post('admin/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('admin.logout');
 
+    Route::group(['middleware' => 'authenticate.admin', 'as' => 'admin.'], function () {
+        Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index']);
+    }
+    );
     Route::group(['middleware' => 'authenticate.admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home');
 

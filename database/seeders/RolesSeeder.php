@@ -33,10 +33,7 @@ class RolesSeeder extends Seeder
             ['name' => 'admin', 'guard_name' => 'web', 'display_name' => 'Admin'],
         );
         Role::Create(
-            ['name' => 'supervisors', 'display_name' => 'supervisors', 'guard_name' => 'web']
-        );
-        Role::Create(
-            ['name' => 'student', 'display_name' => 'student', 'guard_name' => 'web']
+            ['name' => 'company', 'display_name' => 'company', 'guard_name' => 'web']
         );
 
         $role = Role::where('name', 'admin')->first();
