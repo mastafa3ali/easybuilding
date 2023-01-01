@@ -47,6 +47,16 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::match(['PUT', 'PATCH'], 'categories/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('categories.update')->middleware('permission:categories.edit');
         Route::get('categories/{id}/edit', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('categories.edit')->middleware('permission:categories.edit');
 
+        Route::get('products/select', [App\Http\Controllers\Admin\ProductController::class, 'select'])->name('products.select');
+        Route::delete('products/bulk', [App\Http\Controllers\Admin\ProductController::class, 'deleteBulk'])->name('products.deleteBulk')->middleware('permission:products.delete');
+        Route::get('products/list', [App\Http\Controllers\Admin\ProductController::class, 'list'])->name('products.list')->middleware('permission:products.view');
+        Route::post('products', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('products.store')->middleware('permission:products.create');
+        Route::delete('products/{id}', [App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy')->middleware('permission:products.delete');
+        Route::get('products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index')->middleware('permission:products.view');
+        Route::get('products/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('products.create')->middleware('permission:products.create');
+        Route::match(['PUT', 'PATCH'], 'products/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update')->middleware('permission:products.edit');
+        Route::get('products/{id}/edit', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit')->middleware('permission:products.edit');
+
         Route::get('sections/select', [App\Http\Controllers\Admin\SectionController::class, 'select'])->name('sections.select');
         Route::delete('sections/bulk', [App\Http\Controllers\Admin\SectionController::class, 'deleteBulk'])->name('sections.deleteBulk')->middleware('permission:sections.delete');
         Route::get('sections/list', [App\Http\Controllers\Admin\SectionController::class, 'list'])->name('sections.list')->middleware('permission:sections.view');
@@ -102,6 +112,7 @@ Route::middleware('throttle:60,1')->group(function () {
 
 
         Route::get('users/select', [App\Http\Controllers\Admin\UserController::class, 'select'])->name('users.select');
+        Route::get('companies/select', [App\Http\Controllers\Admin\UserController::class, 'companiesSelect'])->name('companies.select');
         Route::get('users/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('users.list')->middleware('permission:users.view');
         Route::post('users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store')->middleware('permission:users.create');
         Route::delete('users/{id}', [App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy')->middleware('permission:users.delete');

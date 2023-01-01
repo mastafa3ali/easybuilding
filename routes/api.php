@@ -27,8 +27,11 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
+        Route::get('profile', [App\Http\Controllers\Api\V1\PageController::class, 'profile']);
 
         Route::get('contact', [App\Http\Controllers\Api\V1\SettingController::class, 'contact']);
+        Route::get('products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
+        Route::get('product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
         Route::get('about', [App\Http\Controllers\Api\V1\SettingController::class, 'about']);
         Route::get('terms', [App\Http\Controllers\Api\V1\SettingController::class, 'terms']);
         Route::get('privacy', [App\Http\Controllers\Api\V1\SettingController::class, 'privacy']);
