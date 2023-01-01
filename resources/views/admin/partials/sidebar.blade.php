@@ -9,7 +9,8 @@
                 <a class="navbar-brand" href="{{ route('admin.home') }}">
                     <img src="{{ $assetsPath }}/images/icon.png">
                     <h2 class="brand-text">{{ config('app.name') }}</h2>
-                </a></li>
+                </a>
+            </li>
             <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
         </ul>
     </div>
@@ -39,6 +40,14 @@
                 </a>
             </li>
             @endcan
+            @can('products.view')
+            <li>
+                <a class="d-flex align-items-center" href="{{ route('admin.products.index') }} ">
+                    <i data-feather="circle"></i>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.products') }}</span>
+                </a>
+            </li>
+            @endcan
             @can('contacts.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.contacts.index') }} ">
@@ -55,37 +64,29 @@
                 </a>
             </li>
             @endcan
-                @can('settings.about')
-                    <li>
-                        <a class="d-flex align-items-center" href="{{ route('admin.settings.about') }} ">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.about') }}</span>
-                        </a>
-                    </li>
-                @endcan
-                @can('settings.privacy')
-                    <li>
-                        <a class="d-flex align-items-center" href="{{ route('admin.settings.privacy') }} ">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.privacy') }}</span>
-                        </a>
-                    </li>
-                @endcan
-                @can('settings.terms')
-                    <li>
-                        <a class="d-flex align-items-center" href="{{ route('admin.settings.terms') }} ">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.terms') }}</span>
-                        </a>
-                    </li>
-                @endcan
-            @can('roles.view')
-            <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.roles.index') }} ">
-                    <i data-feather="circle"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.roles') }}</span>
-                </a>
-            </li>
+            @can('settings.about')
+                <li>
+                    <a class="d-flex align-items-center" href="{{ route('admin.settings.about') }} ">
+                        <i data-feather="circle"></i>
+                        <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.about') }}</span>
+                    </a>
+                </li>
+            @endcan
+            @can('settings.privacy')
+                <li>
+                    <a class="d-flex align-items-center" href="{{ route('admin.settings.privacy') }} ">
+                        <i data-feather="circle"></i>
+                        <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.privacy') }}</span>
+                    </a>
+                </li>
+            @endcan
+            @can('settings.terms')
+                <li>
+                    <a class="d-flex align-items-center" href="{{ route('admin.settings.terms') }} ">
+                        <i data-feather="circle"></i>
+                        <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.terms') }}</span>
+                    </a>
+                </li>
             @endcan
             @can('users.view')
             <li>

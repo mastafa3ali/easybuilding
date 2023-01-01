@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Models\_Class;
-use App\Models\ClassUser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +41,7 @@ class AuthController extends Controller
         $request['phone'] = convertArabicNumbers($request->phone);
         $validate = array(
             'name' => 'required',
-            'type' => 'required',
+            'type' => 'required|in:2,3',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|max:255|unique:users',
             'password' => 'required|min:6|confirmed',

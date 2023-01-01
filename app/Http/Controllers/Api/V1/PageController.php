@@ -19,7 +19,7 @@ class PageController extends Controller
     }
     public function sales(Request $request)
     {
-        $data = User::where('type',User::TYPE_COMPANY)
+        $data = User::where('users.type',User::TYPE_COMPANY)
         ->join('products','products.company_id','users.id')
         ->where(function($query) use ($request){
             if($request->filled('name')){
@@ -38,5 +38,27 @@ class PageController extends Controller
     {
         return apiResponse(true, ['latest_android_version' => '1.0.3', 'latest_ios_version' => '1.0.1',], null, null, 200);
     }
+    public function profile(Request $request)
+    {
+      
+        $data = [];
+        $user = auth()->user();
+        $data['profile'] = [
+            'name' => $user->name,
+            'phone' => $user->phone,
+            'email' => $user->email,
+            'image' => $user->image,
+            'passport' => $user->passport,
+            'licence' => $user->licence,
+            'description' => $user->description,
+            'active' => $user->active,
+            'type' => $user->type,
+            'rate' => $user->rate
+        ];
+
+    
+        return apiResponse(true, $data, null, null, 200);
+    }
+
 
 }
