@@ -57,10 +57,20 @@ class Handler extends ExceptionHandler
             if ($exception instanceof MethodNotAllowedHttpException) {
                 return apiResponse(false, null, 'Method Not Allowed', null, 403);
             }
+            if ($exception instanceof \Illuminate\Validation\ValidationException) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validation Error',
+                    'errors' => $e->errors()
+                ], 422);
+             }
+
         }
 
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
-            return redirect()->route('login');
+            return apiResponse(false, null, __('api.unauthorized'), null, 401);
+
+            // return redirect()->route('login');
         }
 
         return parent::render($request, $exception);
