@@ -1,31 +1,21 @@
 <?php
 
 namespace App\Http\Middleware;
-use App\Models\User;
-use Closure;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Routing\ResponseFactory;
-use Illuminate\Support\Facades\Auth;
 
-class Authenticate
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
+
+class Authenticate extends Middleware
 {
-    protected $auth;
-    protected $response;
-
-    public function __construct(Guard $auth, ResponseFactory $response)
+    /**
+     * Get the path the user should be redirected to when they are not authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return string|null
+     */
+    protected function redirectTo($request)
     {
-        $this->auth = $auth;
-        $this->response = $response;
-    }
-
-    public function handle($request, Closure $next)
-    {
-        if (auth()->check()) {
-            if (in_array(Auth::user()->type, [User::TYPE_COMPANY,User::TYPE_OWNER])) {
-                return $next($request);
-            }
+        if (! $request->expectsJson()) {
+            return route('login');
         }
-        return apiResponse(false, [], 'Unauthinticated', null, 400);
-
     }
 }
