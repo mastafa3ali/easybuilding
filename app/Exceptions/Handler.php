@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use ErrorException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\UnauthorizedException;
@@ -51,6 +52,7 @@ class Handler extends ExceptionHandler
             if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
                 return apiResponse(false, null, __('api.not_found'), null, 404);
             }
+            
             if ($exception instanceof UnauthorizedHttpException || $exception instanceof UnauthorizedException) {
                 return apiResponse(false, null, __('api.unauthorized'), null, 401);
             }
@@ -69,10 +71,13 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
             return apiResponse(false, null, __('api.unauthorized'), null, 401);
-
-            // return redirect()->route('login');
+            
         }
-
+        
         return parent::render($request, $exception);
+    }
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return apiResponse(false, null, 'unauthorized', null, 401);
     }
 }
