@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description')->nullable();
             $table->tinyInteger('type');
-            $table->decimal('guarantee_amount', 10);
-            $table->json('properties');
+            $table->tinyInteger('properties');
+            $table->decimal('guarantee_amount', 10)->default(0);
             $table->decimal('price', 10);
             $table->foreignId('company_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->references('id')->on('categories')->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

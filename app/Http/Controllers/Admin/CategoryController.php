@@ -56,6 +56,20 @@ class CategoryController extends Controller
         }
         return to_route($this->route . '.index');
     }
+    public function select(Request $request): JsonResponse|string
+    {
+       $data = Category::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('title', 'LIKE', '%' . $request->q . '%');
+                }
+            })
+            ->select('id', 'title AS text')
+            ->take(10)
+            ->get();
+        return response()->json($data);
+    }
+  
 
     public function update(CategoryRequest $request, $id): RedirectResponse
     {

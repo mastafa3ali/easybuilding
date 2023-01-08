@@ -5,11 +5,10 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticateStudent
+class AuthenticateUser
 {
     protected $auth;
     protected $response;
@@ -23,11 +22,12 @@ class AuthenticateStudent
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
-            if (in_array(\Auth::user()->type, ['student'])) {
+            if (in_array(Auth::user()->type, [User::TYPE_COMPANY,User::TYPE_OWNER])) {
                 return $next($request);
             }
         }
-        Auth::logout();
-        return $this->response->redirectTo('/login');
+        return apiResponse(false, [], 'Unauthinticated', null, 400);
+        // Auth::logout();
+        // return $this->response->redirectTo('/login');
     }
 }

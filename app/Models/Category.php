@@ -12,6 +12,7 @@ class Category extends Model
     protected $appends = ['photo'];
     public function getPhotoAttribute()
     {
-        return $this->attributes['image'] != null ? asset('storage/categories/' . $this->attributes['image']) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/categories/' . $this->attributes['image']) : null) : null;
+
     }
 }

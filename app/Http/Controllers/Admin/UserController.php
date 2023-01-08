@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
@@ -124,5 +125,32 @@ class UserController extends Controller
             })
             ->rawColumns(['type'])
             ->make(true);
+    }
+      public function select(Request $request): JsonResponse|string
+    {
+       $data = User::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('name', 'LIKE', '%' . $request->q . '%');
+                }
+            })
+            ->select('id', 'name AS text')
+            ->take(10)
+            ->get();
+        return response()->json($data);
+    }
+    public function companiesSelect(Request $request): JsonResponse|string
+    {
+       $data = User::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('name', 'LIKE', '%' . $request->q . '%');
+                }
+            })
+            ->where('type',User::TYPE_COMPANY)
+            ->select('id', 'name AS text')
+            ->take(10)
+            ->get();
+        return response()->json($data);
     }
 }

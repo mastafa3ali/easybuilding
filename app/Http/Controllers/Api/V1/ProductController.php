@@ -28,17 +28,10 @@ class ProductController extends Controller
         ]);
     }
 
-    public function addInvoice(Request $request)
+
+    public function show($id)
     {
-        $validate = array(
-            'phone' => 'required',
-            'address' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
-            'pdf' => 'nullable|mimes:pdf|max:4096'
-        );
-        $validatedData = Validator::make($request->all(), $validate);
-        if ($validatedData->fails()) {
-            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 422);
-        }
+        $item = Product::findOrFail($id);
+        return apiResponse(true, new ProductResource($item), '', null, 200);
     }
 }
