@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    <title>{{ config('app.name') }} | {{ __('subjects.plural') }}</title>
+    <title>{{ config('app.name') }} | {{ __('categories.plural') }}</title>
 @endsection
 @section('content')
     <form method='post' enctype="multipart/form-data"  id="jquery-val-form"
@@ -13,7 +13,7 @@
                     <div class="col-12">
                         <h1 class="bold mb-0 mt-1 text-dark">
                             <i data-feather="box" class="font-medium-2"></i>
-                            <span>{{ isset($item) ? __('subjects.actions.edit') : __('subjects.actions.create') }}</span>
+                            <span>{{ isset($item) ? __('categories.actions.edit') : __('categories.actions.create') }}</span>
                         </h1>
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-primary me-1 waves-effect">
                             <i data-feather="save"></i>
-                            <span class="active-sorting text-primary">{{ __('subjects.actions.save') }}</span>
+                            <span class="active-sorting text-primary">{{ __('categories.actions.save') }}</span>
                         </button>
                     </div>
                 </div>
