@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
