@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('company.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | البروفايل</title>
 @endsection
@@ -12,10 +12,10 @@
                     <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <a class="bold text-dark" href="{{ route('admin.profile.index') }}">{{ __('profile.profile') }}</a>
+                            <a class="bold text-dark" href="{{ route('company.profile.index') }}">{{ __('profile.profile') }}</a>
                         </li>
                         <li class="list-group-item">
-                            <a class="bold text-dark" href="{{ route('admin.profile.change_password') }}">{{ __('profile.change_password') }}</a>
+                            <a class="bold text-dark" href="{{ route('company.profile.change_password') }}">{{ __('profile.change_password') }}</a>
                         </li>
                     </ul>
                 </div>

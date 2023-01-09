@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('company.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | البروفايل</title>
 @endsection
@@ -12,10 +12,10 @@
                     <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
-                            <a class="bold text-dark" href="{{ route('admin.profile.index') }}">{{ __('profile.profile') }}</a>
+                             <a class="bold text-dark" href="{{ route('company.profile.index') }}">{{ __('profile.profile') }}</a>
                         </li>
                         <li class="list-group-item">
-                            <a class="bold text-dark" href="{{ route('admin.profile.change_password') }}">{{ __('profile.change_password') }}</a>
+                            <a class="bold text-dark" href="{{ route('company.profile.change_password') }}">{{ __('profile.change_password') }}</a>
                         </li>
                     </ul>
                 </div>
@@ -26,23 +26,27 @@
             <div class="card">
                 <div class="card-body">
                     <form class="form-horizontal">
-                        <div class="form-group row @error('password') is-invalid @enderror">
-                            <label for="password" class="col-sm-2 col-form-label">{{ __('profile.password') }}</label>
+                        <div class="form-group row @error('name') is-invalid @enderror">
+                            <label for="name" class="col-sm-2 col-form-label">{{ __('profile.name') }}</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" name="password" type="text" value="">
-                                @error('password')
+                                <input type="text" class="form-control" name="name" type="text" value="{{ auth()->user()->name }}">
+                                @error('name')
                                 <span class="error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                         <br>
-                        <div class="form-group row @error('password_confirmation') is-invalid @enderror">
-                            <label for="password_confirmation" class="col-sm-2 col-form-label">{{ __('profile.password_confirmation') }}</label>
+                        <div class="form-group row">
+                            <label for="email" class="col-sm-2 col-form-label">{{ __('profile.email') }}</label>
                             <div class="col-sm-10">
-                                <input type="password" class="form-control" name="password_confirmation" type="text" value="">
-                                @error('password_confirmation')
-                                <span class="text-danger">{{ $message }}</span>
-                                @enderror
+                                <input type="email" class="form-control" id="email" value="{{ auth()->user()->email }}">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="phone" class="col-sm-2 col-form-label">{{ __('profile.phone') }}</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="phone" value="{{ auth()->user()->phone }}">
                             </div>
                         </div>
                         <br>

@@ -33,7 +33,7 @@ class AuthController extends Controller
 
         $remember = $request->has('remember') ? true : false;
 
-        $user = User::where('email', $request->email)
+        $user = User::where('email', $request->email)->where('type',User::TYPE_ADMIN)
             ->first();
 
         if (!$user) {

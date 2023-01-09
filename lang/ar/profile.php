@@ -7,8 +7,7 @@ return [
     'email' => 'البريد الالكترونى',
     'password' => 'كلمة السر',
     'update' => 'تحديث',
-    'xxxxxx' => 'xxxxxx',
-    'xxxxxx' => 'xxxxxx',
-    'xxxxxx' => 'xxxxxx',
+    'password_confirmation' => 'تأكيد كلمة المرور',
+    'phone' => 'رقم التليفون',
     'xxxxxx' => 'xxxxxx',
 ];

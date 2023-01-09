@@ -100,4 +100,10 @@ return [
     'create' => 'انشاء',
     'edit' => 'تعديل',
     'general' => 'عام',
+    'products_count' => 'عدد المنتجات',
+    'orders_pendding' => 'الطلبات المعلقة',
+    'orders_done' => 'الطلبات المنتهية',
+    'company2'=>'شركة',
+    'staff'=>'ادمن',
+    'orders'=>'الطلبات',
 ];
