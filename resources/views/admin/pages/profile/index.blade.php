@@ -9,11 +9,7 @@
             <!-- Profile Image -->
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
-                    <div class="text-center">
-                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('assets/admin') }}/img/user4-128x128.jpg" alt="User profile picture">
-                    </div>
                     <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
-                    <p class="text-muted text-center">Software Engineer</p>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                              <a class="bold text-dark" href="{{ route('admin.profile.index') }}">{{ __('profile.profile') }}</a>
@@ -39,12 +35,21 @@
                                 @enderror
                             </div>
                         </div>
+                        <br>
                         <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">{{ __('profile.email') }}</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" placeholder="{{ auth()->user()->email }}">
+                                <input type="email" class="form-control" id="email" value="{{ auth()->user()->email }}">
                             </div>
                         </div>
+                        <br>
+                        <div class="form-group row">
+                            <label for="phone" class="col-sm-2 col-form-label">{{ __('profile.phone') }}</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="phone" value="{{ auth()->user()->phone }}">
+                            </div>
+                        </div>
+                        <br>
                         <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
                                 <button type="submit" class="btn btn-sm btn btn-primary me-1 waves-effect">

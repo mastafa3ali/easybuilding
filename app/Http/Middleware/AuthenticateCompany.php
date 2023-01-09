@@ -9,7 +9,7 @@ use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Support\Facades\Auth;
 
-class AuthenticateTeacher
+class AuthenticateCompany
 {
     protected $auth;
     protected $response;
@@ -23,12 +23,10 @@ class AuthenticateTeacher
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
-            if (in_array(\Auth::user()->type, ['teacher'])) {
+            if (Auth::user()->type == User::TYPE_COMPANY) {
                 return $next($request);
             }
-
-            return redirect()->route('home');
         }
-        return $this->response->redirectTo('/teacher/login');
+        return $this->response->redirectTo('/company/login');
     }
 }

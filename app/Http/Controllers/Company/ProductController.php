@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -13,10 +14,10 @@ use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 class ProductController extends Controller
 {
-    private $viewIndex  = 'admin.pages.products.index';
-    private $viewEdit   = 'admin.pages.products.create_edit';
-    private $viewShow   = 'admin.pages.products.show';
-    private $route      = 'admin.products';
+    private $viewIndex  = 'company.pages.products.index';
+    private $viewEdit   = 'company.pages.products.create_edit';
+    private $viewShow   = 'company.pages.products.show';
+    private $route      = 'company.products';
 
     public function index(Request $request): View
     {
@@ -64,11 +65,8 @@ class ProductController extends Controller
     {
         $item = $id == null ? new Product() : Product::find($id);
         $data= $request->except(['_token', '_method']);
-
         $item = $item->fill($data);
-        if(auth()->user()->type==User::TYPE_COMPANY){
-            $item->company_id=auth()->id();
-        }
+        $item->company_id=auth()->id();
         if ($item->save()) {
             return $item;
         }
@@ -77,16 +75,41 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Product::with('company')->select('*');
+        $data = Product::where('company_id',auth()->id())->select('*');
         return DataTables::of($data)
         ->addIndexColumn()   
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })
-            ->addColumn('company', function ($item) {
-                return $item->company->name;
-            })
-            ->rawColumns(['company','type'])
+            ->rawColumns(['type'])
         ->make(true);
     }
+    public function select(Request $request): JsonResponse|string
+    {
+       $data = Category::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('title', 'LIKE', '%' . $request->q . '%');
+                }
+            })
+            ->select('id', 'title AS text')
+            ->take(10)
+            ->get();
+        return response()->json($data);
+    }
+    public function selectcategories(Request $request): JsonResponse|string
+    {
+       $data = Category::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('title', 'LIKE', '%' . $request->q . '%');
+                }
+            })
+            ->select('id', 'title AS text')
+            ->take(10)
+            ->get();
+        return response()->json($data);
+    }
+  
+  
 }

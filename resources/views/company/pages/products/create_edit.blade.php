@@ -1,10 +1,10 @@
-@extends('admin.layouts.master')
+@extends('company.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | {{ __('products.plural') }}</title>
 @endsection
 @section('content')
     <form method='post' enctype="multipart/form-data"  id="jquery-val-form"
-          action="{{ isset($item) ? route('admin.products.update', $item->id) : route('admin.products.store') }}">
+          action="{{ isset($item) ? route('company.products.update', $item->id) : route('company.products.store') }}">
         <input type="hidden" name="_method" value="{{ isset($item) ? 'PUT' : 'POST' }}">
         @csrf
         <div class="content-header row">
@@ -62,7 +62,7 @@
                         <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
                             <label class="form-label" for="category_id">{{ __('products.category') }}</label>
                             <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('admin.categories.select') }}"
+                                    data-ajax--url="{{ route('company.categories.select') }}"
                                     data-ajax--cache="true">
                                 @isset($item->category)
                                     <option value="{{ $item->category->id }}" selected>{{ $item->category->title }}</option>
@@ -72,21 +72,6 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        @if(auth()->user()->type==\App\Models\User::TYPE_ADMIN)
-                        <div class="mb-1 col-md-4  @error('company_id') is-invalid @enderror">
-                            <label class="form-label" for="company_id">{{ __('products.company') }}</label>
-                            <select name="company_id" id="company_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('admin.companies.select') }}"
-                                    data-ajax--cache="true" required>
-                                @isset($item->company)
-                                    <option value="{{ $item->company->id }}" selected>{{ $item->company->name }}</option>
-                                @endisset
-                            </select>
-                            @error('company_id')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        @endif
                         <div class="mb-1 col-md-4  @error('type') is-invalid @enderror">
                             <label class="form-label" for="type">{{ __('products.type') }}</label>
                             <select name="type" id="type" class="form-control  ">

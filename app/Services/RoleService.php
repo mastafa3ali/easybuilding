@@ -33,7 +33,7 @@ class RoleService
             'vendor',
             'merchant',
         ];
-        try {
+        // try {
             $item = $this->role->findOrFail($id);
 
             if (in_array($item->name, $excepts)) {
@@ -42,9 +42,9 @@ class RoleService
             $item->update($request);
             $this->savePermissions($item, $request);
             flash(__('roles.messages.updated'))->success();
-        } catch (\Exception $e) {
-            flash($e->getMessage())->error();
-        }
+        // } catch (\Exception $e) {
+        //     flash($e->getMessage())->error();
+        // }
     }
 
     public function deleteItem($id): void
