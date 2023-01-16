@@ -22,7 +22,8 @@ return new class extends Migration
             $table->decimal('guarantee_amount', 10)->default(0);
             $table->decimal('price', 10);
             $table->foreignId('company_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
-            $table->foreignId('category_id')->references('id')->on('categories')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->nullable()->references('id')->on('categories')->constrained()->cascadeOnDelete();
+            $table->foreignId('sub_category_id')->nullable()->references('id')->on('sub_categories')->constrained()->cascadeOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

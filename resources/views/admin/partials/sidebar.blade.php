@@ -7,7 +7,6 @@
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item me-auto">
                 <a class="navbar-brand" href="{{ route('admin.home') }}">
-                    <img src="{{ $assetsPath }}/images/icon.png">
                     <h2 class="brand-text">{{ config('app.name') }}</h2>
                 </a>
             </li>
@@ -27,7 +26,7 @@
             @can('sliders.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.sliders.index') }} ">
-                    <i data-feather="circle"></i>
+                    <i data-feather="image"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.sliders') }}</span>
                 </a>
             </li>
@@ -35,15 +34,31 @@
             @can('categories.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.categories.index') }} ">
-                    <i data-feather="circle"></i>
+                    <i data-feather="database"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.categories') }}</span>
+                </a>
+            </li>
+            @endcan
+            @can('sub_categories.view')
+            <li>
+                <a class="d-flex align-items-center" href="{{ route('admin.sub_categories.index') }} ">
+                    <i data-feather="box"></i>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.sub_categories') }}</span>
+                </a>
+            </li>
+            @endcan
+            @can('orders.view')
+            <li>
+                <a class="d-flex align-items-center" href="{{ route('admin.orders.index') }} ">
+                    <i data-feather="box"></i>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.orders') }}</span>
                 </a>
             </li>
             @endcan
             @can('products.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.products.index') }} ">
-                    <i data-feather="circle"></i>
+                    <i data-feather="briefcase"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.products') }}</span>
                 </a>
             </li>
@@ -51,7 +66,7 @@
             @can('contacts.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.contacts.index') }} ">
-                    <i data-feather="circle"></i>
+                    <i data-feather="phone"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.contacts') }}</span>
                 </a>
             </li>
@@ -59,7 +74,7 @@
             @can('settings.general')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.settings.index') }} ">
-                    <i data-feather="circle"></i>
+                    <i data-feather="settings"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.company_details') }}</span>
                 </a>
             </li>
@@ -67,12 +82,12 @@
             @can('settings.about')
                 <li>
                     <a class="d-flex align-items-center" href="{{ route('admin.settings.about') }} ">
-                        <i data-feather="circle"></i>
+                        <i data-feather="info"></i>
                         <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.about') }}</span>
                     </a>
                 </li>
             @endcan
-            @can('settings.privacy')
+            {{-- @can('settings.privacy')
                 <li>
                     <a class="d-flex align-items-center" href="{{ route('admin.settings.privacy') }} ">
                         <i data-feather="circle"></i>
@@ -87,11 +102,11 @@
                         <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.terms') }}</span>
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
             @can('users.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.users.index') }} ">
-                    <i data-feather="circle"></i>
+                    <i data-feather="users"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.users') }}</span>
                 </a>
             </li>

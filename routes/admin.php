@@ -46,6 +46,16 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::get('categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('categories.create')->middleware('permission:categories.create');
         Route::match(['PUT', 'PATCH'], 'categories/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('categories.update')->middleware('permission:categories.edit');
         Route::get('categories/{id}/edit', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('categories.edit')->middleware('permission:categories.edit');
+       
+        Route::get('sub_categories/select', [App\Http\Controllers\Admin\SubCategoryController::class, 'select'])->name('sub_categories.select');
+        Route::delete('sub_categories/bulk', [App\Http\Controllers\Admin\SubCategoryController::class, 'deleteBulk'])->name('sub_categories.deleteBulk')->middleware('permission:sub_categories.delete');
+        Route::get('sub_categories/list', [App\Http\Controllers\Admin\SubCategoryController::class, 'list'])->name('sub_categories.list')->middleware('permission:sub_categories.view');
+        Route::post('sub_categories', [App\Http\Controllers\Admin\SubCategoryController::class, 'store'])->name('sub_categories.store')->middleware('permission:sub_categories.create');
+        Route::delete('sub_categories/{id}', [App\Http\Controllers\Admin\SubCategoryController::class, 'destroy'])->name('sub_categories.destroy')->middleware('permission:sub_categories.delete');
+        Route::get('sub_categories', [App\Http\Controllers\Admin\SubCategoryController::class, 'index'])->name('sub_categories.index')->middleware('permission:sub_categories.view');
+        Route::get('sub_categories/create', [App\Http\Controllers\Admin\SubCategoryController::class, 'create'])->name('sub_categories.create')->middleware('permission:sub_categories.create');
+        Route::match(['PUT', 'PATCH'], 'sub_categories/{id}', [App\Http\Controllers\Admin\SubCategoryController::class, 'update'])->name('sub_categories.update')->middleware('permission:sub_categories.edit');
+        Route::get('sub_categories/{id}/edit', [App\Http\Controllers\Admin\SubCategoryController::class, 'edit'])->name('sub_categories.edit')->middleware('permission:sub_categories.edit');
 
         Route::get('products/select', [App\Http\Controllers\Admin\ProductController::class, 'select'])->name('products.select');
         Route::delete('products/bulk', [App\Http\Controllers\Admin\ProductController::class, 'deleteBulk'])->name('products.deleteBulk')->middleware('permission:products.delete');

@@ -105,5 +105,7 @@ return [
     'orders_done' => 'الطلبات المنتهية',
     'company2'=>'شركة',
     'staff'=>'ادمن',
+    'welcome'=>'مرحبا',
     'orders'=>'الطلبات',
+    'sub_categories'=>'الاصناف الفرعية',
 ];
