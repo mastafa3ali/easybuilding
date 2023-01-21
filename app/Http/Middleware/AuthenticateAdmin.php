@@ -23,7 +23,10 @@ class AuthenticateAdmin
     public function handle($request, Closure $next)
     {
         if (auth()->check()) {
-            return $next($request);
+            if (Auth::user()->type == User::TYPE_ADMIN) {
+                return $next($request);
+            }
+            Auth::logout();
         }
         return $this->response->redirectTo('/admin/login');
     }

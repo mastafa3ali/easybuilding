@@ -24,8 +24,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('reset-password', [App\Http\Controllers\Api\V1\AuthController::class, 'resetPassword']);
     Route::post('register', [App\Http\Controllers\Api\V1\AuthController::class, 'register']);
         
+      Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
         Route::get('profile', [App\Http\Controllers\Api\V1\PageController::class, 'profile']);
 

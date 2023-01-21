@@ -6,14 +6,15 @@
             <div class="auth-inner py-2">
                 <!-- Login v1 -->
                 <div class="card mb-0">
-                    <div class="card-body">
+                    <div class="card-body" >
                         <a href="#" class="brand-logo">
                             <img src="{{ $assetsPath }}/images/logo.png" height="40">
                         </a>
-
+                        <h2 class="col-md-12 text-center">Scaffolding</h2>
                         <form class="auth-login-form mt-2" action="{{ route('admin.postLogin') }}" method="POST">
                             @csrf
                             <div class="mb-1 @error('email') is-invalid @enderror">
+                                
                                 <label for="login-email" class="form-label">{{ __('admin.email') }}</label>
                                 <input type="email" class="form-control" id="login-email" name="email" placeholder="" aria-describedby="login-email" tabindex="1" autofocus value="{{ old('email') }}" />
                                 @error('email')
@@ -24,11 +25,11 @@
                             <div class="mb-1 @error('password') is-invalid @enderror">
                                 <div class="d-flex justify-content-between">
                                     <label class="form-label" for="login-password">{{ __('admin.password') }}</label>
-                                    @if (Route::has('password.request'))
+                                    {{-- @if (Route::has('password.request'))
                                         <a href="{{ route('password.request') }}">
                                             <small>{{ __('admin.forgot_password') }}</small>
                                         </a>
-                                    @endif
+                                    @endif --}}
                                 </div>
                                 <div class="input-group input-group-merge form-password-toggle">
                                     <input type="password" class="form-control form-control-merge" id="login-password" name="password" tabindex="2" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="login-password" />
@@ -46,7 +47,7 @@
                                     <label class="form-check-label" for="remember"> {{ __('admin.remember_me') }} </label>
                                 </div>
                             </div>
-                            <button class="btn btn-primary w-100" tabindex="4">{{ __('admin.login') }}</button>
+                            <button class="btn btn-success w-100" tabindex="4">{{ __('admin.login') }}</button>
                         </form>
                     </div>
                 </div>
