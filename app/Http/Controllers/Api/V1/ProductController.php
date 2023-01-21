@@ -15,10 +15,10 @@ class ProductController extends Controller
     {
         $items = Product::where(function ($query) use ($request) {
             if ($request->filled('name')) {
-                $query->where('name', 'LIKE', '%'.$request->name.'%');
+                $query->where('name', 'LIKE', '%' . $request->name . '%');
             }
         })
-                        ->paginate(20);
+            ->paginate(20);
 
         return ProductResource::collection($items)->additional([
             'success' => true,
@@ -33,5 +33,15 @@ class ProductController extends Controller
     {
         $item = Product::findOrFail($id);
         return apiResponse(true, new ProductResource($item), '', null, 200);
+    }
+    public function setSaved(Request $request)
+    {
+        // $item = Product::findOrFail($id);
+        // return apiResponse(true, new ProductResource($item), '', null, 200);
+    }
+    public function getSaved(Request $request)
+    {
+        // $item = Product::findOrFail($id);
+        // return apiResponse(true, new ProductResource($item), '', null, 200);
     }
 }
