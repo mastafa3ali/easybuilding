@@ -29,9 +29,34 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.not_authorized'), null, 401);
         }
         $user = Auth::user();
-
         $user['token'] = $user->createToken('auth_token')->plainTextToken;
         return new UserResource($user);
+        // if ($user->isVerified) {
+        // }else{
+        //     return apiResponse(false, null, __('api.not_verify'), null, 400);
+        // }
+    }
+    protected function verify(Request $request)
+    {
+        $data = $request->validate([
+            'verification_code' => ['required', 'numeric'],
+            'phone' => ['required', 'string'],
+        ]);
+        /* Get credentials from .env */
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid = getenv("TWILIO_SID");
+        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+        $twilio = new Client($twilio_sid, $token);
+        $verification = $twilio->verify->v2->services($twilio_verify_sid)
+            ->verificationChecks
+            ->create($data['verification_code'], array('to' => $data['phone']));
+        if ($verification->valid) {
+            $user = tap(User::where('phone', $data['phone']))->update(['isVerified' => true]);
+            /* Authenticate user */
+            Auth::login($user->first());
+            return redirect()->route('home')->with(['message' => 'Phone number verified']);
+        }
+        return back()->with(['phone' => $data['phone'], 'error' => 'Invalid verification code entered!']);
     }
 
 
@@ -57,17 +82,17 @@ class AuthController extends Controller
         $user->password  = Hash::make($request->password);
         $user->type      = $request->type;
         $user->phone     = $request->phone;
-       
+
         if ($request->hasFile('passport')) {
-                $user->passport = storeFile($request->file('passport'), 'users');
-                $user->save();
-            }
-            if ($request->hasFile('licence')) {
-                $user->licence = storeFile($request->file('licence'), 'users');
-                $user->save();
-            }
+            $user->passport = storeFile($request->file('passport'), 'users');
+            $user->save();
+        }
+        if ($request->hasFile('licence')) {
+            $user->licence = storeFile($request->file('licence'), 'users');
+            $user->save();
+        }
         if ($user->save()) {
-        
+
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
             return new UserResource($user);
         }
