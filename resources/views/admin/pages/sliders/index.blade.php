@@ -34,6 +34,7 @@
                     <thead>
                     <tr>
                         <th>{{ __('sliders.default.name') }}</th>
+                        <th>{{ __('sliders.url') }}</th>
                         <th>{{ __('sliders.photo') }}</th>
                         @canany('sliders.edit','sliders.delete')
                             <th width="15%" class="text-center">{{ __('sliders.options') }}</th>
@@ -75,13 +76,14 @@
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'title', name: 'title'},
+                {data: 'url', name: 'url'},
                 {data: 'photo', name: 'photo'},
                     @canany('sliders.edit','sliders.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany
             ],
             columnDefs: [
-              
+
                 @canany('sliders.edit','sliders.delete')
                 {
                     "targets": -1,

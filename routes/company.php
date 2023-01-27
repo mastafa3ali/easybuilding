@@ -16,7 +16,8 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::get('products/list', [App\Http\Controllers\Company\ProductController::class, 'list'])->name('products.list');
     Route::resource('products', App\Http\Controllers\Company\ProductController::class);
     Route::get('categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectcategories'])->name('categories.select');
-    
+    Route::get('sub_categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectSubCategory'])->name('sub_categories.select');
+
     Route::get('orders', [App\Http\Controllers\Company\OrderController::class, 'index'])->name('orders');
     Route::get('list', [App\Http\Controllers\Company\OrderController::class, 'list'])->name('orders.list');
     Route::get('orders/download', [App\Http\Controllers\Company\OrderController::class, 'download'])->name('orders.download');
@@ -25,7 +26,7 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::get('orders/{id}/edit', [App\Http\Controllers\Company\OrderController::class, 'edit'])->name('orders.edit');
     Route::get('orders/show/{id}', [App\Http\Controllers\Company\OrderController::class, 'show'])->name('orders.show');
     Route::delete('orders/{id}', [App\Http\Controllers\Company\OrderController::class, 'destroy'])->name('orders.destroy');
-  
+
     Route::get('profile', [App\Http\Controllers\Company\ProfileController::class, 'index'])->name('profile.index');
     Route::get('change-password', [App\Http\Controllers\Company\ProfileController::class, 'changePassword'])->name('profile.change_password');
 });

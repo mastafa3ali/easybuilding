@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -25,11 +26,16 @@ class ProductController extends Controller
     }
     public function create(): View
     {
+        $display = "display:none";
         return view($this->viewEdit, get_defined_vars());
     }
     public function edit($id): View
     {
         $item = Product::findOrFail($id);
+          $display = "";
+        if($item->type==1){
+            $display = "display:none";
+        }
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
@@ -77,7 +83,7 @@ class ProductController extends Controller
     {
         $data = Product::where('company_id',auth()->id())->select('*');
         return DataTables::of($data)
-        ->addIndexColumn()   
+        ->addIndexColumn()
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })
@@ -110,6 +116,28 @@ class ProductController extends Controller
             ->get();
         return response()->json($data);
     }
-  
-  
+    public function selectSubCategory(Request $request): JsonResponse|string
+    {
+       $data = SubCategory::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('name', 'LIKE', '%' . $request->q . '%');
+                }
+                if ($request->filled('category_id')) {
+                    $query->where('category_id',$request->category_id);
+                }
+            })
+            ->select('id', 'name AS text')
+            ->get();
+        if ($request->filled('pure_select')) {
+            $html = '<option value="">'. __('categories.select') .'</option>';
+            foreach ($data as $row) {
+                $html .= '<option value="'.$row->id.'">'.$row->text.'</option>';
+            }
+            return $html;
+        }
+        return response()->json($data);
+    }
+
+
 }

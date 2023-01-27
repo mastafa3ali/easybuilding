@@ -67,9 +67,16 @@ class CategoryController extends Controller
             ->select('id', 'title AS text')
             ->take(10)
             ->get();
+        if ($request->filled('pure_select')) {
+            $html = '<option value="">'. __('category.select') .'</option>';
+            foreach ($data as $row) {
+                $html .= '<option value="'.$row->id.'">'.$row->text.'</option>';
+            }
+            return $html;
+        }
         return response()->json($data);
     }
-  
+
 
     public function update(CategoryRequest $request, $id): RedirectResponse
     {
@@ -100,7 +107,7 @@ class CategoryController extends Controller
     {
         $data = Category::select('*');
         return FacadesDataTables::of($data)
-        ->addIndexColumn()   
+        ->addIndexColumn()
         ->addColumn('photo', function ($item) {
                 return '<img src="' . $item->photo . '" height="100px" width="100px">';
             })
