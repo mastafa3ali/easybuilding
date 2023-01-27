@@ -6,7 +6,6 @@ return [
     'code_not_found' => 'عفوا هذا الكود غير موجود',
     'validation_error' => 'يوجد خطأ ما',
     'not_found' => 'غير موجود',
-    'code_not_found' => 'هذا الكود غير موجود',
     'answered_before' => 'لقد قمت بالاجابة سابقا',
     'entered_before' => 'قمت بالدخول سابقا',
     'reset_link_will_send' => 'سوف يتم ارسال رابط تغيير كلمة المرور',
@@ -16,5 +15,7 @@ return [
     'sent_before' => 'قمت بالارسال مسبقا',
     'competition_cancelled' => 'تم اغلاق المنافسة',
     'device_not_registered' => 'عفوا لا هذا الجهاز غير مطابق مع الجهاز السابق... الرجاء الرجوع للادارة',
-    'not_verify' => 'الرجاء تاكيد رقم الهاتف'
+    'not_verify' => 'الرجاء تاكيد رقم الهاتف',
+    'update_success' => 'تم التعديل بنجاح',
+    'cant_update' => 'لم يتم التعديل'
 ];
