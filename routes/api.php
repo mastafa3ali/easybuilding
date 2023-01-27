@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
         Route::get('profile', [App\Http\Controllers\Api\V1\PageController::class, 'profile']);
+        Route::post('update-profile', [App\Http\Controllers\Api\V1\AuthController::class, 'updateProfile']);
 
         Route::get('contact', [App\Http\Controllers\Api\V1\SettingController::class, 'contact']);
         Route::post('set-saved', [App\Http\Controllers\Api\V1\ProductController::class, 'setSaved']);

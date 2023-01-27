@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Requests\AuthProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,18 @@ class AuthController extends Controller
         return back()->with(['phone' => $data['phone'], 'error' => 'Invalid verification code entered!']);
     }
 
+   public function updateProfile(AuthProfileRequest $request)
+    {
+
+        $currentUser = User::findOrFail(auth()->user()->id);
+
+        $data = $currentUser->update(['name'=>$request->name,'address'=>$request->address,'phone'=>$request->phone]);
+        if ($data) {
+            return apiResponse(true, null, __('api.update_success'), null, 200);
+        } else {
+            return apiResponse(false, null, __('api.cant_update'), null, 401);
+        }
+    }
 
     public function register(Request $request)
     {

@@ -13,8 +13,8 @@ class PageController extends Controller
 {
     public function home(Request $request)
     {
-        $data['sliders'] = Slider::latest()->take(15)->get();      
-        $data['categories'] = Category::latest()->take(15)->get();      
+        $data['sliders'] = Slider::latest()->take(15)->get();
+        $data['categories'] = Category::latest()->take(15)->get();
         return apiResponse(false, $data, null, null, 200);
     }
     public function sales(Request $request)
@@ -40,7 +40,7 @@ class PageController extends Controller
     }
     public function profile(Request $request)
     {
-      
+
         $data = [];
         $user = auth()->user();
         $data['profile'] = [
@@ -50,13 +50,14 @@ class PageController extends Controller
             'image' => $user->image,
             'passport' => $user->passport,
             'licence' => $user->licence,
+            'address' => $user->address,
             'description' => $user->description,
             'active' => $user->active,
             'type' => $user->type,
             'rate' => $user->rate
         ];
 
-    
+
         return apiResponse(true, $data, null, null, 200);
     }
 
