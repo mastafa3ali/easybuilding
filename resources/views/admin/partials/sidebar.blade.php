@@ -22,7 +22,7 @@
                     <span class="menu-title text-truncate" data-i18n="Dashboards">{{ __('admin.dashboard') }}</span>
                 </a>
             </li>
-     
+
             @can('sliders.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.sliders.index') }} ">
@@ -60,6 +60,14 @@
                 <a class="d-flex align-items-center" href="{{ route('admin.products.index') }} ">
                     <i data-feather="briefcase"></i>
                     <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.products') }}</span>
+                </a>
+            </li>
+            @endcan
+            @can('products.view')
+            <li>
+                <a class="d-flex align-items-center" href="{{ route('admin.products.index') }} ">
+                    <i data-feather="book"></i>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.reports') }}</span>
                 </a>
             </li>
             @endcan

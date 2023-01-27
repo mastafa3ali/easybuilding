@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
     use HasFactory;
-    use SoftDeletes;    
+    use SoftDeletes;
     protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price', 'company_id','sub_category_id'];
 
     public const Properity_NONE = 1;
@@ -25,7 +25,7 @@ class Product extends Model
     }
     public function subcategory():?BelongsTo
     {
-        return $this->belongsTo(SubCategory::class);
+        return $this->belongsTo(SubCategory::class,'sub_category_id');
     }
     public function company():?BelongsTo
     {

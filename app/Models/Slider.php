@@ -9,7 +9,7 @@ class Slider extends Model
 {
     use HasFactory;
     protected $table = 'sliders';
-    protected $fillable = ['title', 'image'];
+    protected $fillable = ['title', 'image','url'];
     protected $appends = ['photo'];
     public function getPhotoAttribute()
     {

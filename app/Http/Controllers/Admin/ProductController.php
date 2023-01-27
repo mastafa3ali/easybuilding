@@ -24,11 +24,16 @@ class ProductController extends Controller
     }
     public function create(): View
     {
+        $display = "display:none";
         return view($this->viewEdit, get_defined_vars());
     }
     public function edit($id): View
     {
         $item = Product::findOrFail($id);
+        $display = "";
+        if($item->type==1){
+            $display = "display:none";
+        }
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
@@ -79,7 +84,7 @@ class ProductController extends Controller
     {
         $data = Product::with('company')->select('*');
         return DataTables::of($data)
-        ->addIndexColumn()   
+        ->addIndexColumn()
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })

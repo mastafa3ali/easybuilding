@@ -41,25 +41,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror">
-                            <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>
-                            <input type="number" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
-                                   value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" />
-                            @error('guarantee_amount')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        
-                        <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
-                            <label class="form-label" for="price">{{ __('products.price') }}</label>
-                            <input type="number" name="price" id="price" class="form-control" placeholder=""
-                                   value="{{ $item->price ?? old('price') }}" />
-                            @error('price')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                       
-                        <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
+                         <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
                             <label class="form-label" for="category_id">{{ __('products.category') }}</label>
                             <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"
                                     data-ajax--url="{{ route('admin.categories.select') }}"
@@ -72,6 +54,35 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-1 col-md-4  @error('type') is-invalid @enderror">
+                            <label class="form-label" for="type">{{ __('products.type') }}</label>
+                            <select name="type" id="type" class="form-control  select_type">
+                                    <option value="1" {{ isset($item)?($item->type==1?'selected':''):(old('type')==1?'selected':'') }} >{{ __('products.types.1') }}</option>
+                                    <option value="2" {{ isset($item)?($item->type==2?'selected':''):(old('type')==2?'selected':'') }} >{{ __('products.types.2') }}</option>
+                            </select>
+                            @error('type')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section" style="{{ $display }}">
+                            <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>
+                            <input type="number" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
+                                   value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" />
+                            @error('guarantee_amount')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
+                            <label class="form-label" for="price">{{ __('products.price') }}</label>
+                            <input type="number" name="price" id="price" class="form-control" placeholder=""
+                                   value="{{ $item->price ?? old('price') }}" />
+                            @error('price')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+
                         @if(auth()->user()->type==\App\Models\User::TYPE_ADMIN)
                         <div class="mb-1 col-md-4  @error('company_id') is-invalid @enderror">
                             <label class="form-label" for="company_id">{{ __('products.company') }}</label>
@@ -87,17 +98,8 @@
                             @enderror
                         </div>
                         @endif
-                        <div class="mb-1 col-md-4  @error('type') is-invalid @enderror">
-                            <label class="form-label" for="type">{{ __('products.type') }}</label>
-                            <select name="type" id="type" class="form-control  ">
-                                    <option value="1" {{ isset($item)?($item->type==1?'selected':''):(old('type')==1?'selected':'') }} >{{ __('products.types.1') }}</option>
-                                    <option value="2" {{ isset($item)?($item->type==2?'selected':''):(old('type')==2?'selected':'') }} >{{ __('products.types.2') }}</option>
-                            </select>
-                            @error('type')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror">
+
+                        <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" id="properties_section" style="{{ $display }}">
                             <label class="form-label" for="properties">{{ __('products.property') }}</label>
                             <select name="properties" id="properties" class="form-control  ">
                                     <option value="1" {{ isset($item)?($item->properties==1?'selected':''):(old('properties')==1?'selected':'') }} >{{ __('products.properties.1') }}</option>
@@ -105,6 +107,17 @@
                                     <option value="3" {{ isset($item)?($item->properties==3?'selected':''):(old('properties')==3?'selected':'') }} >{{ __('products.properties.3') }}</option>
                             </select>
                             @error('properties')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                         <div class="mb-1 col-md-4  @error('sub_category_id') is-invalid @enderror" id="sub_category_id_section" style="{{ $display }}">
+                            <label class="form-label" for="sub_category_id">{{ __('products.sub_category') }}</label>
+                            <select name="sub_category_id" id="sub_category_id" class="form-control ">
+                                @isset($item->subcategory)
+                                    <option value="{{ $item->subcategory->id }}" selected>{{ $item->subcategory->name }}</option>
+                                @endisset
+                            </select>
+                            @error('sub_category_id')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
@@ -117,10 +130,45 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
         </div>
     </form>
 @stop
+@push('scripts')
+    <script>
+    $(window).on('load', function() {
+
+        $('body').on('change', '.select_type', function (){
+            var type= $(this).val();
+            if(type==1){
+                $("#sub_category_id_section").hide(500);
+                $("#guarantee_amount_section").hide(500);
+                $("#properties_section").hide(500);
+            }
+            if(type==2){
+                $("#sub_category_id_section").show(500);
+                $("#guarantee_amount_section").show(500);
+                $("#properties_section").show(500);
+            }
+            return false;
+        });
+
+         $(document).on('change', '#category_id', function(){
+            var category_id = $(this).val();
+            $('#sub_category_id').html('');
+            console.log(category_id);
+            $.ajax({
+                type:'GET',
+                url:"{{ route('admin.sub_categories.select') }}",
+                data:{category_id:category_id,pure_select:true},
+                success:function(data){
+                    $('#sub_category_id').html(data);
+                }
+            });
+        })
+    })
+</script>
+@endpush

@@ -63,13 +63,22 @@ class SubCategoryController extends Controller
                 if ($request->filled('q')) {
                     $query->where('name', 'LIKE', '%' . $request->q . '%');
                 }
+                if ($request->filled('category_id')) {
+                    $query->where('category_id',$request->category_id);
+                }
             })
             ->select('id', 'name AS text')
-            ->take(10)
             ->get();
+        if ($request->filled('pure_select')) {
+            $html = '<option value="">'. __('categories.select') .'</option>';
+            foreach ($data as $row) {
+                $html .= '<option value="'.$row->id.'">'.$row->text.'</option>';
+            }
+            return $html;
+        }
         return response()->json($data);
     }
-  
+
     public function update(SubCategoryRequest $request, $id): RedirectResponse
     {
         $item = SubCategory::findOrFail($id);
@@ -99,7 +108,7 @@ class SubCategoryController extends Controller
     {
         $data = SubCategory::select('*');
         return FacadesDataTables::of($data)
-        ->addIndexColumn()   
+        ->addIndexColumn()
         ->addColumn('photo', function ($item) {
                 return '<img src="' . $item->photo . '" height="100px" width="100px">';
         })
