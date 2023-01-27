@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\SubCategoryResource;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Slider;
+use App\Models\SubCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -33,6 +36,23 @@ class PageController extends Controller
             }
         })->where('products.type', Product::TYPE_RENT)->paginate(20);
         return apiResponse(false, $data, null, null, 200);
+    }
+    public function getSales($id)
+    {
+         $data = User::where('users.type',User::TYPE_COMPANY)
+        ->leftjoin('products','products.company_id','users.id')
+        ->leftjoin('categories','categories.id','products.category_id')
+        ->where('categories.id', $id)->select(
+            'users.id',
+            'users.name',
+            'users.description'
+        )->groupBy('users.id')->get();
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function getRent($id)
+    {
+        $data = SubCategory::with(['products.category','products.subcategory','products.company'])->where('category_id',$id)->get();
+        return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
     public function latestAppVersion()
     {

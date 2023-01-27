@@ -17,4 +17,8 @@ class Category extends Model
         return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/categories/' . $this->attributes['image']) : null) : null;
 
     }
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class);
+    }
 }
