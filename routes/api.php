@@ -28,6 +28,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
     Route::group(['middleware' => 'auth:sanctum'], function () {
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
+        Route::get('get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
+        Route::get('get-rent/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getRent']);
         Route::get('profile', [App\Http\Controllers\Api\V1\PageController::class, 'profile']);
         Route::post('update-profile', [App\Http\Controllers\Api\V1\AuthController::class, 'updateProfile']);
 
