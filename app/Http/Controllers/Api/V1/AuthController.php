@@ -138,7 +138,7 @@ class AuthController extends Controller
     public function checkCode(Request $request)
     {
         $validate = array(
-            'phone' => 'required|max:255|unique:users',
+            'phone' => 'required',
             'code' => 'required|min:4',
         );
         $validatedData = Validator::make($request->all(), $validate);
@@ -157,7 +157,7 @@ class AuthController extends Controller
     public function confirmReset(Request $request)
     {
         $validate = array(
-            'phone' => 'required|max:255|unique:users',
+            'phone' => 'required',
             'password' => 'required|min:6|confirmed',
         );
         $validatedData = Validator::make($request->all(), $validate);
