@@ -139,7 +139,7 @@ class AuthController extends Controller
     {
         $validate = array(
             'phone' => 'required',
-            'code' => 'required|min:4',
+            'code' => 'required',
         );
         $validatedData = Validator::make($request->all(), $validate);
         if ($validatedData->fails()) {
