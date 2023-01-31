@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\NotificationResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\Category;
 use App\Models\Product;
@@ -80,6 +81,26 @@ class PageController extends Controller
 
         return apiResponse(true, $data, null, null, 200);
     }
-
+public function notifications(){
+    $data=[
+            '30-12-2022'  => [
+                'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40',
+            ],
+            '25-12-2022'  => [
+                'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40',
+            ],
+            '22-12-2022'  => [
+                'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40',
+            ],
+            '20-12-2022'  => [
+                'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40',
+            ],
+        ];
+    return apiResponse(true, $data, null, null, 200);
+}
 
 }
