@@ -30,6 +30,7 @@ class AuthProfileRequest extends FormRequest
             'name' => 'required|string|max:255',
             'address' => 'sometimes|string|max:255',
             'phone' => 'required|unique:users,phone,' . auth()->id(),
+            'email' => 'required|unique:users,email,' . auth()->user()->email,
 
         ];
     }
