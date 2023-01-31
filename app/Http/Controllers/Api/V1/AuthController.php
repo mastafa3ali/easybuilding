@@ -65,7 +65,7 @@ class AuthController extends Controller
 
         $currentUser = User::findOrFail(auth()->user()->id);
 
-        $data = $currentUser->update(['name'=>$request->name,'address'=>$request->address,'phone'=>$request->phone]);
+        $data = $currentUser->update(['name'=>$request->name,'address'=>$request->address,'phone'=>$request->phone,'email'=>$request->email]);
         if ($data) {
             return apiResponse(true, null, __('api.update_success'), null, 200);
         } else {
