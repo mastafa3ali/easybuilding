@@ -143,7 +143,7 @@ class PageController extends Controller
             }
             $message = __('api.add_to_saved',['item'=>$item_name]);
             $fcmTokens = [auth()->user()->fcm_token];
-            $fcmTokens = User::pluck('fcm_token')->toArray();
+            // $fcmTokens = User::pluck('fcm_token')->toArray();
 
             Notification::send(null,new SendPushNotification($message,$fcmTokens));
             return apiResponse(true,null, null, null, 200);
