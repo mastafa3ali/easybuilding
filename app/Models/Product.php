@@ -31,4 +31,12 @@ class Product extends Model
     {
         return $this->belongsTo(User::class, 'company_id');
     }
+    public static function saved($id)
+    {
+
+        if (auth()->check()) {
+            return Saved::where('user_id',auth()->id())->where('model_id',$id)->where('model_type',Saved::TYPE_PRODUCT)->first() ? 1 : 0;
+        }
+        return 0;
+    }
 }

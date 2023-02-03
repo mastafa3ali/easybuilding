@@ -1,7 +1,6 @@
 <?php $assetsPath = asset('assets/admin') ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="rtl">
-<!-- BEGIN: Head-->
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,13 +12,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ $assetsPath }}/images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&amp;display=swap" rel="stylesheet">
-    <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/vendors-rtl.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/charts/apexcharts.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/extensions/toastr.min.css">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
@@ -27,39 +22,28 @@
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/bordered-layout.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/semi-dark-layout.css">
-
-    <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/pages/dashboard-ecommerce.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/charts/chart-apex.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/extensions/ext-component-toastr.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/forms/select/select2.min.css">
-    <!-- END: Page CSS-->
-
-    <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/custom-rtl.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/custom.css">
-    <!-- END: Custom CSS-->
     @stack('styles')
 </head>
-<!-- END: Head-->
-
-<!-- BEGIN: Body-->
 
 <body class="pace-done vertical-layout vertical-menu-modern navbar-floating footer-static menu-expanded" data-open="click" data-menu="vertical-menu-modern" data-col="">
-
-<!-- BEGIN: Header-->
 <nav class="header-navbar navbar navbar-expand-lg align-items-center floating-nav navbar-light navbar-shadow container-xxl">
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
             </ul>
-        
+
         </div>
         <ul class="nav navbar-nav align-items-center ms-auto">
-            
+
             <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
             <li class="nav-item dropdown dropdown-user">
                 <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -88,11 +72,10 @@
         </ul>
     </div>
 </nav>
-<!-- BEGIN: Main Menu-->
-@include('admin.partials.sidebar')
-<!-- END: Main Menu-->
 
-<!-- BEGIN: Content-->
+@include('admin.partials.sidebar')
+
+
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -107,12 +90,9 @@
         </div>
     </div>
 </div>
-<!-- END: Content-->
-
 <div class="sidenav-overlay"></div>
 <div class="drag-target"></div>
 
-<!-- BEGIN: Footer-->
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
         <span class="float-md-start d-block d-md-inline-block mt-25">
@@ -122,7 +102,6 @@
     </p>
 </footer>
 <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
-<!-- END: Footer-->
 
 <div class="modal fade text-start" id="modalDelete" tabindex="-1" aria-labelledby="myModalLabel1" aria-hidden="true">
     <div class="modal-dialog">
@@ -146,24 +125,62 @@
     </div>
 </div>
 
-<!-- BEGIN: Vendor JS-->
 <script src="{{ $assetsPath }}/vendors/js/vendors.min.js"></script>
-<!-- BEGIN Vendor JS-->
-
-<!-- BEGIN: Page Vendor JS-->
-{{--<script src="{{ $assetsPath }}/vendors/js/charts/apexcharts.min.js"></script>--}}
-{{--<script src="{{ $assetsPath }}/vendors/js/extensions/toastr.min.js"></script>--}}
 <script src="{{ $assetsPath }}/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
 <script src="{{ $assetsPath }}/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
 <script src="{{ $assetsPath }}/vendors/js/forms/select/select2.full.min.js"></script>
-<!-- END: Page Vendor JS-->
-
-<!-- BEGIN: Theme JS-->
 <script src="{{ $assetsPath }}/js/core/app-menu.js"></script>
 <script src="{{ $assetsPath }}/js/core/app.js"></script>
-<!-- END: Theme JS-->
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
 
 <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyD4XGTrPle1LBlcnaEJA8j5lXtu1aUC-X4",
+        authDomain: "easybuilding-d14f0.firebaseapp.com",
+        projectId: "easybuilding-d14f0",
+        storageBucket: "easybuilding-d14f0.appspot.com",
+        messagingSenderId: "541745851840",
+        appId: "1:541745851840:web:547c94f535958229d8ec25"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging.requestPermission().then(function () {
+            return messaging.getToken()
+        }).then(function(fcm_token) {
+
+            $.ajax({
+                type:'POST',
+                url:"{{ route('admin.fcmToken') }}",
+                data:{
+                _method:"PATCH",
+                fcm_token
+                },
+                success:function(data){
+                    console.log(data)
+                },
+                error:function(response){
+                    console.error(response)
+                }
+            });
+
+        }).catch(function (err) {
+            console.log(`Token Error :: ${err}`);
+        });
+    }
+
+    initFirebaseMessagingRegistration();
+
+    messaging.onMessage(function({data:{body,title}}){
+        alert(title)
+        new Notification(title, {body});
+    });
+</script>
+<script>
+
     $(window).on('load', function() {
         if (feather) {
             feather.replace({
@@ -197,6 +214,5 @@
 </script>
 @stack('scripts')
 </body>
-<!-- END: Body-->
 
 </html>

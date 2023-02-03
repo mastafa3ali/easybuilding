@@ -18,3 +18,4 @@ Route::get('/install-permissions', function () {
     Artisan::call('install:permissions');
     return 'Permission updated';
 });
+

@@ -20,12 +20,4 @@ class UserResource extends JsonResource
         return $data;
     }
 
-    public function with($request)
-    {
-        return [
-            'version' => '1.0',
-            'success' => true,
-            'status'  => 200
-        ];
-    }
 }

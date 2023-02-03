@@ -18,7 +18,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $table = 'users';
-    protected $fillable = ['name', 'phone', 'email', 'image', 'description', 'type', 'active', 'passport', 'licence','isVerified','address','reset_code','password'];
+    protected $fillable = ['name', 'phone', 'email', 'image', 'description', 'type', 'active', 'passport', 'licence','isVerified','address','reset_code','password','fcm_token'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -63,6 +63,14 @@ class User extends Authenticatable
         return $this->hasMany(StudentTrack::class, 'student_id');
     }
 
+    public static function saved($id)
+    {
+        if (auth()->check()) {
+            return Saved::where('user_id', auth()->id())->where('model_id', $id)->where('model_type', Saved::TYPE_COMPANY)->first() ? 1 : 0;
+        }
+        return 0;
+
+    }
     public static function boot()
     {
         parent::boot();
