@@ -16,23 +16,31 @@ class OrderController extends Controller
 {
     public function store(OrderRequest $request)
     {
-        $fcmTokens = User::pluck('fcm_token')->toArray();
-        $message = __('api.add_to_saved');
-        Notification::send(null,new SendPushNotification($message,$fcmTokens));
-
-        $data = User::where('users.type',User::TYPE_COMPANY)
-        ->join('products','products.company_id','users.id')
-        ->where(function($query) use ($request){
-            if($request->filled('name')){
-                $query->where('products.name','like', '%'.$request->name.'%');
-            }
-            if($request->filled('rate')){
-                $query->orderBy('users.rate', 'DESC');
-            }
-            if($request->filled('price')){
-                $query->orderBy('products.price', $request->asc);
-            }
-        })->where('products.type', Product::TYPE_RENT)->paginate(20);
+        // $fcmTokens = User::pluck('fcm_token')->toArray();
+        // $message = __('api.add_to_saved');
+        // Notification::send(null,new SendPushNotification($message,$fcmTokens));
+        $attachment1 = null;
+        $attachment2 = null;
+        if ($request->hasFile('attachment1')) {
+            $attachment1 = storeFile($request->file('attachment1'), 'sliders');
+        }
+        if ($request->hasFile('attachment2')) {
+            $attachment2 = storeFile($request->file('attachment2'), 'sliders');
+        }
+        $data = [
+            'details'=>json_encode($request->products),
+            'user_id'=>auth()->id(),
+            'address'=>$request->address,
+            'phone'=>$request->phone,
+            'phone2'=>$request->phone2,
+            'delivery_phone'=>$request->delivery_phone,
+            'area'=>$request->area,
+            'attachment1'=>$attachment1,
+            'attachment2'=>$attachment2,
+            'delivery_date'=>$request->delivery_date,
+            'payment'=>$request->payment,
+            'guarantee_amount'=>$request->guarantee_amount
+        ];
         return apiResponse(false, $data, null, null, 200);
     }
     public function getSales($id)
