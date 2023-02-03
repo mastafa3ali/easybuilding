@@ -4,14 +4,20 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CompanyResource;
 use App\Http\Resources\NotificationResource;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\SubCategoryResource;
+use App\Http\Resources\UserResource;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Saved;
 use App\Models\Slider;
 use App\Models\SubCategory;
 use App\Models\User;
+use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PageController extends Controller
 {
@@ -81,26 +87,68 @@ class PageController extends Controller
 
         return apiResponse(true, $data, null, null, 200);
     }
-public function notifications(){
-    $data=[
-            '30-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-            '25-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-            '22-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-            '20-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
+
+    public function getCompanies($id)
+    {
+       $companies= User::leftjoin('products','products.company_id','users.id')
+        ->where('products.id',$id)
+        ->orderBy('products.price')->get();
+        $data = CompanyResource::collection($companies);
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function getCompanyProduct($id,$category_id)
+    {
+        $products = Product::with('company')->where('category_id',$category_id)->where('company_id',$id)->get();
+        $data = ProductResource::collection($products);
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function notifications(){
+        $data=[
+                '30-12-2022'  => [
+                    'text'=>'تم اتمام العملية بنجاح',
+                    'time'=>'3:40',
+                ],
+                '25-12-2022'  => [
+                    'text'=>'تم اتمام العملية بنجاح',
+                    'time'=>'3:40',
+                ],
+                '22-12-2022'  => [
+                    'text'=>'تم اتمام العملية بنجاح',
+                    'time'=>'3:40',
+                ],
+                '20-12-2022'  => [
+                    'text'=>'تم اتمام العملية بنجاح',
+                    'time'=>'3:40',
+                ],
+            ];
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function makeSaved(Request $request){
+        $data = [
+            'model_id'=>$request->model_id,
+            'model_type'=>$request->model_type,
+            'user_id'=>auth()->id()
         ];
-    return apiResponse(true, $data, null, null, 200);
-}
+        $saved=Saved::create($data);
+        if($saved){
+            $item_name = '';
+            if($request->model_type==Saved::TYPE_COMPANY){
+                $item = User::find($request->model_id);
+                $item_name = $item->name;
+
+            }
+            if($request->model_type==Saved::TYPE_PRODUCT){
+                $item = Product::find($request->model_id);
+                $item_name = $item->name;
+            }
+            $message = __('api.add_to_saved',['item'=>$item_name]);
+            $fcmTokens = [auth()->user()->fcm_token];
+            $fcmTokens = User::pluck('fcm_token')->toArray();
+
+            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            return apiResponse(true,null, null, null, 200);
+        }
+        return apiResponse(false,null, null, null, 200);
+    }
 
 }

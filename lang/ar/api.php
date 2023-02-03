@@ -20,4 +20,7 @@ return [
     'cant_update' => 'لم يتم التعديل',
     'code_success' => 'الكود صحيح',
     'code_error' => 'الكود غير صحيح',
+    'new_payment_success'=>'تم اتمام عملية شراء بنجاح',
+    'add_to_saved'=>'تم اضافة :item الى المحفوظات',
+    'notification_title'=>'scoffoling'
 ];

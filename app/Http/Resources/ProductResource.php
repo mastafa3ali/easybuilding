@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -15,18 +16,13 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'description' => $this->description,
             'type'  => $this->type,
-            'company'  => $this->company->name,
+            'company'  => $this->company?->name,
             'guarantee_amount' => $this->guarantee_amount,
             'properties' => $this->properties,
+            'saved' => Product::saved($this->id)
+
         ];
     }
 
-    public function with($request)
-    {
-        return [
-            'version' => '1.0',
-            'success' => true,
-            'status'  => 200
-        ];
-    }
+
 }

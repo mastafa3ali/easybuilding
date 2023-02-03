@@ -14,6 +14,9 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::group(['middleware' => 'authenticate.admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home');
 
+        Route::patch('/fcm-token', [App\Http\Controllers\Admin\AdminController::class, 'updateToken'])->name('fcmToken');
+        Route::post('/send-notification',[App\Http\Controllers\Admin\AdminController::class,'notification'])->name('notification');
+
         Route::get('newghaith/select', [App\Http\Controllers\Admin\NewghaithController::class, 'select'])->name('newghaith.select');
         Route::get('newghaith/lessons', [App\Http\Controllers\Admin\NewghaithController::class, 'lessons'])->name('newghaith.lessons');
         Route::get('newghaith/sections', [App\Http\Controllers\Admin\NewghaithController::class, 'sections'])->name('newghaith.sections');
@@ -46,7 +49,7 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::get('categories/create', [App\Http\Controllers\Admin\CategoryController::class, 'create'])->name('categories.create')->middleware('permission:categories.create');
         Route::match(['PUT', 'PATCH'], 'categories/{id}', [App\Http\Controllers\Admin\CategoryController::class, 'update'])->name('categories.update')->middleware('permission:categories.edit');
         Route::get('categories/{id}/edit', [App\Http\Controllers\Admin\CategoryController::class, 'edit'])->name('categories.edit')->middleware('permission:categories.edit');
-       
+
         Route::get('sub_categories/select', [App\Http\Controllers\Admin\SubCategoryController::class, 'select'])->name('sub_categories.select');
         Route::delete('sub_categories/bulk', [App\Http\Controllers\Admin\SubCategoryController::class, 'deleteBulk'])->name('sub_categories.deleteBulk')->middleware('permission:sub_categories.delete');
         Route::get('sub_categories/list', [App\Http\Controllers\Admin\SubCategoryController::class, 'list'])->name('sub_categories.list')->middleware('permission:sub_categories.view');

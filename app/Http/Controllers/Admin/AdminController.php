@@ -3,22 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Transaction;
-use App\Models\Course;
-use App\Models\Lesson;
-use App\Models\Media;
-use App\Models\OrderItem;
-use App\Models\Payment;
-use App\Models\Question;
-use App\Models\Section;
 use App\Models\User;
-use App\Models\WalletCode;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Response;
+use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
+use Kutia\Larafirebase\Services\Larafirebase;
 
 class AdminController extends Controller
 {
@@ -41,46 +30,42 @@ class AdminController extends Controller
 
         return view($this->viewIndex, get_defined_vars());
     }
-
-    public function mm()
-    {
-        $lessons = Lesson::where('attachments', '!=', null)->get();
-
-        foreach ($lessons as $lesson) {
-            $attachments = explode(',', $lesson->attachments);
-            $media = Media::whereIn('id', $attachments)->where('type', 'image')->first();
-            if ($media) {
-                $lesson->image = $media->id;
-                $lesson->save();
-            }
+     public function updateToken(Request $request){
+        try{
+            $request->user()->update(['fcm_token'=>$request->fcm_token]);
+            return response()->json([
+                'success'=>true
+            ]);
+        }catch(\Exception $e){
+            report($e);
+            return response()->json([
+                'success'=>false
+            ],500);
         }
     }
+    public function notification(Request $request){
 
-    public function reset()
-    {
-        Transaction::truncate();
-        Lesson::query()->update([
-            'views' => 0,
-            'sales_num' => 0,
-            'sales_amount' => 0,
-        ]);
-        Section::query()->update([
-            'sales_num' => 0,
-            'sales_amount' => 0,
-        ]);
-    }
+    // try{
+        $fcmTokens = User::whereNotNull('fcm_token')->pluck('fcm_token')->toArray();
 
-    public function fixLogin()
-    {
-        User::whereNull('password')->where('type', 'student')
-            ->update(['password' => Hash::make(11111111)]);
-    }
+        //  Notification::send(null,new SendPushNotification("test","message test",$fcmTokens));
 
-    public function fixCodes()
-    {
-        Transaction::query()->update([
-                               'debit' => 0,
-                               'credit' => DB::raw("`total`")
-                           ]);
+        // Notification::send(null,new SendPushNotification('$request->title','$request->message',$fcmTokens));
+
+        /* or */
+
+        auth()->user()->notify(new SendPushNotification("title","message",$fcmTokens));
+
+        /* or */
+
+        // Larafirebase::withTitle($request->title)
+        //     ->withBody($request->message)
+        //     ->sendMessage($fcmTokens);
+
+        // return redirect()->back()->with('success','Notification Sent Successfully!!');
+
+        // }catch(\Exception $e){
+        //     return redirect()->back()->with('error','Something goes wrong while sending notification.');
+        // }
     }
 }
