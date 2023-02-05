@@ -86,7 +86,7 @@ class OrderController extends Controller
         $message = __('api.new_payment_success');
 
         Notification::send(null,new SendPushNotification($message,$fcmTokens));
-        return apiResponse(false, $fcmTokens, null, null, 200);
+        return apiResponse(false, $order, null, null, 200);
     }
     public function getSales($id)
     {
