@@ -96,7 +96,10 @@ class SubCategoryController extends Controller
         $item = $item->fill($data);
         if ($item->save()) {
             if ($request->hasFile('image')) {
-                $item->image = storeFile($request->file('image'), 'sub_categories');
+                $image= $request->file('image');
+                $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
+                $item->image->move(public_path('storage/sub_categories'), $fileName);
+                $item->image = $fileName;
                 $item->save();
             }
             return $item;

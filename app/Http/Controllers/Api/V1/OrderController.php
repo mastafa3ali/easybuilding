@@ -18,14 +18,19 @@ class OrderController extends Controller
 {
     public function store(OrderRequest $request)
     {
-
         $attachment1 = null;
         $attachment2 = null;
         if ($request->hasFile('attachment1')) {
-            $attachment1 = storeFile($request->file('attachment1'), 'orders');
+            $attachment1= $request->file('attachment1');
+            $fileName = time() . rand(0, 999999999) . '.' . $attachment1->getClientOriginalExtension();
+            $request->attachment1->move(public_path('storage/orders'), $fileName);
+            $attachment1 = $fileName;
         }
         if ($request->hasFile('attachment2')) {
-            $attachment2 = storeFile($request->file('attachment2'), 'orders');
+            $attachment2= $request->file('attachment2');
+            $fileName = time() . rand(0, 999999999) . '.' . $attachment2->getClientOriginalExtension();
+            $request->attachment2->move(public_path('storage/orders'), $fileName);
+            $attachment2 = $fileName;
         }
         $product_details = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3];
         $product = Product::find($request->product_id);
@@ -53,13 +58,18 @@ class OrderController extends Controller
     {
         $check_guarantee_amount = null;
         $check_guarantee = null;
-        if ($request->hasFile('check_guarantee_amount')) {
-            $check_guarantee_amount = storeFile($request->file('check_guarantee_amount'), 'orders');
-        }
-        if ($request->hasFile('check_guarantee')) {
-            $check_guarantee = storeFile($request->file('check_guarantee'), 'orders');
-        }
-
+         if ($request->hasFile('check_guarantee_amount')) {
+                $check_guarantee_amount= $request->file('check_guarantee_amount');
+                $fileName = time() . rand(0, 999999999) . '.' . $check_guarantee_amount->getClientOriginalExtension();
+                $request->check_guarantee_amount->move(public_path('storage/orders'), $fileName);
+                $check_guarantee_amount = $fileName;
+            }
+         if ($request->hasFile('check_guarantee')) {
+                $check_guarantee= $request->file('check_guarantee');
+                $fileName = time() . rand(0, 999999999) . '.' . $check_guarantee->getClientOriginalExtension();
+                $request->check_guarantee->move(public_path('storage/orders'), $fileName);
+                $check_guarantee = $fileName;
+            }
         $data = [
             'status' => Order::STATUS_ONPROGRESS,
             'payment' => $request->payment,
