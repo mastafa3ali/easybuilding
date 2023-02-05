@@ -76,9 +76,15 @@ class SliderController extends Controller
         $item = $id == null ? new Slider() : Slider::find($id);
         $data= $request->except(['_token', '_method']);
 
-        $item = $item->fill($data);        if ($item->save()) {
+        $item = $item->fill($data);        
+        if ($item->save()) {
+        
+            
             if ($request->hasFile('image')) {
-                $item->image = storeFile($request->file('image'), 'sliders');
+                $image= $request->file('image');
+                $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
+                $item->image->move(public_path('storage/sliders'), $fileName);
+                $item->image = $fileName;
                 $item->save();
             }
             return $item;
