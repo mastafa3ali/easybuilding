@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Validation\ValidationException;
 
-class OrderRequest extends FormRequest
+class OrderSubmitRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,15 +27,9 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'address' => 'sometimes|string|max:255',
-            'phone' => 'required',
-            'delivery_phone' => 'required',
-            'deliver_date' => 'required',
-            'area' => 'required',
-            'product_id' => 'required|exists:products,id',
-            'attribute_1' => 'required',
-            'attribute_2' => 'required',
 
+            'payment' => 'required',
+            'order_id' => 'required',
 
         ];
     }

@@ -7,6 +7,7 @@ Route::post('company/login', [App\Http\Controllers\Company\AuthController::class
 Route::post('company/logout', [App\Http\Controllers\Company\AuthController::class, 'logout'])->name('company.logout');
 
 Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.'], function () {
+        Route::patch('/fcm-token', [App\Http\Controllers\Company\CompanyController::class, 'updateToken'])->name('fcmToken');
 
     Route::get('/', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('home');
     Route::get('products/select', [App\Http\Controllers\Company\ProductController::class, 'select'])->name('products.select');
