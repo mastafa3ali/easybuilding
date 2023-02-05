@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Http\Requests\OrderSubmitRequest;
 use App\Http\Resources\SubCategoryResource;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\User;
@@ -16,32 +18,65 @@ class OrderController extends Controller
 {
     public function store(OrderRequest $request)
     {
-        // $fcmTokens = User::pluck('fcm_token')->toArray();
-        // $message = __('api.add_to_saved');
-        // Notification::send(null,new SendPushNotification($message,$fcmTokens));
+
         $attachment1 = null;
         $attachment2 = null;
         if ($request->hasFile('attachment1')) {
-            $attachment1 = storeFile($request->file('attachment1'), 'sliders');
+            $attachment1 = storeFile($request->file('attachment1'), 'orders');
         }
         if ($request->hasFile('attachment2')) {
-            $attachment2 = storeFile($request->file('attachment2'), 'sliders');
+            $attachment2 = storeFile($request->file('attachment2'), 'orders');
         }
+        $product_details = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3];
+        $product = Product::find($request->product_id);
+        $guarantee_amount=$product->price * $product->guarantee_amount * $request->attribute_1*$request->attribute_2 * (($request->attribute_1 > 0) ? $request->attribute_1 : 1);
         $data = [
-            'details'=>json_encode($request->products),
-            'user_id'=>auth()->id(),
-            'address'=>$request->address,
-            'phone'=>$request->phone,
-            'phone2'=>$request->phone2,
-            'delivery_phone'=>$request->delivery_phone,
-            'area'=>$request->area,
-            'attachment1'=>$attachment1,
-            'attachment2'=>$attachment2,
-            'delivery_date'=>$request->delivery_date,
-            'payment'=>$request->payment,
-            'guarantee_amount'=>$request->guarantee_amount
+            'details' => json_encode($product_details),
+            'user_id' => auth()->id(),
+            'company_id' => $product->company_id,
+            'address' => $request->address,
+            'phone' => $request->phone,
+            'phone2' => $request->phone2,
+            'localtion' => $request->localtion,
+            'delivery_phone' => $request->delivery_phone,
+            'area' => $request->area,
+            'status' =>  Order::STATUS_PENDDING,
+            'attachment1' => $attachment1,
+            'attachment2' => $attachment2,
+            'delivery_date' => $request->delivery_date,
+            'guarantee_amount' => $guarantee_amount
         ];
-        return apiResponse(false, $data, null, null, 200);
+        $order = Order::create($data);
+        return apiResponse(false, $order->id, null, null, 200);
+    }
+    public function orderSubmit(OrderSubmitRequest $request)
+    {
+        $check_guarantee_amount = null;
+        $check_guarantee = null;
+        if ($request->hasFile('check_guarantee_amount')) {
+            $check_guarantee_amount = storeFile($request->file('check_guarantee_amount'), 'orders');
+        }
+        if ($request->hasFile('check_guarantee')) {
+            $check_guarantee = storeFile($request->file('check_guarantee'), 'orders');
+        }
+
+        $data = [
+            'status' => Order::STATUS_ONPROGRESS,
+            'payment' => $request->payment,
+            'check_guarantee' => $check_guarantee,
+            'check_guarantee_amount' => $check_guarantee_amount,
+
+        ];
+
+        $order= Order::find($request->order_id);
+        $order->update($data);
+        $company = User::find($order->company_id);
+        $fcmTokens[] = auth()->user()->fcm_token;
+        $fcmTokens[] = $company?->fcm_token;
+        $message = __('api.new_payment_success');
+
+        Notification::send(null,new SendPushNotification($message,$fcmTokens));
+        return apiResponse(false, $fcmTokens, null, null, 200);
     }
     public function getSales($id)
     {

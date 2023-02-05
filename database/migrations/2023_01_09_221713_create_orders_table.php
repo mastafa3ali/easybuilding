@@ -24,7 +24,10 @@ return new class extends Migration
             $table->longText('details')->nullable();
             $table->string('attachment1')->nullable();
             $table->string('attachment2')->nullable();
-            $table->date('delivery_date')->nullable();
+            $table->string('delivery_date')->nullable();
+            $table->string('localtion')->nullable();
+            $table->string('check_guarantee')->nullable();
+            $table->string('check_guarantee_amount')->nullable();
             $table->tinyInteger('status');
             $table->tinyInteger('payment')->default(1);
             $table->decimal('guarantee_amount')->default(0);

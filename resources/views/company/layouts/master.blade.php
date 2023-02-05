@@ -6,6 +6,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
     @yield('title')
     <link rel="apple-touch-icon" href="{{ $assetsPath }}/images/favicon.png">
@@ -43,7 +45,7 @@
     <!-- END: Custom CSS-->
     @stack('styles')
     <!-- END: Custom CSS-->
-    
+
 
 </head>
 <!-- END: Head-->
@@ -54,13 +56,13 @@
 
 <!-- BEGIN: Header-->
 <nav class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center" data-nav="brand-center">
- 
+
     <div class="navbar-container d-flex content">
         <div class="bookmark-wrapper d-flex align-items-center">
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
             </ul>
-        
+
         </div>
         <ul class="nav navbar-nav align-items-center ms-auto">
             <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
@@ -270,7 +272,7 @@
             $('#modalDelete').modal('show')
             return false;
         })
-    
+
 
         $(document).on('change', '#subject_id', function(){
             var subject_id = $(this).val();
@@ -286,14 +288,68 @@
                 }
             });
         })
-       
+
         $('#subject_id').on('select2:select', function (e) {
             $(".ajax_companys").val('').trigger('change')
         });
-      
+
     })
 </script>
 @stack('scripts')
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js"></script>
+
+<script>
+      $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    var firebaseConfig = {
+        apiKey: "AIzaSyD4XGTrPle1LBlcnaEJA8j5lXtu1aUC-X4",
+        authDomain: "easybuilding-d14f0.firebaseapp.com",
+        projectId: "easybuilding-d14f0",
+        storageBucket: "easybuilding-d14f0.appspot.com",
+        messagingSenderId: "541745851840",
+        appId: "1:541745851840:web:547c94f535958229d8ec25"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging.requestPermission().then(function () {
+            return messaging.getToken()
+        }).then(function(fcm_token) {
+
+            $.ajax({
+                type:'POST',
+                url:"{{ route('company.fcmToken') }}",
+                data:{
+                _method:"PATCH",
+                fcm_token,
+                token:$('meta[name="csrf-token"]').attr('content')
+                },
+                success:function(data){
+                    console.log(data)
+                },
+                error:function(response){
+                    console.error(response)
+                }
+            });
+
+        }).catch(function (err) {
+            console.log(`Token Error :: ${err}`);
+        });
+    }
+
+    initFirebaseMessagingRegistration();
+
+    messaging.onMessage(function({data:{body,title}}){
+        alert(title)
+        new Notification(title, {body});
+    });
+</script>
 </body>
 <!-- END: Body-->
 

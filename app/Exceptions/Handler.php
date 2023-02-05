@@ -52,7 +52,7 @@ class Handler extends ExceptionHandler
             if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
                 return apiResponse(false, null, __('api.not_found'), null, 404);
             }
-            
+
             if ($exception instanceof UnauthorizedHttpException || $exception instanceof UnauthorizedException) {
                 return apiResponse(false, null, __('api.unauthorized'), null, 401);
             }
@@ -71,7 +71,7 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof \Illuminate\Session\TokenMismatchException) {
             return apiResponse(false, null, __('api.unauthorized'), null, 401);
-            
+
         }
         
         return parent::render($request, $exception);
