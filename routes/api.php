@@ -42,6 +42,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
         Route::post('save', [App\Http\Controllers\Api\V1\PageController::class, 'makeSaved']);
         Route::post('order', [App\Http\Controllers\Api\V1\OrderController::class, 'store']);
+
+        Route::post('sale-order', [App\Http\Controllers\Api\V1\OrderController::class, 'saleStore']);
+
         Route::post('order-submit', [App\Http\Controllers\Api\V1\OrderController::class, 'orderSubmit']);
         Route::get('notifications', [App\Http\Controllers\Api\V1\PageController::class, 'notifications']);
         Route::get('profile', [App\Http\Controllers\Api\V1\PageController::class, 'profile']);

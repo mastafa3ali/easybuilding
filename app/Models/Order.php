@@ -13,6 +13,8 @@ class Order extends Model
     const STATUS_PENDDING = 0;
     const STATUS_ONPROGRESS = 1;
     const STATUS_DONE = 2;
+    const TYPE_SALE = 1;
+    const TYPE_RENT = 2;
     protected $fillable = [
         'code',
         'address',
@@ -32,6 +34,7 @@ class Order extends Model
         'company_id',
         'check_guarantee',
         'check_guarantee_amount',
-        'localtion'
+        'localtion',
+        'type'
     ];
 }

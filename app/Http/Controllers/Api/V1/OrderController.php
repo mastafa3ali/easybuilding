@@ -41,6 +41,7 @@ class OrderController extends Controller
             'company_id' => $product->company_id,
             'address' => $request->address,
             'phone' => $request->phone,
+            'type' => Order::TYPE_RENT,
             'phone2' => $request->phone2,
             'localtion' => $request->localtion,
             'delivery_phone' => $request->delivery_phone,
@@ -53,6 +54,45 @@ class OrderController extends Controller
         ];
         $order = Order::create($data);
         return apiResponse(false, $order->id, null, null, 200);
+    }
+    public function saleStore(SaleOrderRequest $request)
+    {
+        $attachment1 = null;
+        $attachment2 = null;
+        if ($request->hasFile('attachment1')) {
+            $attachment1= $request->file('attachment1');
+            $fileName = time() . rand(0, 999999999) . '.' . $attachment1->getClientOriginalExtension();
+            $request->attachment1->move(public_path('storage/orders'), $fileName);
+            $attachment1 = $fileName;
+        }
+        if ($request->hasFile('attachment2')) {
+            $attachment2= $request->file('attachment2');
+            $fileName = time() . rand(0, 999999999) . '.' . $attachment2->getClientOriginalExtension();
+            $request->attachment2->move(public_path('storage/orders'), $fileName);
+            $attachment2 = $fileName;
+        }
+        // // $product_details = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3];
+        // // $product = Product::find($request->product_id);
+        // // $guarantee_amount=$product->price * $product->guarantee_amount * $request->attribute_1*$request->attribute_2 * (($request->attribute_1 > 0) ? $request->attribute_1 : 1);
+        // $data = [
+        //     'details' => json_encode($product_details),
+        //     'user_id' => auth()->id(),
+        //     'company_id' => $product->company_id,
+        //     'address' => $request->address,
+        //     'phone' => $request->phone,
+        //     'phone2' => $request->phone2,
+        //     'type' => Order::TYPE_SALE,
+        //     'localtion' => $request->localtion,
+        //     'delivery_phone' => $request->delivery_phone,
+        //     'area' => $request->area,
+        //     'status' =>  Order::STATUS_PENDDING,
+        //     'attachment1' => $attachment1,
+        //     'attachment2' => $attachment2,
+        //     'delivery_date' => $request->delivery_date,
+        //     'guarantee_amount' => $guarantee_amount
+        // ];
+        // $order = Order::create($data);
+        // return apiResponse(false, $order->id, null, null, 200);
     }
     public function orderSubmit(OrderSubmitRequest $request)
     {

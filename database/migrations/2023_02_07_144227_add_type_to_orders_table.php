@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('fcm_token');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->tinyInteger('type')->default(1);
         });
     }
 
@@ -25,9 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('fcm_token');
-
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn('type');
         });
     }
 };
