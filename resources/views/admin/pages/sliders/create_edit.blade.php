@@ -58,9 +58,8 @@
                             @enderror
                             <div>
                                 <br>
-                                @if(isset($item) && !empty($item->image))
-                                    <img src="{{ uploaded_asset($item->image) }}"
-                                         class="img-fluid img-thumbnail">
+                                @if(isset($item) && !empty($item->photo))
+                                    <img src="{{ $item->photo }}" class="img-fluid img-thumbnail">
                                 @endif
                             </div>
                         </div>
