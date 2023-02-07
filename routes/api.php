@@ -39,6 +39,8 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('privacy', [App\Http\Controllers\Api\V1\SettingController::class, 'privacy']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('get-saved-products', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedProduct']);
+        Route::get('get-saved-companies', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedCompany']);
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
         Route::post('save', [App\Http\Controllers\Api\V1\PageController::class, 'makeSaved']);
         Route::post('order', [App\Http\Controllers\Api\V1\OrderController::class, 'store']);

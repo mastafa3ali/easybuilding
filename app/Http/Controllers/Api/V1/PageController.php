@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CompanyResource;
 use App\Http\Resources\NotificationResource;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\SavedResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Http\Resources\UserResource;
 use App\Models\Category;
@@ -94,6 +95,25 @@ class PageController extends Controller
         ->where('products.id',$id)
         ->orderBy('products.price')->get();
         $data = CompanyResource::collection($companies);
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function getSavedProduct()
+    {
+        $products= Product::leftJoin('saveds','model_id','products.id')->where('saveds.user_id', auth()->id())->where('saveds.model_type',Saved::TYPE_PRODUCT)->select([
+            'saveds.model_type as model_type',
+            'products.*',
+        ])->get();
+        $data = SavedResource::collection($products);
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function getSavedCompany()
+    {
+           $companies= User::leftJoin('saveds','model_id','users.id')->where('saveds.user_id', auth()->id())->where('saveds.model_type',Saved::TYPE_COMPANY)->select([
+            'saveds.model_type as model_type',
+            'users.*',
+        ])->get();
+
+        $data = SavedResource::collection($companies);
         return apiResponse(true, $data, null, null, 200);
     }
     public function getCompanyProduct($id,$category_id)
