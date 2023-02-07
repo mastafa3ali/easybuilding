@@ -29,7 +29,8 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         $user['token'] = $user->createToken('auth_token')->plainTextToken;
-        return new UserResource($user);
+        return apiResponse(true, new UserResource($user), __('success'), null, 200);
+
         // if ($user->isVerified) {
         // }else{
         //     return apiResponse(false, null, __('api.not_verify'), null, 400);
@@ -104,7 +105,7 @@ class AuthController extends Controller
         if ($user->save()) {
 
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
-            return new UserResource($user);
+            return apiResponse(true, new UserResource($user), __('success'), null, 200);
         }
     }
     public function resetPassword(Request $request)
