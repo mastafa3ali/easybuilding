@@ -50,8 +50,8 @@
                         <div class="mb-1 col-md-4  @error('type') is-invalid @enderror">
                             <label class="form-label" for="type">{{ __('products.type') }}</label>
                             <select name="type" id="type" class="form-control  select_type">
-                                    <option value="1" {{ isset($item)?($item->type==1?'selected':''):(old('type')==1?'selected':'') }} >{{ __('products.types.1') }}</option>
-                                    <option value="2" {{ isset($item)?($item->type==2?'selected':''):(old('type')==2?'selected':'') }} >{{ __('products.types.2') }}</option>
+                                    <option value="1" {{ isset($item)?($item->product?->type==1?'selected':''):(old('type')==1?'selected':'') }} >{{ __('products.types.1') }}</option>
+                                    <option value="2" {{ isset($item)?($item->product?->type==2?'selected':''):(old('type')==2?'selected':'') }} >{{ __('products.types.2') }}</option>
                             </select>
                             @error('type')
                             <span class="error">{{ $message }}</span>
