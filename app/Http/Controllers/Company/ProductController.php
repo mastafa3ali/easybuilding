@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\CompanyProduct;
 use App\Models\Product;
 use App\Models\SubCategory;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,46 +30,52 @@ class ProductController extends Controller
     }
     public function edit($id): View
     {
-        $item = Product::findOrFail($id);
+        $item = CompanyProduct::with('product')->findOrFail($id);
           $display = "";
-        if($item->type==1){
+        if($item->product?->type==1){
             $display = "display:none";
         }
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
     {
-        $item = Product::findOrFail($id);
+        $item = CompanyProduct::with('product')->findOrFail($id);
         return view($this->viewShow, get_defined_vars());
     }
     public function destroy($id): RedirectResponse
     {
-        $item = Product::findOrFail($id);
+        $item = CompanyProduct::findOrFail($id);
         if ($item->delete()) {
             flash(__('products.messages.deleted'))->success();
         }
         return to_route($this->route . '.index');
     }
-    public function store(ProductRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
         if ($this->processForm($request)) {
             flash(__('products.messages.created'))->success();
         }
         return to_route($this->route . '.index');
     }
-    public function update(ProductRequest $request, $id): RedirectResponse
+    public function update(Request $request, $id): RedirectResponse
     {
-        $item = Product::findOrFail($id);
+        $item = CompanyProduct::findOrFail($id);
         if ($this->processForm($request, $id)) {
             flash(__('products.messages.updated'))->success();
         }
         return to_route($this->route . '.index');
     }
 
-    protected function processForm($request, $id = null): Product|null
+    protected function processForm($request, $id = null): CompanyProduct|null
     {
-        $item = $id == null ? new Product() : Product::find($id);
-        $data= $request->except(['_token', '_method']);
+        $item = null;
+        if( $id == null){
+            $item=CompanyProduct::where('company_id', auth()->id())->where('product_id', $request->product_id)->first();
+        }
+        if($item==null){
+            $item = $id == null ? new CompanyProduct() : CompanyProduct::find($id);
+        }
+        $data= $request->except(['_token', '_method','type']);
         $item = $item->fill($data);
         $item->company_id=auth()->id();
         if ($item->save()) {
@@ -81,7 +86,16 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Product::where('company_id',auth()->id())->select('*');
+        $data = CompanyProduct::leftJoin('products','products.id','company_products.product_id')
+        ->leftJoin('users','users.id','company_products.company_id')
+        ->where('users.id',auth()->id())->select([
+            'products.name',
+            'products.type',
+            'products.description',
+            'company_products.price',
+            'company_products.id',
+            'company_products.guarantee_amount'
+        ]);
         return DataTables::of($data)
         ->addIndexColumn()
             ->editColumn('type', function ($item) {
@@ -92,14 +106,14 @@ class ProductController extends Controller
     }
     public function select(Request $request): JsonResponse|string
     {
-       $data = Category::distinct()
+       $data = Product::distinct()
             ->where(function ($query) use ($request) {
                 if ($request->filled('q')) {
-                    $query->where('title', 'LIKE', '%' . $request->q . '%');
+                    $query->where('name', 'LIKE', '%' . $request->q . '%');
                 }
             })
-            ->select('id', 'title AS text')
-            ->take(10)
+            ->select('id', 'name AS text')
+            ->take(20)
             ->get();
         return response()->json($data);
     }

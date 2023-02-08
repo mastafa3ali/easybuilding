@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->references('id')->on('users')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->references('id')->on('products')->constrained()->cascadeOnDelete();
+            $table->decimal('guarantee_amount', 10)->nullable();
             $table->decimal('price');
             $table->timestamps();
         });

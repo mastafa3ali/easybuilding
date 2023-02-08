@@ -30,52 +30,28 @@ class PageController extends Controller
     }
     public function sales(Request $request)
     {
-        $data = [
-        'id'               => 1,
-        'name'             => 'sasa',
-        'phone'            => '1231231',
-        'price'            => 20,
-        'description'      => 'sasa test test',
-        'saved'            => 1,
-        'image'            => 'http://easy.test/storage/users/1675874896276743554.png'
-        ];
-        return apiResponse(false,$data, null, null, 200);
-        $data = User::where('users.type',User::TYPE_COMPANY)
+        return apiResponse(true, [], null, null, 200);
+
+
+    }
+    public function getSales($id)
+    {
+
+         $data = User::where('users.type',User::TYPE_COMPANY)
         ->join('company_products','company_products.company_id','users.id')
         ->join('products','products.id','company_products.product_id')
-        ->where(function($query) use ($request){
-            if($request->filled('name')){
-                $query->where('company_products.name','like', '%'.$request->name.'%');
-            }
-            if($request->filled('rate')){
-                $query->orderBy('users.rate', 'DESC');
-            }
-            if($request->filled('price')){
-                $query->orderBy('company_products.price', $request->asc);
-            }
-        })->where('products.type', Product::TYPE_RENT)
+       ->where('products.type', Product::TYPE_SALE)
+       ->where('products.id', $id)
         ->select([
             'company_products.price as price',
             'users.id',
-            'users.name',
+            'users.name as company_name',
             'users.phone',
             'users.description',
             'users.image'
         ])
         ->get();
         return apiResponse(false,CompanyResource::collection($data), null, null, 200);
-    }
-    public function getSales($id)
-    {
-         $data = User::where('users.type',User::TYPE_COMPANY)
-        ->leftjoin('products','products.company_id','users.id')
-        ->leftjoin('categories','categories.id','products.category_id')
-        ->where('categories.id', $id)->select(
-            'users.id',
-            'users.name',
-            'users.description'
-        )->groupBy('users.id')->get();
-        return apiResponse(true, $data, null, null, 200);
     }
     public function getRent($id)
     {
