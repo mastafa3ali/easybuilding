@@ -55,7 +55,7 @@ class PageController extends Controller
     }
     public function getRent($id)
     {
-        $data = SubCategory::with(['products.category','products.subcategory','products.company'])->where('category_id',$id)->get();
+        $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id',$id)->get();
         return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
     public function latestAppVersion()
