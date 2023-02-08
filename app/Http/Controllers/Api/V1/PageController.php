@@ -10,6 +10,7 @@ use App\Http\Resources\ProductResource;
 use App\Http\Resources\SavedResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Http\Resources\UserResource;
+use App\Models\ApiNotification;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Saved;
@@ -130,57 +131,12 @@ class PageController extends Controller
         return apiResponse(true, $data, null, null, 200);
     }
     public function notifications(){
-        $data[]=[
-          [  '30-12-2022'  => [
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-            ]],
-          [  '30-12-2022'  => [
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-            ]],
-          [  '30-12-2022'  => [
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-            ]],
-          [  '30-12-2022'  => [
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-            ]],
-
-        ];
+        $data = [];
+        $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->toArray();
+        foreach($dayes as $day){
+            $list = ApiNotification::where('user_id', auth()->id())->where('day',$day)->get();
+            $data[][$day] = $list;
+        }
         return apiResponse(true, $data, null, null, 200);
     }
     public function makeSaved(Request $request){
@@ -203,8 +159,13 @@ class PageController extends Controller
             }
             $message = __('api.add_to_saved',['item'=>$item_name]);
             $fcmTokens = [auth()->user()->fcm_token];
-            // $fcmTokens = User::pluck('fcm_token')->toArray();
-
+            $notifications = [
+                'user_id'=>auth()->id(),
+                'text'=>$message,
+                'day'=>date('Y-m-d'),
+                'time'=>date('H:i'),
+            ];
+            ApiNotification::create($notifications);
             Notification::send(null,new SendPushNotification($message,$fcmTokens));
             return apiResponse(true,null, null, null, 200);
         }
