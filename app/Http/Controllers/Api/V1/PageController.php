@@ -87,7 +87,7 @@ class PageController extends Controller
 
     public function getCompanies($id)
     {
-       $companies= User::leftjoin('products','products.company_id','users.id')
+       $companies= User::leftjoin('products','users.id')
         ->where('products.id',$id)
         ->orderBy('products.price')->get();
         $data = CompanyResource::collection($companies);
@@ -114,13 +114,13 @@ class PageController extends Controller
     }
     public function getCompanyProduct($id,$category_id)
     {
-        $products = Product::with('company')->where('category_id',$category_id)->where('company_id',$id)->get();
+        $products = Product::where('category_id',$category_id)->get();
         $data = ProductResource::collection($products);
         return apiResponse(true, $data, null, null, 200);
     }
     public function notifications(){
-        $data=[
-            '30-12-2022'  => [
+        $data[]=[
+          [  '30-12-2022'  => [
                [ 'text'=>'تم اتمام العملية بنجاح',
                 'time'=>'3:40'],
                [ 'text'=>'تم اتمام العملية بنجاح',
@@ -131,10 +131,8 @@ class PageController extends Controller
                 'time'=>'3:40'],
                [ 'text'=>'تم اتمام العملية بنجاح',
                 'time'=>'3:40'],
-            ],
-            '25-12-2022'  => [
-                               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
+            ]],
+          [  '30-12-2022'  => [
                [ 'text'=>'تم اتمام العملية بنجاح',
                 'time'=>'3:40'],
                [ 'text'=>'تم اتمام العملية بنجاح',
@@ -143,34 +141,34 @@ class PageController extends Controller
                 'time'=>'3:40'],
                [ 'text'=>'تم اتمام العملية بنجاح',
                 'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+            ]],
+          [  '30-12-2022'  => [
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+            ]],
+          [  '30-12-2022'  => [
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+               [ 'text'=>'تم اتمام العملية بنجاح',
+                'time'=>'3:40'],
+            ]],
 
-            ],
-            '22-12-2022'  => [
-                               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-
-            ],
-            '20-12-2022'  => [
-                               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-               [ 'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40'],
-
-            ],
         ];
         return apiResponse(true, $data, null, null, 200);
     }
