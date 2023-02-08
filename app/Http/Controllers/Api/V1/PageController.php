@@ -87,11 +87,22 @@ class PageController extends Controller
 
     public function getCompanies($id)
     {
-       $companies= User::leftjoin('products','users.id')
-        ->where('products.id',$id)
-        ->orderBy('products.price')->get();
-        $data = CompanyResource::collection($companies);
-        return apiResponse(true, $data, null, null, 200);
+        //get all companies that sell this product
+        $data = User::where('users.type',User::TYPE_COMPANY)
+        ->leftJoin('company_products','company_products.company_id','users.id')
+        ->leftJoin('products','products.id','company_products.product_id')
+       ->where('products.type', Product::TYPE_SALE)
+       ->where('products.category_id', $id)
+        ->select([
+            'company_products.price as price',
+            'users.id',
+            'users.name as company_name',
+            'users.phone',
+            'users.description',
+            'users.image'
+        ])->orderBy('company_products.price')
+        ->get();
+        return apiResponse(false,CompanyResource::collection($data), null, null, 200);
     }
     public function getSavedProduct()
     {
