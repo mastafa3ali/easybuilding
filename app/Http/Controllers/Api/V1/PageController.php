@@ -41,7 +41,7 @@ class PageController extends Controller
         ->join('company_products','company_products.company_id','users.id')
         ->join('products','products.id','company_products.product_id')
        ->where('products.type', Product::TYPE_SALE)
-       ->where('products.id', $id)
+        ->where('products.category_id', $id)
         ->select([
             'company_products.price as price',
             'users.id',
@@ -92,7 +92,7 @@ class PageController extends Controller
         ->leftJoin('company_products','company_products.company_id','users.id')
         ->leftJoin('products','products.id','company_products.product_id')
        ->where('products.type', Product::TYPE_SALE)
-       ->where('products.category_id', $id)
+       ->where('products.id', $id)
         ->select([
             'company_products.price as price',
             'users.id',
