@@ -35,6 +35,7 @@ class OrderRequest extends FormRequest
             'product_id' => 'required|exists:products,id',
             'attribute_1' => 'required',
             'attribute_2' => 'required',
+            'company_id' => 'required|exists:users,id',
 
 
         ];

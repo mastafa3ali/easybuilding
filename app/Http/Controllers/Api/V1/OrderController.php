@@ -7,6 +7,7 @@ use App\Http\Requests\OrderRequest;
 use App\Http\Requests\OrderSubmitRequest;
 use App\Http\Requests\SaleOrderRequest;
 use App\Http\Resources\SubCategoryResource;
+use App\Models\ApiNotification;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\SubCategory;
@@ -39,7 +40,7 @@ class OrderController extends Controller
         $data = [
             'details' => json_encode($product_details),
             'user_id' => auth()->id(),
-            'company_id' => $product->company_id,
+            'company_id' => $request->company_id,
             'address' => $request->address,
             'phone' => $request->phone,
             'type' => Order::TYPE_RENT,
@@ -122,28 +123,17 @@ class OrderController extends Controller
         $fcmTokens[] = auth()->user()->fcm_token;
         $fcmTokens[] = $company?->fcm_token;
         $message = __('api.new_payment_success');
-
+        $notifications = [
+                'user_id'=>auth()->id(),
+                'text'=>$message,
+                'day'=>date('Y-m-d'),
+                'time'=>date('H:i'),
+            ];
+        ApiNotification::create($notifications);
         Notification::send(null,new SendPushNotification($message,$fcmTokens));
         return apiResponse(false, $order, null, null, 200);
     }
-    public function getSales($id)
-    {
-         $data = User::where('users.type',User::TYPE_COMPANY)
-        ->leftjoin('products','products.company_id','users.id')
-        ->leftjoin('categories','categories.id','products.category_id')
-        ->where('categories.id', $id)->select(
-            'users.id',
-            'users.name',
-            'users.description'
-        )->groupBy('users.id')->get();
-        return apiResponse(true, $data, null, null, 200);
-    }
-    public function getRent($id)
-    {
-        $data = SubCategory::with(['products.category','products.subcategory','products.company'])->where('category_id',$id)->get();
-        return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
-    }
-    public function latestAppVersion()
+       public function latestAppVersion()
     {
         return apiResponse(true, ['latest_android_version' => '1.0.3', 'latest_ios_version' => '1.0.1',], null, null, 200);
     }
