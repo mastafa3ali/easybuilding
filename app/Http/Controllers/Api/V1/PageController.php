@@ -30,20 +30,40 @@ class PageController extends Controller
     }
     public function sales(Request $request)
     {
+        $data = [
+        'id'               => 1,
+        'name'             => 'sasa',
+        'phone'            => '1231231',
+        'price'            => 20,
+        'description'      => 'sasa test test',
+        'saved'            => 1,
+        'image'            => 'http://easy.test/storage/users/1675874896276743554.png'
+        ];
+        return apiResponse(false,$data, null, null, 200);
         $data = User::where('users.type',User::TYPE_COMPANY)
-        ->join('products','products.company_id','users.id')
+        ->join('company_products','company_products.company_id','users.id')
+        ->join('products','products.id','company_products.product_id')
         ->where(function($query) use ($request){
             if($request->filled('name')){
-                $query->where('products.name','like', '%'.$request->name.'%');
+                $query->where('company_products.name','like', '%'.$request->name.'%');
             }
             if($request->filled('rate')){
                 $query->orderBy('users.rate', 'DESC');
             }
             if($request->filled('price')){
-                $query->orderBy('products.price', $request->asc);
+                $query->orderBy('company_products.price', $request->asc);
             }
-        })->where('products.type', Product::TYPE_RENT)->paginate(20);
-        return apiResponse(false, $data, null, null, 200);
+        })->where('products.type', Product::TYPE_RENT)
+        ->select([
+            'company_products.price as price',
+            'users.id',
+            'users.name',
+            'users.phone',
+            'users.description',
+            'users.image'
+        ])
+        ->get();
+        return apiResponse(false,CompanyResource::collection($data), null, null, 200);
     }
     public function getSales($id)
     {

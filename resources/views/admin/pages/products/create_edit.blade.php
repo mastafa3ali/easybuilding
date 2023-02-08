@@ -65,7 +65,7 @@
                             @enderror
                         </div>
                         <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section" style="{{ $display }}">
-                            <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>
+                            <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount_default') }}</label>
                             <input type="number" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
                                    value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" />
                             @error('guarantee_amount')

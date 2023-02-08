@@ -46,6 +46,7 @@ return [
     'type'=>'النوع',
     'category'=>'القسم',
     'guarantee_amount'=>'مبلغ الضمان',
+    'guarantee_amount_default'=>' مبلغ الضمان الافتراضى',
     'company'=>'الشركة',
     'types'=>[
         '1'=>'للبيع',
