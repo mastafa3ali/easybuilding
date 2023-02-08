@@ -33,24 +33,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-4  @error('name') is-invalid @enderror">
-                            <label class="form-label" for="name">{{ __('products.name') }}</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder=""
-                                   value="{{ $item->name ?? old('name') }}" required/>
-                            @error('name')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                         <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
-                            <label class="form-label" for="category_id">{{ __('products.category') }}</label>
-                            <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('company.categories.select') }}"
+
+                         <div class="mb-1 col-md-4  @error('product_id') is-invalid @enderror">
+                            <label class="form-label" for="product_id">{{ __('products.name') }}</label>
+                            <select name="product_id" id="product_id" class="form-control ajax_select2 extra_field"
+                                    data-ajax--url="{{ route('company.products.select') }}"
                                     data-ajax--cache="true">
-                                @isset($item->category)
-                                    <option value="{{ $item->category->id }}" selected>{{ $item->category->title }}</option>
+                                @isset($item->product)
+                                    <option value="{{ $item->product->id }}" selected>{{ $item->product->name }}</option>
                                 @endisset
                             </select>
-                            @error('category_id')
+                            @error('product_id')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
@@ -81,39 +74,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" id="properties_section" style="{{ $display }}">
-                            <label class="form-label" for="properties">{{ __('products.property') }}</label>
-                            <select name="properties" id="properties" class="form-control  ">
-                                    <option value="1" {{ isset($item)?($item->properties==1?'selected':''):(old('properties')==1?'selected':'') }} >{{ __('products.properties.1') }}</option>
-                                    <option value="2" {{ isset($item)?($item->properties==2?'selected':''):(old('properties')==2?'selected':'') }} >{{ __('products.properties.2') }}</option>
-                                    <option value="3" {{ isset($item)?($item->properties==3?'selected':''):(old('properties')==3?'selected':'') }} >{{ __('products.properties.3') }}</option>
-                            </select>
-                            @error('properties')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                         <div class="mb-1 col-md-4  @error('sub_category_id') is-invalid @enderror" id="sub_category_id_section" style="{{ $display }}">
-                            <label class="form-label" for="sub_category_id">{{ __('products.sub_category') }}</label>
-                            <select name="sub_category_id" id="sub_category_id" class="form-control ">
-                                @isset($item->subcategory)
-                                    <option value="{{ $item->subcategory->id }}" selected>{{ $item->subcategory->name }}</option>
-                                @endisset
-                            </select>
-                            @error('sub_category_id')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="row">
-                         <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
-                            <label class="form-label" for="description">{{ __('products.description') }}</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
-                            @error('description')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -126,31 +87,13 @@
         $('body').on('change', '.select_type', function (){
             var type= $(this).val();
             if(type==1){
-                $("#sub_category_id_section").hide(500);
                 $("#guarantee_amount_section").hide(500);
-                $("#properties_section").hide(500);
             }
             if(type==2){
-                $("#sub_category_id_section").show(500);
                 $("#guarantee_amount_section").show(500);
-                $("#properties_section").show(500);
             }
             return false;
         });
-
-         $(document).on('change', '#category_id', function(){
-            var category_id = $(this).val();
-            $('#sub_category_id').html('');
-            console.log(category_id);
-            $.ajax({
-                type:'GET',
-                url:"{{ route('company.sub_categories.select') }}",
-                data:{category_id:category_id,pure_select:true},
-                success:function(data){
-                    $('#sub_category_id').html(data);
-                }
-            });
-        })
     })
 </script>
 @endpush
