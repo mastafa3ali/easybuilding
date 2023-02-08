@@ -38,7 +38,6 @@
                         <th>{{ __('products.type') }}</th>
                         <th>{{ __('products.guarantee_amount') }}</th>
                         <th>{{ __('products.price') }}</th>
-                        <th>{{ __('products.company') }}</th>
                         @canany('products.edit','products.delete')
                             <th width="15%" class="text-center">{{ __('products.options') }}</th>
                         @endcanany
@@ -83,13 +82,12 @@
                 {data: 'type', name: 'type'},
                 {data: 'guarantee_amount', name: 'guarantee_amount'},
                 {data: 'price', name: 'price'},
-                {data: 'company', name: 'company'},
                     @canany('products.edit','products.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany
             ],
             columnDefs: [
-              
+
                 @canany('products.edit','products.delete')
                 {
                     "targets": -1,

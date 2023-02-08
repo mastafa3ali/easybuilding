@@ -41,6 +41,7 @@ return [
     'created_at' => 'تاريخ الإنشاء',
     'name' => 'الاسم',
     'price'  => 'السعر',
+    'default_price'  => 'السعر الافتراضى',
     'description'=>'الوصف',
     'type'=>'النوع',
     'category'=>'القسم',

@@ -75,6 +75,13 @@ class ProductController extends Controller
             $item->company_id=auth()->id();
         }
         if ($item->save()) {
+             if ($request->hasFile('image')) {
+                $image= $request->file('image');
+                $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
+                $item->image->move(public_path('storage/products'), $fileName);
+                $item->image = $fileName;
+                $item->save();
+            }
             return $item;
         }
         return null;
@@ -82,16 +89,13 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Product::with('company')->select('*');
+        $data = Product::select('*');
         return DataTables::of($data)
         ->addIndexColumn()
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })
-            ->addColumn('company', function ($item) {
-                return $item->company->name;
-            })
-            ->rawColumns(['company','type'])
+            ->rawColumns(['type'])
         ->make(true);
     }
 }

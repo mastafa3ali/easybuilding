@@ -74,30 +74,13 @@
                         </div>
 
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
-                            <label class="form-label" for="price">{{ __('products.price') }}</label>
+                            <label class="form-label" for="price">{{ __('products.default_price') }}</label>
                             <input type="number" name="price" id="price" class="form-control" placeholder=""
                                    value="{{ $item->price ?? old('price') }}" />
                             @error('price')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-
-
-                        @if(auth()->user()->type==\App\Models\User::TYPE_ADMIN)
-                        <div class="mb-1 col-md-4  @error('company_id') is-invalid @enderror">
-                            <label class="form-label" for="company_id">{{ __('products.company') }}</label>
-                            <select name="company_id" id="company_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('admin.companies.select') }}"
-                                    data-ajax--cache="true" required>
-                                @isset($item->company)
-                                    <option value="{{ $item->company->id }}" selected>{{ $item->company->name }}</option>
-                                @endisset
-                            </select>
-                            @error('company_id')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        @endif
 
                         <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" id="properties_section" style="{{ $display }}">
                             <label class="form-label" for="properties">{{ __('products.property') }}</label>
@@ -120,6 +103,19 @@
                             @error('sub_category_id')
                             <span class="error">{{ $message }}</span>
                             @enderror
+                        </div>
+                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
+                            <label class="form-label" for="image">{{ __('sliders.file') }}</label>
+                            <input type="file" class="form-control input" name="image" id="image">
+                            @error('image')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(isset($item) && !empty($item->photo))
+                                    <img src="{{ $item->photo }}" class="img-fluid img-thumbnail">
+                                @endif
+                            </div>
                         </div>
                     </div>
                     <div class="row">
