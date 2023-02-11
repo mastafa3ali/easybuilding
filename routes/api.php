@@ -45,6 +45,9 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('save', [App\Http\Controllers\Api\V1\PageController::class, 'makeSaved']);
         Route::post('order', [App\Http\Controllers\Api\V1\OrderController::class, 'store']);
 
+        Route::get('orders', [App\Http\Controllers\Api\V1\OrderController::class, 'orders']);
+        Route::get('order/{id}', [App\Http\Controllers\Api\V1\OrderController::class, 'getOrder']);
+
         Route::post('sale-order', [App\Http\Controllers\Api\V1\OrderController::class, 'saleStore']);
 
         Route::post('order-submit', [App\Http\Controllers\Api\V1\OrderController::class, 'orderSubmit']);

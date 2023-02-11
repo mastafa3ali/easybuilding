@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\OrderSubmitRequest;
 use App\Http\Requests\SaleOrderRequest;
+use App\Http\Resources\OrderResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\ApiNotification;
 use App\Models\Order;
@@ -42,6 +43,7 @@ class OrderController extends Controller
             'user_id' => auth()->id(),
             'company_id' => $request->company_id,
             'address' => $request->address,
+            'product_id' => $request->product_id,
             'phone' => $request->phone,
             'type' => Order::TYPE_RENT,
             'phone2' => $request->phone2,
@@ -52,7 +54,8 @@ class OrderController extends Controller
             'attachment1' => $attachment1,
             'attachment2' => $attachment2,
             'delivery_date' => $request->delivery_date,
-            'guarantee_amount' => $guarantee_amount
+            'guarantee_amount' => $guarantee_amount,
+            'total'=>$product->price+$guarantee_amount
         ];
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
@@ -74,11 +77,17 @@ class OrderController extends Controller
             $attachment2 = $fileName;
         }
         $product_details = $request->product_details;
+        $total = 0;
+        foreach($request->product_details as $product){
+            $item = Product::findOrFail($product['id']);
+            $total = $total+ $item->price;
+        }
         $data = [
             'details' => json_encode($product_details),
             'user_id' => auth()->id(),
             'company_id' => $request->company_id,
             'address' => $request->address,
+            'product_id' => $request->product_details[0]['id'],
             'phone' => $request->phone,
             'phone2' => $request->phone2,
             'type' => Order::TYPE_SALE,
@@ -89,6 +98,8 @@ class OrderController extends Controller
             'attachment1' => $attachment1,
             'attachment2' => $attachment2,
             'delivery_date' => $request->delivery_date,
+            'total'=>$total
+
         ];
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
@@ -159,26 +170,27 @@ class OrderController extends Controller
 
         return apiResponse(true, $data, null, null, 200);
     }
+
     public function notifications(){
-     $data=[
-            '30-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-            '25-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-            '22-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-            '20-12-2022'  => [
-                'text'=>'تم اتمام العملية بنجاح',
-                'time'=>'3:40',
-            ],
-        ];
-    return apiResponse(true, $data, null, null, 200);
+        $data = [];
+        $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->toArray();
+        foreach($dayes as $day){
+            $list = ApiNotification::where('user_id', auth()->id())->where('day',$day)->get();
+            $data[][$day] = $list;
+        }
+        return apiResponse(true, $data, null, null, 200);
+    }
+
+    public function orders(){
+        $data = [];
+        $data = Order::with(['company','product'])->where('user_id', auth()->id())->get();
+        return apiResponse(true, OrderResource::collection($data), null, null, 200);
+    }
+
+    public function getOrder($id){
+        $data = [];
+        $data = Order::with(['company','product'])->where('id', $id)->first();
+        return apiResponse(true, new OrderResource($data), null, null, 200);
     }
 
 }

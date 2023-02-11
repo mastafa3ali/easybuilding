@@ -15,7 +15,7 @@ class CompanyResource extends JsonResource
         $data['phone']            = $this->phone;
         $data['price']            = $this->price;
         $data['description']      = $this->description;
-        $data['saved']            = User::saved($this->id);
+        $data['saved']            = savedCompany($this->id);
         $data['image']            = $this->photo;
         return $data;
     }

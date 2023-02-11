@@ -35,19 +35,22 @@ class PageController extends Controller
     {
 
          $data = User::where('users.type',User::TYPE_COMPANY)
-        ->join('company_products','company_products.company_id','users.id')
-        ->join('products','products.id','company_products.product_id')
-       ->where('products.type', Product::TYPE_SALE)
-        ->where('products.category_id', $id)
-        ->select([
-            'company_products.price as price',
-            'users.id',
-            'users.name as company_name',
-            'users.phone',
-            'users.description',
-            'users.image'
-        ])
+            ->join('company_products','company_products.company_id','users.id')
+            ->join('products','products.id','company_products.product_id')
+            ->where('products.type', Product::TYPE_SALE)
+            ->where('products.category_id', $id)
+            ->select([
+                'company_products.price as price',
+                'users.id',
+                'users.name as company_name',
+                'users.phone',
+                'users.description',
+                'users.image'
+            ])
         ->get();
+
+
+
         return apiResponse(false,CompanyResource::collection($data), null, null, 200);
     }
     public function getRent($id)

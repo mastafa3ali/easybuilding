@@ -4,6 +4,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Media;
+use App\Models\Saved;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 
@@ -408,6 +409,17 @@ if (!function_exists('storeFile')) {
         $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
         $image->move(public_path('storage/'.$destination), $fileName);
         return $fileName;
+    }
+}
+if (!function_exists('savedCompany')) {
+    function  savedCompany($id)
+    {
+
+        if (auth()->check()) {
+            return Saved::where('user_id', auth()->id())->where('model_id', $id)->where('model_type', Saved::TYPE_COMPANY)->first() ? 1 : 0;
+        }
+        return 0;
+
     }
 }
 
