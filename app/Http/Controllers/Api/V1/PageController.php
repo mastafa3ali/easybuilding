@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CompanyResource;
-use App\Http\Resources\NotificationResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SavedResource;
 use App\Http\Resources\SubCategoryResource;
-use App\Http\Resources\UserResource;
 use App\Models\ApiNotification;
 use App\Models\Category;
 use App\Models\Product;
@@ -20,7 +17,6 @@ use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-
 class PageController extends Controller
 {
     public function home(Request $request)
@@ -172,6 +168,7 @@ class PageController extends Controller
                 return apiResponse(true,null, $message, null, 200);
             }
         $saved=Saved::create($data);
+        $message = '';
         if($saved){
 
             $message = __('api.add_to_saved',['item'=>$item_name]);

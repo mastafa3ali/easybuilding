@@ -133,7 +133,7 @@ class OrderController extends Controller
         Notification::send(null,new SendPushNotification($message,$fcmTokens));
         return apiResponse(false, $order, null, null, 200);
     }
-       public function latestAppVersion()
+    public function latestAppVersion()
     {
         return apiResponse(true, ['latest_android_version' => '1.0.3', 'latest_ios_version' => '1.0.1',], null, null, 200);
     }
@@ -159,8 +159,8 @@ class OrderController extends Controller
 
         return apiResponse(true, $data, null, null, 200);
     }
-public function notifications(){
-    $data=[
+    public function notifications(){
+     $data=[
             '30-12-2022'  => [
                 'text'=>'تم اتمام العملية بنجاح',
                 'time'=>'3:40',
@@ -179,6 +179,6 @@ public function notifications(){
             ],
         ];
     return apiResponse(true, $data, null, null, 200);
-}
+    }
 
 }
