@@ -134,7 +134,7 @@ class PageController extends Controller
         $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->toArray();
         foreach($dayes as $day){
             $list = ApiNotification::where('user_id', auth()->id())->where('day',$day)->get();
-            $data[] = $list;
+            $data[]['day'] = $list;
         }
         return apiResponse(true, $data, null, null, 200);
     }
