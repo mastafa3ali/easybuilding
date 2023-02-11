@@ -87,6 +87,7 @@ class PageController extends Controller
 
     public function getCompanies($id)
     {
+        return auth()->id();
         //get all companies that sell this product
         $data = User::where('users.type',User::TYPE_COMPANY)
         ->leftJoin('company_products','company_products.company_id','users.id')
