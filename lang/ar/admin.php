@@ -108,4 +108,5 @@ return [
     'welcome'=>'مرحبا',
     'orders'=>'الطلبات',
     'sub_categories'=>'الاصناف الفرعية',
+    'add_to_saved_success'=>'تم الاضافة الى المحفوظة',
 ];
