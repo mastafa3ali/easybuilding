@@ -39,11 +39,22 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('privacy', [App\Http\Controllers\Api\V1\SettingController::class, 'privacy']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
+
+    Route::get('auth-get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
+    Route::get('auth-get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
+    Route::get('auth-get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
+    Route::get('auth-get-rent/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getRent']);
+    Route::get('auth-products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
+    Route::get('auth-product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
+
         Route::get('get-saved-products', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedProduct']);
         Route::get('get-saved-companies', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedCompany']);
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
         Route::post('save', [App\Http\Controllers\Api\V1\PageController::class, 'makeSaved']);
         Route::post('order', [App\Http\Controllers\Api\V1\OrderController::class, 'store']);
+
+        Route::get('orders', [App\Http\Controllers\Api\V1\OrderController::class, 'orders']);
+        Route::get('order/{id}', [App\Http\Controllers\Api\V1\OrderController::class, 'getOrder']);
 
         Route::post('sale-order', [App\Http\Controllers\Api\V1\OrderController::class, 'saleStore']);
 

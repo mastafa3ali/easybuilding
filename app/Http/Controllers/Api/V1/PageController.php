@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CategoryResource;
 use App\Http\Resources\CompanyResource;
-use App\Http\Resources\NotificationResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SavedResource;
 use App\Http\Resources\SubCategoryResource;
-use App\Http\Resources\UserResource;
 use App\Models\ApiNotification;
 use App\Models\Category;
 use App\Models\Product;
@@ -20,7 +17,6 @@ use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
-
 class PageController extends Controller
 {
     public function home(Request $request)
@@ -39,19 +35,22 @@ class PageController extends Controller
     {
 
          $data = User::where('users.type',User::TYPE_COMPANY)
-        ->join('company_products','company_products.company_id','users.id')
-        ->join('products','products.id','company_products.product_id')
-       ->where('products.type', Product::TYPE_SALE)
-        ->where('products.category_id', $id)
-        ->select([
-            'company_products.price as price',
-            'users.id',
-            'users.name as company_name',
-            'users.phone',
-            'users.description',
-            'users.image'
-        ])
+            ->join('company_products','company_products.company_id','users.id')
+            ->join('products','products.id','company_products.product_id')
+            ->where('products.type', Product::TYPE_SALE)
+            ->where('products.category_id', $id)
+            ->select([
+                'company_products.price as price',
+                'users.id',
+                'users.name as company_name',
+                'users.phone',
+                'users.description',
+                'users.image'
+            ])
         ->get();
+
+
+
         return apiResponse(false,CompanyResource::collection($data), null, null, 200);
     }
     public function getRent($id)
@@ -88,6 +87,7 @@ class PageController extends Controller
 
     public function getCompanies($id)
     {
+        return auth()->id();
         //get all companies that sell this product
         $data = User::where('users.type',User::TYPE_COMPANY)
         ->leftJoin('company_products','company_products.company_id','users.id')
@@ -172,6 +172,7 @@ class PageController extends Controller
                 return apiResponse(true,null, $message, null, 200);
             }
         $saved=Saved::create($data);
+        $message = '';
         if($saved){
 
             $message = __('api.add_to_saved',['item'=>$item_name]);

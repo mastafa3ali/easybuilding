@@ -15,7 +15,7 @@ class SavedResource extends JsonResource
         $data['id']               = $this->id;
         $data['name']             = $this->name;
         if($this->model_type==Saved::TYPE_COMPANY){
-            $data['saved']            = User::saved($this->id);
+            $data['saved']            = 1;
             $data['phone']            = $this->phone;
             $data['price']            = "120";
             $data['description']      = $this->description;
@@ -25,10 +25,9 @@ class SavedResource extends JsonResource
             $data['price'] = $this->price;
             $data['description'] = $this->description;
             $data['type']  = $this->type;
-            $data['company']  = $this->company?->name;
             $data['guarantee_amount'] = $this->guarantee_amount;
             $data['properties'] = $this->properties;
-            $data['saved'] = Product::saved($this->id);
+            $data['saved'] = 1;
         }
         return $data;
     }

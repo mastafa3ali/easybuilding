@@ -35,6 +35,13 @@ class Order extends Model
         'check_guarantee',
         'check_guarantee_amount',
         'localtion',
-        'type'
+        'type',
+        'product_id'
     ];
+    public function company(){
+        return $this->belongsTo(User::class, 'company_id');
+    }
+    public function product(){
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }
