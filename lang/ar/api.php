@@ -22,5 +22,7 @@ return [
     'code_error' => 'الكود غير صحيح',
     'new_payment_success'=>'تم اتمام عملية شراء بنجاح',
     'add_to_saved'=>'تم اضافة :item الى المحفوظات',
+    'removed_from_saved_success'=>'تم حذف :item من المحفوظة',
+
     'notification_title'=>'scoffoling'
 ];

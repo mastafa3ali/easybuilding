@@ -145,18 +145,35 @@ class PageController extends Controller
             'model_type'=>$request->model_type,
             'user_id'=>auth()->id()
         ];
+        $item_name = '';
+        if($request->model_type==Saved::TYPE_COMPANY){
+            $item = User::find($request->model_id);
+            $item_name = $item->name;
+        }
+        if($request->model_type==Saved::TYPE_PRODUCT){
+            $item = Product::find($request->model_id);
+            $item_name = $item->name;
+        }
+        $is_saved=Saved::where('model_id',$request->model_id)
+            ->where('model_type',$request->model_type)
+            ->where('user_id',auth()->id())->first();
+            if($is_saved){
+                $is_saved->delete();
+                $message = __('api.removed_from_saved_success',['item'=>$item_name]);
+                $fcmTokens = [auth()->user()->fcm_token];
+                $notifications = [
+                    'user_id'=>auth()->id(),
+                    'text'=>$message,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+                ApiNotification::create($notifications);
+                Notification::send(null,new SendPushNotification($message,$fcmTokens));
+                return apiResponse(true,null, $message, null, 200);
+            }
         $saved=Saved::create($data);
         if($saved){
-            $item_name = '';
-            if($request->model_type==Saved::TYPE_COMPANY){
-                $item = User::find($request->model_id);
-                $item_name = $item->name;
 
-            }
-            if($request->model_type==Saved::TYPE_PRODUCT){
-                $item = Product::find($request->model_id);
-                $item_name = $item->name;
-            }
             $message = __('api.add_to_saved',['item'=>$item_name]);
             $fcmTokens = [auth()->user()->fcm_token];
             $notifications = [
@@ -169,7 +186,7 @@ class PageController extends Controller
             Notification::send(null,new SendPushNotification($message,$fcmTokens));
             return apiResponse(true,null, null, null, 200);
         }
-        return apiResponse(false,null, null, null, 200);
+        return apiResponse(false,null, $message, null, 200);
     }
 
 }
