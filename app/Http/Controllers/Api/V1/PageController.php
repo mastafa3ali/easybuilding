@@ -87,7 +87,6 @@ class PageController extends Controller
 
     public function getCompanies($id)
     {
-        return auth()->id();
         //get all companies that sell this product
         $data = User::where('users.type',User::TYPE_COMPANY)
         ->leftJoin('company_products','company_products.company_id','users.id')
@@ -135,7 +134,7 @@ class PageController extends Controller
         $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->toArray();
         foreach($dayes as $day){
             $list = ApiNotification::where('user_id', auth()->id())->where('day',$day)->get();
-            $data[][$day] = $list;
+            $data[] = $list;
         }
         return apiResponse(true, $data, null, null, 200);
     }
