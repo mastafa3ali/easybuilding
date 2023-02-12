@@ -11,6 +11,7 @@ use App\Models\ApiNotification;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Saved;
+use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\SubCategory;
 use App\Models\User;
@@ -136,6 +137,10 @@ class PageController extends Controller
             $list = ApiNotification::where('user_id', auth()->id())->where('day',$day)->get();
             $data[]['day'] = $list;
         }
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function about(){
+        $data = Setting::where('key', 'LIKE', 'about_%')->get();
         return apiResponse(true, $data, null, null, 200);
     }
     public function makeSaved(Request $request){

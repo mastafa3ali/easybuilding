@@ -28,27 +28,21 @@ class SettingController extends Controller
 
     public function about()
     {
-        $data = [
-            'content' => Setting::where('key', 'LIKE', 'about_content')->value('value')
-        ];
+        $data = Setting::where('key', 'LIKE', 'about_%')->get();
 
         return apiResponse(true, $data, null, null, 200);
     }
 
     public function terms()
     {
-        $data = [
-            'content' => Setting::where('key', 'LIKE', 'terms_content')->value('value')
-        ];
-
+        $data = Setting::where('key', 'LIKE', 'terms_')->get();
+        
         return apiResponse(true, $data, null, null, 200);
     }
 
     public function privacy()
     {
-        $data = [
-            'content' => Setting::where('key', 'LIKE', 'privacy_content')->value('value')
-        ];
+        $data = Setting::where('key', 'LIKE', 'privacy_')->get();
 
         return apiResponse(true, $data, null, null, 200);
     }
