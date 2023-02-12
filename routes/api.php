@@ -27,6 +27,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('register', [App\Http\Controllers\Api\V1\AuthController::class, 'register']);
     Route::post('verify', [App\Http\Controllers\Api\V1\AuthController::class, 'verify']);
 
+
     Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
     Route::get('get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
     Route::get('get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
