@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\contact;
+use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
-class contactController extends Controller
+class ContactController extends Controller
 {
     private $viewIndex  = 'admin.pages.contacts.index';
     private $route      = 'admin.contacts';
@@ -22,7 +22,7 @@ class contactController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        $item = contact::findOrFail($id);
+        $item = Contact::findOrFail($id);
         if ($item->delete()) {
             flash(__('contacts.messages.deleted'))->success();
         }
@@ -32,7 +32,7 @@ class contactController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = contact::select('*');
+        $data = Contact::select('*');
         return FacadesDataTables::of($data)
             ->addIndexColumn()
             ->make(true);
