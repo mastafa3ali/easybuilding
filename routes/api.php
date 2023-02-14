@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1'], function () {
 
 
     Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
+    Route::get('search', [App\Http\Controllers\Api\V1\PageController::class, 'search']);
     Route::get('get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
     Route::get('get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
     Route::get('get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
