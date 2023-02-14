@@ -10,7 +10,7 @@
         <div class="content-header row">
             <div class="content-header-left col-md-6 col-12 mb-1">
                 <div class="row breadcrumbs-top">
-                    <div class="col-12">
+                <div class="col-12">
                         <h1 class="bold mb-0 mt-1 text-dark">
                             <i data-feather="box" class="font-medium-2"></i>
                             <span>{{ isset($item) ? __('products.actions.edit') : __('products.actions.create') }}</span>

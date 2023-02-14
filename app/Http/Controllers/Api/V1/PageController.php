@@ -43,7 +43,7 @@ class PageController extends Controller
             ->select([
                 'company_products.price as price',
                 'users.id',
-                'users.name as company_name',
+                'users.name as name',
                 'users.phone',
                 'users.description',
                 'users.image'
@@ -192,6 +192,17 @@ class PageController extends Controller
             return apiResponse(true,null, null, null, 200);
         }
         return apiResponse(false,null, $message, null, 200);
+    }
+
+    public function search(Request $request){
+        $data=['companies'=>[],'products'=>[]];
+        if($request->filled('name')){
+            $companies=User::where('name','like','%'.$request->name.'%')->get();
+            $products=Product::where('name','like','%'.$request->name.'%')->get();
+            $data['products'] = ProductResource::collection($products);
+            $data['companies'] = CompanyResource::collection($companies);
+            return apiResponse(true,$data, "", null, 200);
+        }
     }
 
 }
