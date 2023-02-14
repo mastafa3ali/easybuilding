@@ -74,6 +74,28 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
+                            <label class="form-label" for="image">{{ __('sliders.file') }}</label>
+                            <input type="file" class="form-control input" name="image" id="image">
+                            @error('image')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(isset($item) && !empty($item->photo))
+                                    <img src="{{ $item->photo }}" class="img-fluid img-thumbnail">
+                                @endif
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
+                                <label class="form-label" for="description">{{ __('products.description') }}</label>
+                                <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                                @error('description')
+                                <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
 
                 </div>
             </div>

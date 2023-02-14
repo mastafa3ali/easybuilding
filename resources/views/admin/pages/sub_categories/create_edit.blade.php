@@ -54,6 +54,18 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" >
+                            <label class="form-label" for="properties">{{ __('products.property') }}</label>
+                            <select name="properties" id="properties" class="form-control  ">
+                                    <option value="1" {{ isset($item)?($item->properties==1?'selected':''):(old('properties')==1?'selected':'') }} >{{ __('products.properties.1') }}</option>
+                                    <option value="2" {{ isset($item)?($item->properties==2?'selected':''):(old('properties')==2?'selected':'') }} >{{ __('products.properties.2') }}</option>
+                                    <option value="3" {{ isset($item)?($item->properties==3?'selected':''):(old('properties')==3?'selected':'') }} >{{ __('products.properties.3') }}</option>
+                            </select>
+                            @error('properties')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('sub_categories.file') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">

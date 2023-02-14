@@ -36,8 +36,6 @@
                         <th>{{ __('products.name') }}</th>
                         <th>{{ __('products.description') }}</th>
                         <th>{{ __('products.type') }}</th>
-                        <th>{{ __('products.guarantee_amount') }}</th>
-                        <th>{{ __('products.price') }}</th>
                         @canany('products.edit','products.delete')
                             <th width="15%" class="text-center">{{ __('products.options') }}</th>
                         @endcanany
@@ -80,8 +78,6 @@
                 {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
                 {data: 'type', name: 'type'},
-                {data: 'guarantee_amount', name: 'guarantee_amount'},
-                {data: 'price', name: 'price'},
                     @canany('products.edit','products.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany

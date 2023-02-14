@@ -79,6 +79,13 @@ class ProductController extends Controller
         $item = $item->fill($data);
         $item->company_id=auth()->id();
         if ($item->save()) {
+            if ($request->hasFile('image')) {
+                $image= $request->file('image');
+                $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
+                $item->image->move(public_path('storage/products'), $fileName);
+                $item->image = $fileName;
+                $item->save();
+            }
             return $item;
         }
         return null;

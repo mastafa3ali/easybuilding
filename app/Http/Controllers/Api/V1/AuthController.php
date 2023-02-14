@@ -28,13 +28,14 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.not_authorized'), null, 401);
         }
         $user = Auth::user();
-        $user['token'] = $user->createToken('auth_token')->plainTextToken;
-        return apiResponse(true, new UserResource($user), __('success'), null, 200);
+        if(in_array($user->type,[User::TYPE_OWNER,User::TYPE_COMPANY])){
 
-        // if ($user->isVerified) {
-        // }else{
-        //     return apiResponse(false, null, __('api.not_verify'), null, 400);
-        // }
+            $user['token'] = $user->createToken('auth_token')->plainTextToken;
+            return apiResponse(true, new UserResource($user), __('success'), null, 200);
+        }
+
+        return apiResponse(false, null, __('api.not_authorized'), null, 401);
+     
     }
    public function updateProfile(Request $request)
     {

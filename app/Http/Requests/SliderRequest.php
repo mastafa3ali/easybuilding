@@ -14,9 +14,15 @@ class SliderRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'title' => 'required',
-            'image' => 'required',
-        ];
+        if ($this->method() == 'PUT') {
+            return [
+                'title' => 'required'
+            ];
+        }else{
+            return [
+                'title' => 'required',
+                'image' => 'required',
+            ];
+        }
     }
 }

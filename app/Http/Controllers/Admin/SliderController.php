@@ -5,15 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SliderRequest;
 use App\Models\Slider;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
-use Response;
-use DataTables;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class SliderController extends Controller
@@ -76,10 +71,10 @@ class SliderController extends Controller
         $item = $id == null ? new Slider() : Slider::find($id);
         $data= $request->except(['_token', '_method']);
 
-        $item = $item->fill($data);        
+        $item = $item->fill($data);
         if ($item->save()) {
-        
-            
+
+
             if ($request->hasFile('image')) {
                 $image= $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();

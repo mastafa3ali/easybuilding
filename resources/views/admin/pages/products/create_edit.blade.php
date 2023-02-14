@@ -64,35 +64,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section" style="{{ $display }}">
-                            <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount_default') }}</label>
-                            <input type="number" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
-                                   value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" />
-                            @error('guarantee_amount')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
 
-                        <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
-                            <label class="form-label" for="price">{{ __('products.default_price') }}</label>
-                            <input type="number" name="price" id="price" class="form-control" placeholder=""
-                                   value="{{ $item->price ?? old('price') }}" />
-                            @error('price')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" id="properties_section" style="{{ $display }}">
-                            <label class="form-label" for="properties">{{ __('products.property') }}</label>
-                            <select name="properties" id="properties" class="form-control  ">
-                                    <option value="1" {{ isset($item)?($item->properties==1?'selected':''):(old('properties')==1?'selected':'') }} >{{ __('products.properties.1') }}</option>
-                                    <option value="2" {{ isset($item)?($item->properties==2?'selected':''):(old('properties')==2?'selected':'') }} >{{ __('products.properties.2') }}</option>
-                                    <option value="3" {{ isset($item)?($item->properties==3?'selected':''):(old('properties')==3?'selected':'') }} >{{ __('products.properties.3') }}</option>
-                            </select>
-                            @error('properties')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
                          <div class="mb-1 col-md-4  @error('sub_category_id') is-invalid @enderror" id="sub_category_id_section" style="{{ $display }}">
                             <label class="form-label" for="sub_category_id">{{ __('products.sub_category') }}</label>
                             <select name="sub_category_id" id="sub_category_id" class="form-control ">
@@ -119,7 +91,8 @@
                         </div>
                     </div>
                     <div class="row">
-                         <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
+
+                        <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
                             <label class="form-label" for="description">{{ __('products.description') }}</label>
                             <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
                             @error('description')
@@ -141,13 +114,9 @@
             var type= $(this).val();
             if(type==1){
                 $("#sub_category_id_section").hide(500);
-                $("#guarantee_amount_section").hide(500);
-                $("#properties_section").hide(500);
             }
             if(type==2){
                 $("#sub_category_id_section").show(500);
-                $("#guarantee_amount_section").show(500);
-                $("#properties_section").show(500);
             }
             return false;
         });
