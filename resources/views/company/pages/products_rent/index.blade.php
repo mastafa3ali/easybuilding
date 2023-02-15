@@ -17,7 +17,7 @@
         <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
-                    <a class="btn btn-sm btn-outline-primary me-1 waves-effect" href="{{ route('company.product_ssale.create') }}">
+                    <a class="btn btn-sm btn-outline-primary me-1 waves-effect" href="{{ route('company.products.create') }}">
                         <i data-feather="plus"></i>
                         <span class="active-sorting text-primary">{{ __('products.actions.create') }}</span>
                     </a>
@@ -33,6 +33,8 @@
                     <tr>
                         <th>{{ __('products.name') }}</th>
                         <th>{{ __('products.description') }}</th>
+                        <th>{{ __('products.type') }}</th>
+                        <th>{{ __('products.guarantee_amount') }}</th>
                         <th>{{ __('products.price') }}</th>
                         <th width="15%" class="text-center">{{ __('products.options') }}</th>
                     </tr>
@@ -61,7 +63,7 @@
                 }
             },
             ajax: {
-                url: "{{ route('company.product_ssale.list') }}",
+                url: "{{ route('company.products.list') }}",
                 data: function (d) {
                     d.name   = $('#filterForm #name').val();
                 }
@@ -73,18 +75,20 @@
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'name', name: 'name'},
                 {data: 'description', name: 'description'},
+                {data: 'type', name: 'type'},
+                {data: 'guarantee_amount', name: 'guarantee_amount'},
                 {data: 'price', name: 'price'},
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
             ],
             columnDefs: [
-
+              
                 {
                     "targets": -1,
                     "render": function (data, type, row) {
-                        var editUrl = '{{ route("company.product_ssale.edit", ":id") }}';
+                        var editUrl = '{{ route("company.products.edit", ":id") }}';
                         editUrl = editUrl.replace(':id', row.id);
 
-                        var deleteUrl = '{{ route("company.product_ssale.destroy", ":id") }}';
+                        var deleteUrl = '{{ route("company.products.destroy", ":id") }}';
                         deleteUrl = deleteUrl.replace(':id', row.id);
 
                         return `

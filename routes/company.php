@@ -10,12 +10,19 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
         Route::patch('/fcm-token', [App\Http\Controllers\Company\CompanyController::class, 'updateToken'])->name('fcmToken');
 
     Route::get('/', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('home');
+
     Route::get('products/select', [App\Http\Controllers\Company\ProductController::class, 'select'])->name('products.select');
-    Route::get('products/selectclassroom', [App\Http\Controllers\Company\ProductController::class, 'selectClassroom'])->name('products.selectClassroom');
-    Route::get('products/selectsubject', [App\Http\Controllers\Company\ProductController::class, 'selectSubject'])->name('products.selectSubject');
     Route::delete('products/bulk', [App\Http\Controllers\Company\ProductController::class, 'deleteBulk'])->name('products.deleteBulk');
     Route::get('products/list', [App\Http\Controllers\Company\ProductController::class, 'list'])->name('products.list');
     Route::resource('products', App\Http\Controllers\Company\ProductController::class);
+
+
+    Route::get('product_ssale/select', [App\Http\Controllers\Company\ProductSaleController::class, 'select'])->name('product_ssale.select');
+    Route::delete('product_ssale/bulk', [App\Http\Controllers\Company\ProductSaleController::class, 'deleteBulk'])->name('product_ssale.deleteBulk');
+    Route::get('product_ssale/list', [App\Http\Controllers\Company\ProductSaleController::class, 'list'])->name('product_ssale.list');
+    Route::resource('product_ssale', App\Http\Controllers\Company\ProductSaleController::class);
+
+
     Route::get('categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectcategories'])->name('categories.select');
     Route::get('sub_categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectSubCategory'])->name('sub_categories.select');
 
