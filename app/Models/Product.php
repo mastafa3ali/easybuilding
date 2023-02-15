@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image'];
+    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id'];
     protected $appends = ['photo'];
 
     public const Properity_NONE = 1;
@@ -20,6 +20,10 @@ class Product extends Model
     public const TYPE_SALE = 1;
     public const TYPE_RENT = 2;
 
+    public function comapny():?BelongsTo
+    {
+        return $this->belongsTo(User::class,'company_id');
+    }
     public function category():?BelongsTo
     {
         return $this->belongsTo(Category::class);

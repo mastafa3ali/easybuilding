@@ -89,7 +89,7 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Product::select('*');
+        $data = Product::whereNull('company_id')->select('*');
         return DataTables::of($data)
         ->addIndexColumn()
             ->editColumn('type', function ($item) {

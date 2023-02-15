@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\CompanyProduct;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
@@ -12,12 +11,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
-class ProductController extends Controller
+class ProductSaleController extends Controller
 {
-    private $viewIndex  = 'company.pages.products_rent.index';
-    private $viewEdit   = 'company.pages.products_rent.create_edit';
-    private $viewShow   = 'company.pages.products_rent.show';
-    private $route      = 'company.products_rent';
+    private $viewIndex  = 'company.pages.products.index';
+    private $viewEdit   = 'company.pages.products.create_edit';
+    private $viewShow   = 'company.pages.products.show';
+    private $route      = 'company.product_ssale';
 
     public function index(Request $request): View
     {
@@ -25,26 +24,22 @@ class ProductController extends Controller
     }
     public function create(): View
     {
-        $display = "display:none";
         return view($this->viewEdit, get_defined_vars());
     }
     public function edit($id): View
     {
-        $item = CompanyProduct::with('product')->findOrFail($id);
-          $display = "";
-        if($item->product?->type==1){
-            $display = "display:none";
-        }
+        $item = Product::findOrFail($id);
+     
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
     {
-        $item = CompanyProduct::with('product')->findOrFail($id);
+        $item = Product::findOrFail($id);
         return view($this->viewShow, get_defined_vars());
     }
     public function destroy($id): RedirectResponse
     {
-        $item = CompanyProduct::findOrFail($id);
+        $item = Product::findOrFail($id);
         if ($item->delete()) {
             flash(__('products.messages.deleted'))->success();
         }
@@ -59,27 +54,22 @@ class ProductController extends Controller
     }
     public function update(Request $request, $id): RedirectResponse
     {
-        $item = CompanyProduct::findOrFail($id);
+        $item = Product::findOrFail($id);
         if ($this->processForm($request, $id)) {
             flash(__('products.messages.updated'))->success();
         }
         return to_route($this->route . '.index');
     }
 
-    protected function processForm($request, $id = null): CompanyProduct|null
+    protected function processForm($request, $id = null): Product|null
     {
-        $item = null;
-        if( $id == null){
-            $item=CompanyProduct::where('company_id', auth()->id())->where('product_id', $request->product_id)->first();
-        }
-        if($item==null){
-            $item = $id == null ? new CompanyProduct() : CompanyProduct::find($id);
-        }
-        $data= $request->except(['_token', '_method','type']);
+        $item = $id == null ? new Product() : Product::find($id);
+        $data= $request->except(['_token', '_method']);
+
         $item = $item->fill($data);
         $item->company_id=auth()->id();
         if ($item->save()) {
-            if ($request->hasFile('image')) {
+             if ($request->hasFile('image')) {
                 $image= $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
                 $item->image->move(public_path('storage/products'), $fileName);
@@ -93,22 +83,10 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = CompanyProduct::leftJoin('products','products.id','company_products.product_id')
-        ->leftJoin('users','users.id','company_products.company_id')
-        ->where('users.id',auth()->id())->select([
-            'products.name',
-            'products.type',
-            'products.description',
-            'company_products.price',
-            'company_products.id',
-            'company_products.guarantee_amount'
-        ]);
+        $data = Product::where('company_id',auth()->id())
+        ->select('*');
         return DataTables::of($data)
         ->addIndexColumn()
-            ->editColumn('type', function ($item) {
-                return __('products.types.'.$item->type);
-            })
-            ->rawColumns(['type'])
         ->make(true);
     }
     public function select(Request $request): JsonResponse|string

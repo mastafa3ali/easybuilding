@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <form method='post' enctype="multipart/form-data"  id="jquery-val-form"
-          action="{{ isset($item) ? route('company.product_ssale.update', $item->id) : route('company.product_ssale.store') }}">
+          action="{{ isset($item) ? route('company.products.update', $item->id) : route('company.products.store') }}">
         <input type="hidden" name="_method" value="{{ isset($item) ? 'PUT' : 'POST' }}">
         @csrf
         <div class="content-header row">
@@ -33,14 +33,29 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-4  @error('name') is-invalid @enderror">
-                            <label class="form-label" for="name">{{ __('products.name') }}</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder=""
-                                   value="{{ $item->name ?? old('name') }}" />
-                            @error('name')
+                         <div class="mb-1 col-md-4  @error('product_id') is-invalid @enderror">
+                            <label class="form-label" for="product_id">{{ __('products.name') }}</label>
+                            <select name="product_id" id="product_id" class="form-control ajax_select2 extra_field"
+                                    data-ajax--url="{{ route('company.products.select') }}"
+                                    data-ajax--cache="true">
+                                @isset($item->product)
+                                    <option value="{{ $item->product->id }}" selected>{{ $item->product->name }}</option>
+                                @endisset
+                            </select>
+                            @error('product_id')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <input type="hidden" name="type" value="2" />
+                        <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section">
+                            <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>
+                            <input type="number" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
+                                   value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" />
+                            @error('guarantee_amount')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
                             <label class="form-label" for="price">{{ __('products.price') }}</label>
                             <input type="number" name="price" id="price" class="form-control" placeholder=""
@@ -49,7 +64,6 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <input type="hidden" name="type" value="1" />
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('sliders.file') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">
@@ -63,16 +77,15 @@
                                 @endif
                             </div>
                         </div>
-                         <div class="row">
-                            <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
-                                <label class="form-label" for="description">{{ __('products.description') }}</label>
-                                <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
-                                @error('description')
-                                <span class="error">{{ $message }}</span>
-                                @enderror
-                            </div>
+                        <div class="row">
+                        <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
+                            <label class="form-label" for="description">{{ __('products.description') }}</label>
+                            <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                            @error('description')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
                         </div>
-
+                    </div>
                 </div>
             </div>
         </div>
