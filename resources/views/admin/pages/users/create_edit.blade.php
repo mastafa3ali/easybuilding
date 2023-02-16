@@ -40,7 +40,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                       
+
                         <div class="mb-1 col-md-4  @error('email') is-invalid @enderror">
                             <label class="form-label">{{ __('users.email') }}</label>
                             <input class="form-control input" name="email"  placeholder="" type="email" value="{{ $item->email ?? old('email') }}"
@@ -64,12 +64,13 @@
                                     <option value="1" {{ ($item->type ?? null) == 1 ? 'selected' : '' }}>{{ __('users.types.1') }}</option>
                                     <option value="2" {{ ($item->type ?? null) == 2 ? 'selected' : '' }}>{{ __('users.types.2') }}</option>
                                     <option value="3" {{ ($item->type ?? null) == 3 ? 'selected' : '' }}>{{ __('users.types.3') }}</option>
+                                    <option value="4" {{ ($item->type ?? null) == 4 ? 'selected' : '' }}>{{ __('users.types.4') }}</option>
                             </select>
                             @error('type')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                       
+
                         <div class="mb-1 col-md-4  @error('phone') is-invalid @enderror">
                             <label class="form-label">{{ __('users.phone') }}</label>
                             <input class="form-control" name="phone" type="text" value="{{ $item->phone ?? old('phone') }}">
