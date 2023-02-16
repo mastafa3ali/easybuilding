@@ -39,6 +39,7 @@ class PageController extends Controller
             ->join('products','products.company_id','users.id')
             ->where('products.type', Product::TYPE_SALE)
             ->where('products.category_id', $id)
+            ->groupBy('users.id')
             ->select([
                 'users.id',
                 'users.name as name',
