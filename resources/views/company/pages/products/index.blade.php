@@ -32,6 +32,7 @@
                     <thead>
                     <tr>
                         <th>{{ __('products.name') }}</th>
+                        <th>{{ __('products.category') }}</th>
                         <th>{{ __('products.description') }}</th>
                         <th>{{ __('products.price') }}</th>
                         <th width="15%" class="text-center">{{ __('products.options') }}</th>
@@ -72,6 +73,7 @@
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'name', name: 'name'},
+                {data: 'category', name: 'category'},
                 {data: 'description', name: 'description'},
                 {data: 'price', name: 'price'},
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},

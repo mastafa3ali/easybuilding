@@ -49,6 +49,19 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
+                            <label class="form-label" for="category_id">{{ __('products.category') }}</label>
+                            <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"
+                                    data-ajax--url="{{ route('company.categories.select') }}"
+                                    data-ajax--cache="true">
+                                @isset($item->category)
+                                    <option value="{{ $item->category->id }}" selected>{{ $item->category->title }}</option>
+                                @endisset
+                            </select>
+                            @error('category_id')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <input type="hidden" name="type" value="1" />
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('sliders.file') }}</label>
@@ -63,19 +76,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
-                            <label class="form-label" for="category_id">{{ __('products.category') }}</label>
-                            <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('company.categories.select') }}"
-                                    data-ajax--cache="true">
-                                @isset($item->category)
-                                    <option value="{{ $item->category->id }}" selected>{{ $item->category->title }}</option>
-                                @endisset
-                            </select>
-                            @error('category_id')
-                            <span class="error">{{ $message }}</span>
-                            @enderror
-                        </div>
+
                          <div class="row">
                             <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
                                 <label class="form-label" for="description">{{ __('products.description') }}</label>

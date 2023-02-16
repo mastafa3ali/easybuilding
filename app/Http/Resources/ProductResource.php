@@ -18,9 +18,8 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'type'  => $this->type,
             'guarantee_amount' => $this->guarantee_amount,
-            'properties' => $this->properties,
+            'properties' => $this->subcategory?->properties,
             'saved' => Product::saved($this->id)
-
         ];
     }
 
