@@ -40,7 +40,6 @@ class PageController extends Controller
             ->where('products.type', Product::TYPE_SALE)
             ->where('products.category_id', $id)
             ->select([
-                'products.price as price',
                 'users.id',
                 'users.name as name',
                 'users.phone',
