@@ -56,6 +56,7 @@ class PageController extends Controller
     }
     public function getRent($id)
     {
+        //المواد الايجار فى السب كاتيجورى
         $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id',$id)->get();
         return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
@@ -88,16 +89,16 @@ class PageController extends Controller
 
     public function getCompanies($id)
     {
-        //get all companies that sell this product
+        //بترجع الشركات اللى ضايفه عروض على المنتج للايجار
         $data = User::where('users.type',User::TYPE_COMPANY)
         ->leftJoin('company_products','company_products.company_id','users.id')
         ->leftJoin('products','products.id','company_products.product_id')
-       ->where('products.type', Product::TYPE_SALE)
+       ->where('products.type', Product::TYPE_RENT)
        ->where('products.id', $id)
         ->select([
             'company_products.price as price',
             'users.id',
-            'users.name as company_name',
+            'users.name',
             'users.phone',
             'users.description',
             'users.image'

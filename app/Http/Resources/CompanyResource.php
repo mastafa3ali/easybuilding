@@ -14,8 +14,7 @@ class CompanyResource extends JsonResource
         $data['name']             = $this->name;
         $data['phone']            = $this->phone;
         if(isset($this->price)){
-
-        $data['price']            = $this->price;
+            $data['price']            = $this->price;
         }
         $data['description']      = $this->description;
         $data['saved']            = User::saved($this->id);
