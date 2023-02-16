@@ -72,7 +72,7 @@ class PageController extends Controller
             'name' => $user->name,
             'phone' => $user->phone,
             'email' => $user->email,
-            'image' => $user->image,
+            'image' => $user->photo,
             'passport' => $user->passport,
             'licence' => $user->licence,
             'address' => $user->address,

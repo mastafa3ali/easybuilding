@@ -64,6 +64,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('notifications', [App\Http\Controllers\Api\V1\PageController::class, 'notifications']);
         Route::get('profile', [App\Http\Controllers\Api\V1\PageController::class, 'profile']);
         Route::post('update-profile', [App\Http\Controllers\Api\V1\AuthController::class, 'updateProfile']);
+        Route::post('update-image', [App\Http\Controllers\Api\V1\AuthController::class, 'updateimage']);
 
         Route::get('contact', [App\Http\Controllers\Api\V1\SettingController::class, 'contact']);
         Route::post('set-saved', [App\Http\Controllers\Api\V1\ProductController::class, 'setSaved']);
