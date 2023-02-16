@@ -226,6 +226,8 @@
 </div>
 <!-- BEGIN: Vendor JS-->
 <script src="{{ $assetsPath }}/vendors/js/vendors.min.js"></script>
+<script src="{{ $assetsPath }}/vendors/js/extensions/toastr.min.js"></script>
+
 <!-- BEGIN Vendor JS-->
 
 <!-- BEGIN: Page Vendor JS-->
@@ -250,6 +252,8 @@
                 height: 14
             });
         }
+        toastr.options.rtl = true;
+        toastr.options.positionClass = 'toast-top-right';
         $('.ajax_select2').select2({
             placeholder: "{{ __('admin.select') }}",
             ajax: {
@@ -346,8 +350,9 @@
     initFirebaseMessagingRegistration();
 
     messaging.onMessage(function({data:{body,title}}){
-        alert(title)
+        // alert(body)
         new Notification(title, {body});
+        toastr.success(body);
     });
 </script>
 </body>

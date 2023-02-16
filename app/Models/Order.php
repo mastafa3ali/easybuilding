@@ -10,9 +10,12 @@ class Order extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    const STATUS_PENDDING_X = -1;
+
     const STATUS_PENDDING = 0;
     const STATUS_ONPROGRESS = 1;
     const STATUS_DONE = 2;
+    const STATUS_REJECT = 3;
     const TYPE_SALE = 1;
     const TYPE_RENT = 2;
     protected $fillable = [
@@ -43,5 +46,8 @@ class Order extends Model
     }
     public function product(){
         return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

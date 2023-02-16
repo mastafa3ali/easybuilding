@@ -11,9 +11,11 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id'];
-    protected $appends = ['photo'];
-
+    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images'];
+    protected $appends = ['photo','photos'];
+    protected $casts = [
+        'images'=>'array'
+    ];
     public const Properity_NONE = 1;
     public const Properity_LENGTH_WIDTH = 2;
     public const Properity_LENGTH_WIDTH_HEIGHT = 3;
@@ -44,6 +46,16 @@ class Product extends Model
     public function getPhotoAttribute()
     {
         return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/products/' . $this->attributes['image']) : null) : null;
+
+    }
+    public function getPhotosAttribute()
+    {
+        $images = [];
+        if(array_key_exists('images', $this->attributes) && $this->attributes['images'] != null){
+            foreach (json_decode($this->attributes['images']) as $image)
+                $images[] = asset('storage/products/' . $image);
+        }
+        return $images;
 
     }
 }

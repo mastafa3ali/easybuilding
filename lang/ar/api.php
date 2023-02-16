@@ -24,5 +24,8 @@ return [
     'add_to_saved'=>'تم اضافة :item الى المحفوظات',
     'removed_from_saved_success'=>'تم حذف :item من المحفوظة',
 
-    'notification_title'=>'scoffoling'
+    'notification_title'=>'scoffoling',
+    'order_confirmed'=>'تم تأكيد الطلب رقم :code',
+    'order_canceled'=>'تم رفض الطلب رقم :code',
+    'new_order_request'=>'لديك طلب جديد'
 ];

@@ -1,4 +1,4 @@
-@extends('teacher.layouts.master')
+@extends('company.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | {{ __('orders.plural') }}</title>
 @endsection
@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <h1 class="bold mb-0 mt-1 text-dark">
                             <i data-feather="box" class="font-medium-2"></i>
-                            <span>{{  __('orders.actions.edit') }}</span>
+                            <span>{{  __('orders.actions.show') }}</span>
                         </h1>
                     </div>
                 </div>
@@ -21,83 +21,94 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.name') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->order_details['sender_name'] }}">
+                            <label class="form-label">{{ __('orders.code') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->code }}">
                         </div>
                         <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.email') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->order_details['sender_email'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.book') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->order_details['order_content'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.teacher') }}</label>
-                            <input disabled class="form-control" type="text"
-                                   value="{{ $item->order_details['sub_sender_name'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.area') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->order_details['sender_area'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.phone') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->order_details['sender_phone'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.address') }}</label>
-                            <input disabled class="form-control" type="text"
-                                   value="{{ $item->order_details['sender_address'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.government') }}</label>
-                            <select disabled id="sender_government" class="form-control">
-                                <option value="">اختر</option>
-                                @foreach (getGovernments() as $government=>$government_txt)
-                                    <option
-                                        value="{{ $government }}" @selected($item->order_details['sender_government']==$government)>
-                                        {{ $government_txt }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.sender_backup_phone') }}</label>
-                            <input disabled class="form-control" type="text"
-                                   value="{{ $item->order_details['sender_backup_phone'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.teacher') }}</label>
-                            <input disabled class="form-control" type="text"
-                                   value="{{ $item->order_details['sub_sender_name'] }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.created_at') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->created_at }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.reference_number') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->number }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.quantity') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->quantity }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.the_price') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->price }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('books.status') }}</label>
+                            <label class="form-label">{{ __('orders.status') }}</label>
                             <input disabled class="form-control" type="text" value="{{ __('orders.statuses.' . $item->status) }}">
                         </div>
-                        @if($item->payment_details)
-                            <div class="mb-1 col-md-4">
-                                <label class="form-label">{{ __('books.payment_details') }}</label>
-                                <input disabled class="form-control" type="text" value="{{ $item->payment_details }}">
-                            </div>
-                        @endif
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.address') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->address }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.phone') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->phone }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.phone2') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->phone2 }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.delivery_phone') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->delivery_phone }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.area') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->area }}">
+                        </div>
+                        {{-- <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.details') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->details }}">
+                        </div> --}}
+
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.delivery_date') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->delivery_date }}">
+                        </div>
+
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.payment') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->payment }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.guarantee_amount') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->guarantee_amount }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.total') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->total }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.user') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->user_id }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.company') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->company_id }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.check_guarantee') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->check_guarantee }}">
+                        </div>
+                        {{-- <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->check_guarantee_amount }}">
+                        </div> --}}
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.localtion') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.type') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ __('orders.types.' . $item->type) }}">
+                        </div>
+
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.created_at') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->created_at }}">
+                        </div>
+
+
+                        {{-- <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.attachment1') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->attachment1 }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.attachment2') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->attachment2 }}">
+                        </div> --}}
                     </div>
                 </div>
             </div>

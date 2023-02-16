@@ -39,7 +39,7 @@ $route = \Route::currentRouteName();
                             <span data-i18n="List">{{ __('admin.orders') }}</span>
                         </a>
                     </li>
-                      <li class="dropdown nav-item {{ request()->routeIs('company.reports*') ? 'active' : '' }}" data-menu="dropdown">
+                      {{-- <li class="dropdown nav-item {{ request()->routeIs('company.reports*') ? 'active' : '' }}" data-menu="dropdown">
                     <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                         <i data-feather="package"></i>
                         <span data-i18n="Apps">{{ __('admin.reports') }}</span>
@@ -52,7 +52,7 @@ $route = \Route::currentRouteName();
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
