@@ -40,7 +40,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                       
+
                         <div class="mb-1 col-md-4  @error('email') is-invalid @enderror">
                             <label class="form-label">{{ __('users.email') }}</label>
                             <input class="form-control input" name="email"  placeholder="" type="email" value="{{ $item->email ?? old('email') }}"
@@ -70,7 +70,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                       
+
                         <div class="mb-1 col-md-4  @error('phone') is-invalid @enderror">
                             <label class="form-label">{{ __('users.phone') }}</label>
                             <input class="form-control" name="phone" type="text" value="{{ $item->phone ?? old('phone') }}">
