@@ -17,7 +17,7 @@ class ProductController extends Controller
     private $viewIndex  = 'company.pages.products_rent.index';
     private $viewEdit   = 'company.pages.products_rent.create_edit';
     private $viewShow   = 'company.pages.products_rent.show';
-    private $route      = 'company.products_rent';
+    private $route      = 'company.products';
 
     public function index(Request $request): View
     {
