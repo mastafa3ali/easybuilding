@@ -18,42 +18,40 @@
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
                     {{-- <a href="{{ route('company.orders.download') }}" class="btn btn-sm btn-outline-primary bg-white me-1 waves-effect border-0">{{ __('products.download') }}</a> --}}
-            
+
                         {{-- @include('company.pages.orders.filter') --}}
                 </div>
             </div>
         </div>
     </div>
     <div class="content-body">
-    
+
                 <div class="card mt-2">
                             <div class="card-body p-0">
-                                {{-- <table class="datatables-ajax table table-responsive">
+                                <table class="datatables-ajax table table-responsive">
                                     <thead>
                                     <tr>
-                                        
-                                        <th>{{ __('books.sender_name') }}</th>
-                                        <th>{{ __('books.sender_phone') }}</th>
-                                        <th>{{ __('books.sender_area') }}</th>
-                                        <th>{{ __('books.status') }}</th>
-                                        <th>{{ __('books.sender_address') }}</th>
-                                        <th>{{ __('books.order_num') }}</th>
-                                        <th>{{ __('books.book_name') }}</th>
-                                        <th>{{ __('books.student_phone') }}</th>
-                                        <th>{{ __('books.sender_email') }}</th>
-                                        <th>{{ __('books.action') }}</th>
+                                        <th>{{ __('orders.code') }}</th>
+                                        <th>{{ __('orders.type') }}</th>
+                                        <th>{{ __('orders.status') }}</th>
+                                        <th>{{ __('orders.address') }}</th>
+                                        <th>{{ __('orders.phone') }}</th>
+                                        <th>{{ __('orders.delivery_phone') }}</th>
+                                        <th>{{ __('orders.total') }}</th>
+                                        <th>{{ __('orders.user') }}</th>
+                                        <th>{{ __('orders.action') }}</th>
                                     </tr>
                                     </thead>
-                                </table> --}}
+                                </table>
                             </div>
                         </div>
-         
+
     </div>
     @include('company.pages.orders.modal')
 @stop
 @push('scripts')
     <script>
-        
+
         var dt_ajax_table = $('.datatables-ajax');
         var dt_ajax = dt_ajax_table.dataTable({
             processing: true,
@@ -77,33 +75,31 @@
                     d.student_phone = $('#filterForm #student_phone').val();
                     d.number = $('#filterForm #number').val();
                     d.date = $('#filterForm #date').val();
-                 
+
                 }
             },
               drawCallback: function (settings) {
                 feather.replace();
             },
             columns: [
-                
-                {data: 'sender_name', name: 'sender_name',orderable: false,searchable: false},
-                {data: 'sender_phone', name: 'sender_phone',orderable: false,searchable: false},
-                {data: 'sender_area', name: 'sender_area',orderable: false,searchable: false},
+
+                {data: 'code', name: 'code'},
+                {data: 'type', name: 'type'},
                 {data: 'status', name: 'status'},
-                {data: 'sender_address', name: 'sender_address',orderable: false,searchable: false},
-                {data: 'number', name: 'number'},
-                {data: 'book_name', name: 'book_name',orderable: false,searchable: false},
-                {data: 'student_phone', name: 'student_phone',orderable: false,searchable: false},
-                {data: 'sender_email', name: 'sender_email',orderable: false,searchable: false},
+                {data: 'address', name: 'address'},
+                {data: 'phone', name: 'phone'},
+                {data: 'delivery_phone', name: 'delivery_phone'},
+                {data: 'total', name: 'total'},
+                {data: 'user_id', name: 'user_id'},
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
 
             ],  columnDefs: [
-                @canany('orders.show','orders.delete','orders.changeToConfirmed','orders.changeToCanceled')
                 {
                     "targets": -1,
                     "render": function (data, type, row) {
                     var deleteUrl = '{{ route("company.orders.destroy", ":id") }}';
                     deleteUrl = deleteUrl.replace(':id', row.id);
-                    return ` 
+                    return `
                     <div class="dropdown">
                             <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
                                     <i data-feather="more-vertical" class="font-medium-2"></i>
@@ -111,12 +107,11 @@
                             <div class="dropdown-menu">
                                 `+row.change_status+`
                                 `+row.editUrl+`
-                            
+
                             </div>
                         </div> `;
                     }
                 }
-                @endcanany
 
             ]
         });

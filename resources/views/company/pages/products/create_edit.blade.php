@@ -63,8 +63,8 @@
                             @enderror
                         </div>
                         <input type="hidden" name="type" value="1" />
-                        <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
-                            <label class="form-label" for="image">{{ __('sliders.file') }}</label>
+                       <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
+                            <label class="form-label" for="image">{{ __('products.main_image') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">
                             @error('image')
                             <span class="error">{{ $message }}</span>
@@ -73,6 +73,21 @@
                                 <br>
                                 @if(isset($item) && !empty($item->photo))
                                     <img src="{{ $item->photo }}" class="img-fluid img-thumbnail">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-4 @error('images') is-invalid @enderror">
+                            <label class="form-label" for="images">{{ __('products.images') }}</label>
+                            <input type="file" class="form-control input" name="images[]" id="images" multiple>
+                            @error('images')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(isset($item) && !empty($item->photos))
+                                @foreach ($item->photos as $photo)
+                                <img src="{{ $photo }}" class="img-fluid img-thumbnail" width="100px">
+                                @endforeach
                                 @endif
                             </div>
                         </div>

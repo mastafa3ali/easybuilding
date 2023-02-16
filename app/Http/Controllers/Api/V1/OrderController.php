@@ -94,7 +94,7 @@ class OrderController extends Controller
             'localtion' => $request->localtion,
             'delivery_phone' => $request->delivery_phone,
             'area' => $request->area,
-            'status' =>  Order::STATUS_PENDDING,
+            'status' =>  Order::STATUS_PENDDING_X,
             'attachment1' => $attachment1,
             'attachment2' => $attachment2,
             'delivery_date' => $request->delivery_date,
@@ -120,19 +120,19 @@ class OrderController extends Controller
                 $request->check_guarantee->move(public_path('storage/orders'), $fileName);
                 $check_guarantee = $fileName;
             }
+            $order= Order::find($request->order_id);
         $data = [
-            'status' => Order::STATUS_ONPROGRESS,
+            'status' => Order::STATUS_PENDDING,
+            'code' => $order->id,
             'payment' => $request->payment,
             'check_guarantee' => $check_guarantee,
             'check_guarantee_amount' => $check_guarantee_amount,
 
         ];
 
-        $order= Order::find($request->order_id);
         $order->update($data);
         $company = User::find($order->company_id);
         $fcmTokens[] = auth()->user()->fcm_token;
-        $fcmTokens[] = $company?->fcm_token;
         $message = __('api.new_payment_success');
         $notifications = [
                 'user_id'=>auth()->id(),
@@ -142,6 +142,17 @@ class OrderController extends Controller
             ];
         ApiNotification::create($notifications);
         Notification::send(null,new SendPushNotification($message,$fcmTokens));
+
+           $fcmTokens2[] = $company?->fcm_token;
+        $message = __('api.new_order_request');
+        $notifications = [
+                'user_id'=>auth()->id(),
+                'text'=>$message,
+                'day'=>date('Y-m-d'),
+                'time'=>date('H:i'),
+            ];
+        ApiNotification::create($notifications);
+        Notification::send(null,new SendPushNotification($message,$fcmTokens2));
         return apiResponse(false, $order, null, null, 200);
     }
     public function latestAppVersion()

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApiNotification;
 use App\Models\Order;
+use App\Notifications\SendPushNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Yajra\DataTables\Facades\DataTables;
@@ -38,20 +41,37 @@ class OrderController extends Controller
             if ($request->filled('date')) {
                 $query->whereRaw('DATE(created_at) = ?', $request->date);
             }
-        })
+        })->where('status','!=',Order::STATUS_PENDDING_X)
             ->OrderBy('id', 'DESC')->select('*');
 
         return DataTables::of($data)
             ->addIndexColumn()
 
             ->editColumn('status', function ($item) {
-                return '<button type="button" class="btn btn-sm btn-outline-primary round waves-effect active border-0">' . strval(__('orders.statuses.' . $item->status)) . '</button>';
+                $class="";
+                switch ($item->status) {
+                    case Order::STATUS_PENDDING:
+                        $class="primary";
+                        break;
+                    case Order::STATUS_DONE:
+                        $class="success";
+                        break;
+                    case Order::STATUS_REJECT:
+                        $class="danger";
+                        break;
+                    default:
+                        $class="primary";
+                }
+                return '<button type="button" class="btn btn-sm btn-outline-'.$class.' round waves-effect active border-0">' . strval(__('orders.statuses.' . $item->status)) . '</button>';
+            })
+            ->editColumn('type', function ($item) {
+                return '<button type="button" class="btn btn-sm btn-outline-success round waves-effect active border-0">' . strval(__('orders.types.' . $item->type)) . '</button>';
             })
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';
                     if ($item->status == Order::STATUS_PENDDING) {
                             $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
-                      
+
                             $statusBtn .= '<a class="dropdown-item  update_status" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
                     }
                 return $statusBtn;
@@ -63,7 +83,7 @@ class OrderController extends Controller
                                 </a>';
                 return $editBtn;
             })
-            ->rawColumns([ 'status', 'change_status', 'editUrl'])
+            ->rawColumns([ 'status', 'change_status', 'editUrl','type'])
             ->make(true);
     }
 
@@ -72,6 +92,16 @@ class OrderController extends Controller
         try {
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_DONE]);
+            $fcmTokens[] = $item->user?->fcm_token;
+            $message = __('api.order_confirmed',['code'=>$item->code]);
+            $notifications = [
+                    'user_id'=>$item->user_id,
+                    'text'=>$message,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+            ApiNotification::create($notifications);
+            Notification::send(null,new SendPushNotification($message,$fcmTokens));
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
@@ -82,7 +112,18 @@ class OrderController extends Controller
     {
         try {
             $item = Order::findOrFail($request->order_id);
-            $item->update(['status' => Order::STATUS_ONPROGRESS]);
+            $item->update(['status' => Order::STATUS_REJECT]);
+            $fcmTokens[] = $item->user?->fcm_token;
+            $message = __('api.order_canceled',['code'=>$item->code]);
+            $notifications = [
+                    'user_id'=>$item->user_id,
+                    'text'=>$message,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+            ApiNotification::create($notifications);
+            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();

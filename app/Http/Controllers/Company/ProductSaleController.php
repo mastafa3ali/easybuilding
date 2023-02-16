@@ -29,7 +29,7 @@ class ProductSaleController extends Controller
     public function edit($id): View
     {
         $item = Product::findOrFail($id);
-
+        
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
@@ -72,8 +72,18 @@ class ProductSaleController extends Controller
              if ($request->hasFile('image')) {
                 $image= $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
-                $item->image->move(public_path('storage/products'), $fileName);
+                $image->move(public_path('storage/products'), $fileName);
                 $item->image = $fileName;
+                $item->save();
+            }
+            $images = [];
+            if($files=$request->file('images')){
+                foreach($files as $file){
+                    $name=$file->getClientOriginalName();
+                    $file->move(public_path('storage/products'), $name);
+                    $images[]=$name;
+                }
+                $item->images = $images;
                 $item->save();
             }
             return $item;
