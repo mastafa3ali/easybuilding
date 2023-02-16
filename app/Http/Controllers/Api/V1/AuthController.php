@@ -95,7 +95,7 @@ class AuthController extends Controller
         $request['phone'] = convertArabicNumbers($request->phone);
         $validate = array(
             'name' => 'required',
-            'type' => 'required|in:2,3',
+            'type' => 'required|in:4,3',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
