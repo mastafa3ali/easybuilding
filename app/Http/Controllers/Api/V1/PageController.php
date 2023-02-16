@@ -126,7 +126,7 @@ class PageController extends Controller
     }
     public function getCompanyProduct($id,$category_id)
     {
-        $products = Product::where('category_id',$category_id)->where('company_id',$id)->get();
+        $products = Product::with('subcategory')->where('category_id',$category_id)->where('company_id',$id)->get();
         $data = ProductResource::collection($products);
         return apiResponse(true, $data, null, null, 200);
     }

@@ -29,7 +29,7 @@ class ProductSaleController extends Controller
     public function edit($id): View
     {
         $item = Product::findOrFail($id);
-     
+
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
@@ -83,10 +83,14 @@ class ProductSaleController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Product::where('company_id',auth()->id())
+        $data = Product::with('category')->where('company_id',auth()->id())
         ->select('*');
         return DataTables::of($data)
         ->addIndexColumn()
+           ->editColumn('category', function ($item) {
+                return $item->category?->title;
+            })
+            ->rawColumns(['category'])
         ->make(true);
     }
     public function select(Request $request): JsonResponse|string
