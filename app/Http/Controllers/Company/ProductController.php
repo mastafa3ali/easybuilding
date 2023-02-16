@@ -98,7 +98,7 @@ class ProductController extends Controller
         ->where('users.id',auth()->id())->select([
             'products.name',
             'products.type',
-            'products.description',
+            'company_products.description',
             'company_products.price',
             'company_products.id',
             'company_products.guarantee_amount'
