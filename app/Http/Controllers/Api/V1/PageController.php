@@ -34,14 +34,13 @@ class PageController extends Controller
     }
     public function getSales($id)
     {
-
+        //بتعرض الشركات للبيع الخاصة للكاتيجورى
          $data = User::where('users.type',User::TYPE_COMPANY)
-            ->join('company_products','company_products.company_id','users.id')
-            ->join('products','products.id','company_products.product_id')
+            ->join('products','products.company_id','users.id')
             ->where('products.type', Product::TYPE_SALE)
             ->where('products.category_id', $id)
             ->select([
-                'company_products.price as price',
+                'products.price as price',
                 'users.id',
                 'users.name as name',
                 'users.phone',
