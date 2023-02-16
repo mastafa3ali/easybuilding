@@ -35,7 +35,7 @@ class AuthController extends Controller
         }
 
         return apiResponse(false, null, __('api.not_authorized'), null, 401);
-     
+
     }
    public function updateProfile(Request $request)
     {
@@ -48,6 +48,23 @@ class AuthController extends Controller
         } else {
             return apiResponse(false, null, __('api.cant_update'), null, 401);
         }
+    }
+   public function updateimage(Request $request)
+    {
+
+        $currentUser = User::findOrFail(auth()->user()->id);
+        $image= $request->file('image');
+        if($image){
+            $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
+            $request->image->move(public_path('storage/users'), $fileName);
+            $currentUser->image = $fileName;
+            if ($currentUser->save()) {
+                return apiResponse(true, null, __('api.update_success'), null, 200);
+            } else {
+                return apiResponse(false, null, __('api.cant_update'), null, 401);
+            }
+        }
+        return apiResponse(false, null, __('api.cant_update'), null, 401);
     }
     function sendSMS($userAccount, $passAccount, $numbers, $sender, $msg, $timeSend=0, $dateSend=0, $viewResult=1, $MsgID=0)
     {
