@@ -60,6 +60,8 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::match(['PUT', 'PATCH'], 'sub_categories/{id}', [App\Http\Controllers\Admin\SubCategoryController::class, 'update'])->name('sub_categories.update')->middleware('permission:sub_categories.edit');
         Route::get('sub_categories/{id}/edit', [App\Http\Controllers\Admin\SubCategoryController::class, 'edit'])->name('sub_categories.edit')->middleware('permission:sub_categories.edit');
 
+        Route::get('products/orders', [App\Http\Controllers\Admin\ProductController::class, 'order'])->name('products.orders');
+        Route::get('products/orderlist', [App\Http\Controllers\Admin\ProductController::class, 'orderlist'])->name('products.orderlist');
         Route::get('products/select', [App\Http\Controllers\Admin\ProductController::class, 'select'])->name('products.select');
         Route::delete('products/bulk', [App\Http\Controllers\Admin\ProductController::class, 'deleteBulk'])->name('products.deleteBulk')->middleware('permission:products.delete');
         Route::get('products/list', [App\Http\Controllers\Admin\ProductController::class, 'list'])->name('products.list')->middleware('permission:products.view');

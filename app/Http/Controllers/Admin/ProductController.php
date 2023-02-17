@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -18,6 +19,10 @@ class ProductController extends Controller
     private $viewShow   = 'admin.pages.products.show';
     private $route      = 'admin.products';
 
+    public function order(Request $request): View
+    {
+        return view('admin.pages.products.orders', get_defined_vars());
+    }
     public function index(Request $request): View
     {
         return view($this->viewIndex, get_defined_vars());
@@ -97,5 +102,63 @@ class ProductController extends Controller
             })
             ->rawColumns(['type'])
         ->make(true);
+    }
+     public function orderlist(Request $request): object
+    {
+
+        $data = Order::whereHas('product')->where(function ($query) use ($request) {
+            if ($request->filled('number')) {
+                $query->where('number', $request->number);
+            }
+            if ($request->filled('date')) {
+                $query->whereRaw('DATE(created_at) = ?', $request->date);
+            }
+        })->where('status','!=',Order::STATUS_PENDDING_X)
+            ->OrderBy('id', 'DESC')->select('*');
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+
+            ->editColumn('status', function ($item) {
+                $class="";
+                switch ($item->status) {
+                    case Order::STATUS_PENDDING:
+                        $class="primary";
+                        break;
+                    case Order::STATUS_DONE:
+                        $class="success";
+                        break;
+                    case Order::STATUS_REJECT:
+                        $class="danger";
+                        break;
+                    default:
+                        $class="primary";
+                }
+                return '<button type="button" class="btn btn-sm btn-outline-'.$class.' round waves-effect active border-0">' . strval(__('orders.statuses.' . $item->status)) . '</button>';
+            })
+            ->editColumn('type', function ($item) {
+                return '<button type="button" class="btn btn-sm btn-outline-success round waves-effect active border-0">' . strval(__('orders.types.' . $item->type)) . '</button>';
+            })
+            ->editColumn('user', function ($item) {
+                return $item->user?->name;
+            })
+            ->editColumn('change_status', function ($item) {
+                $statusBtn = '';
+                    if ($item->status == Order::STATUS_PENDDING) {
+                            $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
+
+                            $statusBtn .= '<a class="dropdown-item  update_status" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
+                    }
+                return $statusBtn;
+            })->editColumn('editUrl', function ($item) {
+                $editBtn = '';
+                    $editBtn = ' <a class="dropdown-item" href="' . route("company.orders.show", $item->id) . '">
+                                <i data-feather="eye" class="font-medium-2"></i>
+                                    <span> ' . __("products.actions.show") . '</span>
+                                </a>';
+                return $editBtn;
+            })
+            ->rawColumns([ 'status', 'change_status', 'editUrl','type','user'])
+            ->make(true);
     }
 }

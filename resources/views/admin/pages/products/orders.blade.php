@@ -1,4 +1,4 @@
-@extends('company.layouts.master')
+@extends('admin.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | {{ __('products.orders') }}</title>
 @endsection
@@ -17,9 +17,6 @@
         <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
-                    {{-- <a href="{{ route('company.orders.download') }}" class="btn btn-sm btn-outline-primary bg-white me-1 waves-effect border-0">{{ __('products.download') }}</a> --}}
-
-                        {{-- @include('company.pages.orders.filter') --}}
                 </div>
             </div>
         </div>
@@ -39,7 +36,6 @@
                                         <th>{{ __('orders.delivery_phone') }}</th>
                                         <th>{{ __('orders.total') }}</th>
                                         <th>{{ __('orders.user') }}</th>
-                                        <th>{{ __('orders.action') }}</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -47,7 +43,6 @@
                         </div>
 
     </div>
-    @include('company.pages.orders.modal')
 @stop
 @push('scripts')
     <script>
@@ -69,12 +64,8 @@
                 feather.replace();
             },
             ajax: {
-                url: "{{ route('company.orders.list') }}",
+                url: "{{ route('admin.products.orderlist') }}",
                 data: function (d) {
-                    d.book_name   = $('#filterForm #book_name').val();
-                    d.student_phone = $('#filterForm #student_phone').val();
-                    d.number = $('#filterForm #number').val();
-                    d.date = $('#filterForm #date').val();
 
                 }
             },
@@ -91,40 +82,9 @@
                 {data: 'delivery_phone', name: 'delivery_phone'},
                 {data: 'total', name: 'total'},
                 {data: 'user', name: 'user'},
-                {data: 'actions',name: 'actions',orderable: false,searchable: false},
-
-            ],  columnDefs: [
-                {
-                    "targets": -1,
-                    "render": function (data, type, row) {
-                    var deleteUrl = '{{ route("company.orders.destroy", ":id") }}';
-                    deleteUrl = deleteUrl.replace(':id', row.id);
-                    return `
-                    <div class="dropdown">
-                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
-                                    <i data-feather="more-vertical" class="font-medium-2"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                `+row.change_status+`
-                                `+row.editUrl+`
-
-                            </div>
-                        </div> `;
-                    }
-                }
 
             ]
         });
-        $('.btn_filter').click(function (){
-            dt_ajax.DataTable().ajax.reload();
-        });
-        $('body').on('click', '.update_status', function() {
-            var url = $(this).attr('data-url');
-            var id = $(this).attr('data-order_id');
-            $('#updateStatusForm').attr('action', url)
-            $('#order_id').val(id)
-            $('#modalUpdateStatus').modal('show')
-            return false;
-        })
+       
     </script>
 @endpush
