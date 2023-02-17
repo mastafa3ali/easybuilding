@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function list(Request $request): object
     {
 
-        $data = Order::whereHas('product', function ($query) use ($request) {
+        $data = Order::with('user')->whereHas('product', function ($query) use ($request) {
             $query->where('company_id',  session('companyId'));
         })->where(function ($query) use ($request) {
             if ($request->filled('number')) {
@@ -67,6 +67,9 @@ class OrderController extends Controller
             ->editColumn('type', function ($item) {
                 return '<button type="button" class="btn btn-sm btn-outline-success round waves-effect active border-0">' . strval(__('orders.types.' . $item->type)) . '</button>';
             })
+            ->editColumn('user', function ($item) {
+                return $item->user?->name;
+            })
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';
                     if ($item->status == Order::STATUS_PENDDING) {
@@ -83,7 +86,7 @@ class OrderController extends Controller
                                 </a>';
                 return $editBtn;
             })
-            ->rawColumns([ 'status', 'change_status', 'editUrl','type'])
+            ->rawColumns([ 'status', 'change_status', 'editUrl','type','user'])
             ->make(true);
     }
 
