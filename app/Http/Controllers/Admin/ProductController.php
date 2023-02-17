@@ -106,7 +106,7 @@ class ProductController extends Controller
      public function orderlist(Request $request): object
     {
 
-        $data = Order::whereHas('product')->where(function ($query) use ($request) {
+        $data = Order::with('user')->whereHas('product', function ($query) use ($request) {
             if ($request->filled('number')) {
                 $query->where('number', $request->number);
             }

@@ -32,7 +32,7 @@ class OrderController extends Controller
     public function list(Request $request): object
     {
 
-        $data = Order::whereHas('product', function ($query) use ($request) {
+        $data = Order::with('user')->whereHas('product', function ($query) use ($request) {
             $query->where('company_id',  session('companyId'));
         })->where(function ($query) use ($request) {
             if ($request->filled('number')) {
