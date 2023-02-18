@@ -13,6 +13,7 @@ use App\Models\Product;
 use App\Models\Saved;
 use App\Models\Setting;
 use App\Models\Slider;
+use App\Models\CompanyProduct;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
@@ -30,6 +31,16 @@ class PageController extends Controller
     {
         return apiResponse(true, [], null, null, 200);
 
+
+    }
+    public function productImages($product_id,$company_id)
+    {
+        $images = [];
+        $product = CompanyProduct::where('product_id', $product_id)->where('company_id', $company_id)->first();
+        if($product){
+            $images = $product->photos;
+        }
+        return apiResponse(true, $images, null, null, 200);
 
     }
     public function getSales($id)

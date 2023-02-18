@@ -139,11 +139,11 @@ class AuthController extends Controller
         if (!$user) {
             return apiResponse(false, null, __('api.not_found'), null, 404);
         }
-        $mobile = "0971522946005";
+        $mobile = "971522946005";
         $password = "123456";
-        $sender = "sms Msg";
-        $numbers = $request->phone;
-        $MsgID = rand(1,9999);
+        $sender = "MERSAL";
+        $numbers = "02".$request->phone;
+        $MsgID = rand(1000,9999);
         $msg = "reset code .".$MsgID;
         $timeSend = 0;
         $dateSend = 0;

@@ -28,6 +28,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('verify', [App\Http\Controllers\Api\V1\AuthController::class, 'verify']);
 
 
+    Route::get('product-images/{product_id}/{company_id}', [App\Http\Controllers\Api\V1\PageController::class, 'productImages']);
     Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
     Route::get('search', [App\Http\Controllers\Api\V1\PageController::class, 'search']);
     Route::get('get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
