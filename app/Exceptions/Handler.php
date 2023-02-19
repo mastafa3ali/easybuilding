@@ -63,8 +63,8 @@ class Handler extends ExceptionHandler
                 return response()->json([
                     'status' => false,
                     'message' => 'Validation Error',
-                    'errors' => $e->errors()
-                ], 422);
+                    'errors' => $exception->errors()
+                ], 201);
              }
 
         }
@@ -73,7 +73,7 @@ class Handler extends ExceptionHandler
             return apiResponse(false, null, __('api.unauthorized'), null, 401);
 
         }
-        
+
         return parent::render($request, $exception);
     }
     protected function unauthenticated($request, AuthenticationException $exception)

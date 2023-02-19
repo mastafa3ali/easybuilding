@@ -20,7 +20,7 @@ class AuthController extends Controller
         );
         $validatedData = Validator::make($request->all(), $validate);
         if ($validatedData->fails()) {
-            return apiResponse(false, null, __('api.not_found'), $validatedData->errors()->all(), 422);
+            return apiResponse(false, null, __('api.not_found'), $validatedData->errors()->all(), 201);
         }
 
         $credentials = request(['phone', 'password']);
@@ -102,7 +102,7 @@ class AuthController extends Controller
         );
         $validatedData = Validator::make($request->all(), $validate);
         if ($validatedData->fails()) {
-            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 422);
+            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 201);
         }
 
         $user = new User();
@@ -133,7 +133,7 @@ class AuthController extends Controller
         );
         $validatedData = Validator::make($request->all(), $validate);
         if ($validatedData->fails()) {
-            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 422);
+            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 201);
         }
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
@@ -160,7 +160,7 @@ class AuthController extends Controller
         );
         $validatedData = Validator::make($request->all(), $validate);
         if ($validatedData->fails()) {
-            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 422);
+            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 201);
         }
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
@@ -179,7 +179,7 @@ class AuthController extends Controller
         );
         $validatedData = Validator::make($request->all(), $validate);
         if ($validatedData->fails()) {
-            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 422);
+            return apiResponse(false, null, __('api.validation_error'), $validatedData->errors()->all(), 201);
         }
         $user = User::where('phone', $request->phone)->first();
         if (!$user) {
