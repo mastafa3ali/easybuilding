@@ -50,6 +50,9 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('auth-products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
     Route::get('auth-product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
 
+        Route::post('save-properities', [App\Http\Controllers\Api\V1\PageController::class, 'saveproperities']);
+
+        Route::get('get-properities/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getProperities']);
         Route::get('get-saved-products', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedProduct']);
         Route::get('get-saved-companies', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedCompany']);
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
