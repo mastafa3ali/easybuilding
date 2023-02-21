@@ -15,6 +15,7 @@ use App\Models\Setting;
 use App\Models\Slider;
 use App\Models\CompanyProduct;
 use App\Models\SubCategory;
+use App\Models\TerminalData;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
@@ -214,6 +215,27 @@ class PageController extends Controller
             $data['companies'] = CompanyResource::collection($companies);
             return apiResponse(true,$data, "", null, 200);
         }
+    }
+    public function saveproperities(Request $request){
+        $data = [
+            'user_id'=>auth()->id(),
+            'category_id'=>$request->category_id,
+            'properity_1'=>$request->properity_1,
+            'properity_2'=>$request->properity_2,
+            'properity_3'=>$request->properity_3,
+        ];
+        $terminalData = TerminalData::where('user_id', auth()->id())->where('category_id', $request->category_id)->first();
+        if($terminalData){
+            $terminalData->update($data);
+        }else{
+            TerminalData::create($data);
+        }
+
+        return apiResponse(true,$data, "", null, 200);
+    }
+    public function getProperities($category_id){
+        $data = TerminalData::where('user_id', auth()->id())->where('category_id', $category_id)->first();
+        return apiResponse(true,$data, "", null, 200);
     }
 
 }
