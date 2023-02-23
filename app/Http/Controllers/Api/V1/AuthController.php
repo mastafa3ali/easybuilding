@@ -169,7 +169,7 @@ class AuthController extends Controller
         if($user->reset_code == $request->code){
             return apiResponse(true, null, __('api.code_success'), null, 200);
         }
-        return apiResponse(false, null, __('api.code_error'), null, 200);
+        return apiResponse(false, null, __('api.code_error'), null, 201);
     }
     public function confirmReset(Request $request)
     {

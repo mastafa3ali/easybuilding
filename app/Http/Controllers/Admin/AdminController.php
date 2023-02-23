@@ -16,17 +16,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         // $codesCounts = WalletCode::count();
-        // $codesChargedCounts = WalletCode::where('is_used', 1)->count();
-        // $studentsCounts = User::where('type','student')->count();
-        // $studentsTodayCounts = User::where('type','student')->whereDate('created_at', Carbon::today())->count();
 
-        // $teachersCount = User::where('type', 'teacher')->count();
-        // $coursesCount  = Course::count();
-        // $questionsCount = Question::count();
-        // $lessonsCount = Lesson::count();
-        // $transactionsSum = Transaction::where('created_at', '>=', now()->subMonth(1))
-        //                      ->sum('credit');
-        // $transactionsTodaySum = Transaction::whereDate('created_at', Carbon::today())->sum('credit')*60;
 
         return view($this->viewIndex, get_defined_vars());
     }
