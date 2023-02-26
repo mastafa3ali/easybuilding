@@ -117,8 +117,8 @@
                     {{ __('admin.dialogs.delete.info') }}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-sm btn-danger">{{ __('questions.dialogs.delete.confirm') }}</button>
-                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">{{ __('questions.dialogs.delete.cancel') }}</button>
+                    <button type="submit" class="btn btn-sm btn-danger">{{ __('admin.dialogs.delete.confirm') }}</button>
+                    <button type="button" class="btn btn-sm btn-primary" data-bs-dismiss="modal">{{ __('admin.dialogs.delete.cancel') }}</button>
                 </div>
             </div>
         </form>

@@ -9,7 +9,7 @@ return [
     'answered_before' => 'لقد قمت بالاجابة سابقا',
     'entered_before' => 'قمت بالدخول سابقا',
     'reset_link_will_send' => 'سوف يتم ارسال كود تغيير كلمة المرور',
-    'not_authorized' => 'غير مصرح لك بالدخول',
+    'not_authorized' => 'بيانات الدخول غير صحيحة',
     'wallet_not_enough' => 'الرصيد غير كافى...برجاء الشحن',
     'purchased_before' => 'تم شراء هذه الحصة من قبل',
     'sent_before' => 'قمت بالارسال مسبقا',
