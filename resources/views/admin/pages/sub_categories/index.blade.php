@@ -35,6 +35,7 @@
                     <tr>
                         <th>{{ __('sub_categories.default.name') }}</th>
                         <th>{{ __('sub_categories.category') }}</th>
+                        <th>{{ __('categories.sort') }}</th>
                         <th>{{ __('sub_categories.image') }}</th>
                         @canany('sub_categories.edit','sub_categories.delete')
                             <th width="15%" class="text-center">{{ __('sub_categories.options') }}</th>
@@ -77,13 +78,14 @@
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'name', name: 'name'},
                 {data: 'category', name: 'category'},
+                {data: 'sort', name: 'sort'},
                 {data: 'photo', name: 'photo'},
                     @canany('sub_categories.edit','sub_categories.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany
             ],
             columnDefs: [
-              
+
                 @canany('sub_categories.edit','sub_categories.delete')
                 {
                     "targets": -1,

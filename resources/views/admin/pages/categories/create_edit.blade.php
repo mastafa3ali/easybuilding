@@ -41,7 +41,15 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        
+                        <div class="mb-1 col-md-6  @error('sort') is-invalid @enderror">
+                            <label class="form-label" for="sort">{{ __('categories.sort') }}</label>
+                            <input type="number" name="sort" id="sort" class="form-control" placeholder=""
+                                   value="{{ $item->sort ?? old('sort') }}" required/>
+                            @error('sort')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="mb-1 col-md-6 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('categories.file') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">

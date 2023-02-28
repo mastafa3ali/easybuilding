@@ -25,7 +25,7 @@ class PageController extends Controller
     public function home(Request $request)
     {
         $data['sliders'] = Slider::latest()->take(15)->get();
-        $data['categories'] = Category::latest()->take(15)->get();
+        $data['categories'] = Category::orderBy('sort','ASC')->get();
         return apiResponse(false, $data, null, null, 200);
     }
     public function sales(Request $request)
@@ -68,7 +68,7 @@ class PageController extends Controller
     public function getRent($id)
     {
         //المواد الايجار فى السب كاتيجورى
-        $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id',$id)->get();
+        $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id',$id)->orderBy('sort','ASC')->get();
         return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
     public function latestAppVersion()
@@ -217,25 +217,25 @@ class PageController extends Controller
         }
     }
     public function saveproperities(Request $request){
-        $data = [
-            'user_id'=>auth()->id(),
-            'category_id'=>$request->category_id,
-            'properity_1'=>$request->properity_1,
-            'properity_2'=>$request->properity_2,
-            'properity_3'=>$request->properity_3,
-        ];
-        $terminalData = TerminalData::where('user_id', auth()->id())->where('category_id', $request->category_id)->first();
-        if($terminalData){
-            $terminalData->update($data);
-        }else{
-            TerminalData::create($data);
-        }
+        // $data = [
+        //     'user_id'=>auth()->id(),
+        //     'category_id'=>$request->category_id,
+        //     'properity_1'=>$request->properity_1,
+        //     'properity_2'=>$request->properity_2,
+        //     'properity_3'=>$request->properity_3,
+        // ];
+        // $terminalData = TerminalData::where('user_id', auth()->id())->where('category_id', $request->category_id)->first();
+        // if($terminalData){
+        //     $terminalData->update($data);
+        // }else{
+        //     TerminalData::create($data);
+        // }
 
-        return apiResponse(true,$data, "", null, 200);
+        // return apiResponse(true,$data, "", null, 200);
     }
     public function getProperities($category_id){
-        $data = TerminalData::where('user_id', auth()->id())->where('category_id', $category_id)->first();
-        return apiResponse(true,$data, "", null, 200);
+        // $data = TerminalData::where('user_id', auth()->id())->where('category_id', $category_id)->first();
+        // return apiResponse(true,$data, "", null, 200);
     }
 
 }
