@@ -94,7 +94,7 @@ class CategoryController extends Controller
 
         $item = $item->fill($data);
         if ($item->save()) {
-           
+
             if ($request->hasFile('image')) {
                 $image= $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
@@ -109,7 +109,7 @@ class CategoryController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Category::select('*');
+        $data = Category::select('*')->orderBy('sort','ASC');
         return FacadesDataTables::of($data)
         ->addIndexColumn()
         ->addColumn('photo', function ($item) {

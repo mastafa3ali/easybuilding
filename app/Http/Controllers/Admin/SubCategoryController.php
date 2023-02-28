@@ -109,7 +109,7 @@ class SubCategoryController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = SubCategory::with('category')->select('*');
+        $data = SubCategory::with('category')->select('*')->orderBy('sort','ASC');
         return FacadesDataTables::of($data)
         ->addIndexColumn()
         ->addColumn('photo', function ($item) {

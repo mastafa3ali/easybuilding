@@ -54,7 +54,14 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-
+                        <div class="mb-1 col-md-6  @error('sort') is-invalid @enderror">
+                            <label class="form-label" for="sort">{{ __('categories.sort') }}</label>
+                            <input type="number" name="sort" id="sort" class="form-control" placeholder=""
+                                   value="{{ $item->sort ?? old('sort') }}" required/>
+                            @error('sort')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" >
                             <label class="form-label" for="properties">{{ __('products.property') }}</label>
                             <select name="properties" id="properties" class="form-control  ">
