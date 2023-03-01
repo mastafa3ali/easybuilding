@@ -70,12 +70,5 @@ class User extends Authenticatable
         return 0;
 
     }
-    public static function boot()
-    {
-        parent::boot();
-        static::deleted(function ($item) {
-            $item->deleted_by = auth()->id();
-            $item->save();
-        });
-    }
+
 }
