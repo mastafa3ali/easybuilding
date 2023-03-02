@@ -79,6 +79,17 @@
                             @enderror
                         </div>
                     </div>
+                    
+                    <div class="row">
+                        <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
+                            <label class="form-label" for="description">{{ __('products.description') }}</label>
+                            <textarea name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                            @error('description')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('users.image') }}</label>

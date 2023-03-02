@@ -94,7 +94,7 @@
 
                         <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
                             <label class="form-label" for="description">{{ __('products.description') }}</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                            <textarea name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
                             @error('description')
                             <span class="error">{{ $message }}</span>
                             @enderror
