@@ -39,7 +39,7 @@ class OrderController extends Controller
         $product = Product::find($request->product_id);
         $guarantee_amount=$product->price * $product->guarantee_amount * $request->attribute_1*$request->attribute_2 * (($request->attribute_1 > 0) ? $request->attribute_1 : 1);
         $data = [
-            'details' => json_encode($product_details),
+            'details' => $product_details,
             'user_id' => auth()->id(),
             'company_id' => $request->company_id,
             'address' => $request->address,
@@ -80,7 +80,7 @@ class OrderController extends Controller
         $total = 0;
         foreach($request->product_details as $product){
             $item = Product::findOrFail($product['id']);
-            $total = $total+ $item->price;
+            $total = $total+ $item->price * $product['qty'];
         }
         $data = [
             'details' => json_encode($product_details),

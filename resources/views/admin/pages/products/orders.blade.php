@@ -36,6 +36,7 @@
                                         <th>{{ __('orders.delivery_phone') }}</th>
                                         <th>{{ __('orders.total') }}</th>
                                         <th>{{ __('orders.user') }}</th>
+                                        <th>{{ __('products.options') }}</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -82,9 +83,30 @@
                 {data: 'delivery_phone', name: 'delivery_phone'},
                 {data: 'total', name: 'total'},
                 {data: 'user', name: 'user'},
-
+                {data: 'actions',name: 'actions',orderable: false,searchable: false}
+            ]
+            ,  columnDefs: [
+                {
+                    "targets": -1,
+                    "render": function (data, type, row) {
+                    var show = '{{ route("admin.orders.showOrder", ":id") }}';
+                    show = show.replace(':id', row.id);
+                    return `
+                    <div class="dropdown">
+                            <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
+                                    <i data-feather="more-vertical" class="font-medium-2"></i>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="`+show+`">
+                                        <i data-feather="eye" class="font-medium-2"></i>
+                                            <span>{{ __('products.actions.show') }}</span>
+                                </a>
+                            </div>
+                        </div> `;
+                    }
+                }
             ]
         });
-       
+
     </script>
 @endpush

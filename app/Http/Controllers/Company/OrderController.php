@@ -32,9 +32,9 @@ class OrderController extends Controller
     public function list(Request $request): object
     {
 
-        $data = Order::with('user')->whereHas('product', function ($query) use ($request) {
-            $query->where('company_id',  session('companyId'));
-        })->where(function ($query) use ($request) {
+        $data = Order::with('user')
+        ->where('company_id',session('companyId'))
+        ->where(function ($query) use ($request) {
             if ($request->filled('number')) {
                 $query->where('number', $request->number);
             }
@@ -141,6 +141,7 @@ class OrderController extends Controller
 
         return view('company.pages.orders.create_edit', ['item' => $item]);
     }
+
 
     public function show($id): View
     {
