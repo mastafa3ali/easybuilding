@@ -92,6 +92,13 @@ class ProductController extends Controller
         return null;
     }
 
+    public function showOrder($id): View
+    {
+        $item = Order::findOrFail($id);
+
+        return view('admin.pages.products.show_order', ['item' => $item]);
+    }
+
     public function list(Request $request): JsonResponse
     {
         $data = Product::whereNull('company_id')->select('*');

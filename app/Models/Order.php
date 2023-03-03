@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 class Order extends Model
 {
+
     use HasFactory;
     use SoftDeletes;
     const STATUS_PENDDING_X = -1;
@@ -41,8 +43,16 @@ class Order extends Model
         'type',
         'product_id'
     ];
+
+    protected $casts = [
+        'details' => 'array'
+    ];
     public function company(){
         return $this->belongsTo(User::class, 'company_id');
+    }
+    public function productDetails($product_id){
+
+        return Product::find($product_id);
     }
     public function product(){
         return $this->belongsTo(Product::class, 'product_id');

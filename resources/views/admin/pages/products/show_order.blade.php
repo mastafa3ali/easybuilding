@@ -1,4 +1,4 @@
-@extends('company.layouts.master')
+@extends('admin.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | {{ __('orders.plural') }}</title>
 @endsection
@@ -60,7 +60,7 @@
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.payment') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->payment }}">
+                            <input disabled class="form-control" type="text" value="{{ __('orders.payments.'.$item->payment) }}">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.guarantee_amount') }}</label>
@@ -72,11 +72,11 @@
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.user') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->user_id }}">
+                            <input disabled class="form-control" type="text" value="{{ $item->user?->name }}">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.company') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->company_id }}">
+                            <input disabled class="form-control" type="text" value="{{ $item->company?->name }}">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
@@ -110,7 +110,7 @@
                             <input disabled class="form-control" type="text" value="{{ $item->attachment2 }}">
                         </div> --}}
                     </div>
-                       <div class="row">
+                    <div class="row">
                         <br>
                          <h4 class="text-center">{{ __('orders.details') }}</h4>
 
