@@ -60,8 +60,8 @@ return [
     'check_guarantee_amount'=>'صورة شيك مبلغ الضمان',
     'localtion'=>'الموقع',
     'created_at'=>'انشئ فى',
-    'attachment1'=>'ملحق 1',
-    'attachment2'=>'ملحق 2',
+    'attachment1'=>'المخطط الانشائى',
+    'attachment2'=>'المخطط المعمارى',
     'payments'=>[
         1=>'كاش',
         2=>'شيك جارى',
