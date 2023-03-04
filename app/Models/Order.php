@@ -46,6 +46,7 @@ class Order extends Model
 
     protected $appends = [
         'checkamount',
+        'checkguaranteeamount',
         'attachmentpayment1',
         'attachmentpayment2'
     ];
@@ -76,6 +77,11 @@ class Order extends Model
 
     }
     public function getCheckamountAttribute()
+    {
+        return array_key_exists('check_guarantee', $this->attributes) ? ($this->attributes['check_guarantee'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee']) : null) : null;
+
+    }
+    public function getCheckguaranteeamountAttribute()
     {
         return array_key_exists('check_guarantee_amount', $this->attributes) ? ($this->attributes['check_guarantee_amount'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee_amount']) : null) : null;
 
