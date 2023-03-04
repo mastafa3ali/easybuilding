@@ -44,6 +44,11 @@ class Order extends Model
         'product_id'
     ];
 
+    protected $appends = [
+        'checkamount',
+        'attachmentpayment1',
+        'attachmentpayment2'
+    ];
     protected $casts = [
         'details' => 'array'
     ];
@@ -60,4 +65,20 @@ class Order extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function getAttachmentpayment1Attribute()
+    {
+        return array_key_exists('attachment1', $this->attributes) ? ($this->attributes['attachment1'] != null ? asset('storage/orders/' . $this->attributes['attachment1']) : null) : null;
+
+    }
+    public function getAttachmentpayment2Attribute()
+    {
+        return array_key_exists('attachment2', $this->attributes) ? ($this->attributes['attachment2'] != null ? asset('storage/orders/' . $this->attributes['attachment2']) : null) : null;
+
+    }
+    public function getCheckamountAttribute()
+    {
+        return array_key_exists('check_guarantee_amount', $this->attributes) ? ($this->attributes['check_guarantee_amount'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee_amount']) : null) : null;
+
+    }
+
 }

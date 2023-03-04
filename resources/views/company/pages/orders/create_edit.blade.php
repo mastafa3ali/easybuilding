@@ -82,10 +82,7 @@
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->check_guarantee }}">
                         </div>
-                        {{-- <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->check_guarantee_amount }}">
-                        </div> --}}
+                        
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
@@ -101,14 +98,6 @@
                         </div>
 
 
-                        {{-- <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.attachment1') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->attachment1 }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.attachment2') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->attachment2 }}">
-                        </div> --}}
                     </div>
                        <div class="row">
                         <br>
@@ -146,6 +135,20 @@
 
                             @endif
                         </table>
+                    </div>
+                     <div class="row">
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
+                            <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.attachment1') }}</label>
+                            <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">>
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.attachment2') }}</label>
+                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">>
+                        </div>
                     </div>
                 </div>
             </div>
