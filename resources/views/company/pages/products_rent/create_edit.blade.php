@@ -54,9 +54,7 @@
                                 <option value="3">{{ __('products.rent_types.3') }}</option>
                                 <option value="4">{{ __('products.rent_types.4') }}</option>
                                 <option value="5">{{ __('products.rent_types.5') }}</option>
-                                @isset($item->product)
-                                    <option value="{{ $item->product->id }}" selected>{{ $item->product->name }}</option>
-                                @endisset
+                               
                             </select>
                             @error('rent_type')
                             <span class="error">{{ $message }}</span>
