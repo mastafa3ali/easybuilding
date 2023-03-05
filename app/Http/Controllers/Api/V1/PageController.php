@@ -108,6 +108,7 @@ class PageController extends Controller
        ->where('products.id', $id)
         ->select([
             'company_products.price as price',
+            'company_products.rent_type',
             'users.id',
             'users.name',
             'users.phone',

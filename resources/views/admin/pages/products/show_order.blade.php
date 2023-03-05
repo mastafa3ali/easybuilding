@@ -37,10 +37,6 @@
                             <input disabled class="form-control" type="text" value="{{ $item->phone }}">
                         </div>
                         <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.phone2') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->phone2 }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.delivery_phone') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->delivery_phone }}">
                         </div>
@@ -134,7 +130,7 @@
                         </table>
                     </div>
                     <div class="row">
-                        
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment1') }}</label>
                             <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">>
@@ -151,7 +147,7 @@
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
                             <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

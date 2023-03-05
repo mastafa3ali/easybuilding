@@ -50,7 +50,7 @@ class OrderController extends Controller
             'localtion' => $request->localtion,
             'delivery_phone' => $request->delivery_phone,
             'area' => $request->area,
-            'status' =>  Order::STATUS_PENDDING,
+            'status' =>  Order::STATUS_PENDDING_X,
             'attachment1' => $attachment1,
             'attachment2' => $attachment2,
             'delivery_date' => $request->delivery_date,

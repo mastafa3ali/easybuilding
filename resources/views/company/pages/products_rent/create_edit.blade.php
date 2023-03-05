@@ -46,6 +46,22 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                         <div class="mb-1 col-md-4  @error('rent_type') is-invalid @enderror">
+                            <label class="form-label" for="rent_type">{{ __('products.rent_type') }}</label>
+                            <select name="rent_type" id="rent_type" class="form-control  extra_field">
+                                <option value="1">{{ __('products.rent_types.1') }}</option>
+                                <option value="2">{{ __('products.rent_types.2') }}</option>
+                                <option value="3">{{ __('products.rent_types.3') }}</option>
+                                <option value="4">{{ __('products.rent_types.4') }}</option>
+                                <option value="5">{{ __('products.rent_types.5') }}</option>
+                                @isset($item->product)
+                                    <option value="{{ $item->product->id }}" selected>{{ $item->product->name }}</option>
+                                @endisset
+                            </select>
+                            @error('rent_type')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <input type="hidden" name="type" value="2" />
                         <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section">
                             <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>

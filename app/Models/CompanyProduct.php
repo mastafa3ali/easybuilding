@@ -9,7 +9,7 @@ class CompanyProduct extends Model
 {
     use HasFactory;
     protected $table = "company_products";
-    protected $fillable = ['company_id','product_id','price','guarantee_amount','image','description','images'];
+    protected $fillable = ['company_id','product_id','price','guarantee_amount','image','description','images','rent_type'];
     protected $appends = ['photo','photos'];
     protected $casts = [
         'images'=>'array'
