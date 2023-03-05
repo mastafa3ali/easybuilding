@@ -83,7 +83,7 @@ class OrderController extends Controller
             $total = $total+ $item->price * $product['qty'];
         }
         $data = [
-            'details' => json_encode($product_details),
+            'details' => $product_details,
             'user_id' => auth()->id(),
             'company_id' => $request->company_id,
             'address' => $request->address,
