@@ -133,11 +133,11 @@
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment1') }}</label>
-                            <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment2') }}</label>
-                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
-                            <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
                         </div>
 
                     </div>

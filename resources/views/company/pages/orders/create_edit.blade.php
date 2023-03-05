@@ -82,7 +82,7 @@
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->check_guarantee }}">
                         </div>
-                        
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
@@ -137,24 +137,24 @@
                         </table>
                     </div>
                     <div class="row">
-                        
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment1') }}</label>
-                            <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment2') }}</label>
-                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
-                            <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
-                            <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">>
+                            <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
                         </div>
-                       
+
                     </div>
                 </div>
             </div>

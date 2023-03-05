@@ -37,7 +37,7 @@ class OrderController extends Controller
         }
         $product_details = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3];
         $product = Product::find($request->product_id);
-        $guarantee_amount=$product->price * $product->guarantee_amount * $request->attribute_1*$request->attribute_2 * (($request->attribute_1 > 0) ? $request->attribute_1 : 1);
+        $guarantee_amount=(float)$product->price * (float)$product->guarantee_amount * $request->attribute_1*(float)$request->attribute_2 * (float)(($request->attribute_1 > 0) ? (float)$request->attribute_1 : 1);
         $data = [
             'details' => $product_details,
             'user_id' => auth()->id(),
@@ -55,7 +55,7 @@ class OrderController extends Controller
             'attachment2' => $attachment2,
             'delivery_date' => $request->delivery_date,
             'guarantee_amount' => $guarantee_amount,
-            'total'=>$product->price+$guarantee_amount
+            'total'=>(float)$product->price+(float)$guarantee_amount
         ];
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
@@ -80,7 +80,7 @@ class OrderController extends Controller
         $total = 0;
         foreach($request->product_details as $product){
             $item = Product::findOrFail($product['id']);
-            $total = $total+ $item->price * $product['qty'];
+            $total = $total+ ((float)$item->price * (int)$product['qty']);
         }
         $data = [
             'details' => $product_details,
