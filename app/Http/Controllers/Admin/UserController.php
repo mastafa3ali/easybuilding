@@ -51,6 +51,13 @@ class UserController extends Controller
         }
         return redirect()->route($this->route . '.index');
     }
+    public function restore($id)
+    {
+        $item = User::onlyTrashed()->findOrFail($id);
+        $item->update(['deleted_at' => null]);
+        flash(__('users.messages.restored'))->success();
+        return redirect()->route($this->route . '.index');
+    }
 
     public function store(UserRequest $request)
     {
@@ -116,7 +123,11 @@ class UserController extends Controller
 
     public function list(Request $request)
     {
-        $data = User::select('*');
+        if($request->filled('is_archived')){
+            $data = User::select('*')->onlyTrashed();
+        }else{
+            $data = User::select('*');
+        }
 
         return DataTables::of($data)
             ->addIndexColumn()
@@ -126,7 +137,7 @@ class UserController extends Controller
             ->rawColumns(['type'])
             ->make(true);
     }
-      public function select(Request $request): JsonResponse|string
+    public function select(Request $request): JsonResponse|string
     {
        $data = User::distinct()
             ->where(function ($query) use ($request) {

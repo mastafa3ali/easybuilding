@@ -111,4 +111,5 @@ return [
     'add_to_saved_success'=>'تم الاضافة الى المحفوظة',
     'productssale'=>'منتجات البيع',
     'productsrent'=>'منتجات الايجار',
+    'deleted_users' => 'المستخدمين المحزوفين'
 ];
