@@ -125,6 +125,30 @@
     </div>
 </div>
 
+ <div class="modal fade text-start" id="modalRestore" tabindex="-1" aria-labelledby="myModalLabel1"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <form id="restoreForm" method="post" action="">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel1">{{ __('users.dialogs.restore.title') }}</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{ __('users.dialogs.restore.info') }}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit"
+                            class="btn btn-sm btn-danger">{{ __('users.dialogs.restore.confirm') }}</button>
+                        <button type="button" class="btn btn-sm btn-primary"
+                            data-bs-dismiss="modal">{{ __('users.dialogs.delete.cancel') }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 <script src="{{ $assetsPath }}/vendors/js/vendors.min.js"></script>
 <script src="{{ $assetsPath }}/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
 <script src="{{ $assetsPath }}/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
@@ -208,6 +232,12 @@
             var url= $(this).attr('data-url');
             $('#deleteForm').attr('action', url)
             $('#modalDelete').modal('show')
+            return false;
+        });
+        $('body').on('click', '.restore_item', function (){
+            var url= $(this).attr('data-url');
+            $('#restoreForm').attr('action', url)
+            $('#modalRestore').modal('show')
             return false;
         })
     })

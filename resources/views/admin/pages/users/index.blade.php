@@ -18,10 +18,18 @@
             <div class="mb-1 breadcrumb-right">
                 @can('users.create')
                     <div class="dropdown">
+                        @isset($_GET['is_archived'])
+                        <h4 class="text-danger">{{ __('admin.deleted_users') }}</h4>
+                        @else
                         <a class="btn btn-sm btn-outline-primary me-1 waves-effect" href="{{ route('admin.users.create') }}">
                             <i data-feather="plus"></i>
                             <span class="active-sorting text-primary">{{ __('users.actions.create') }}</span>
                         </a>
+                        <a class="btn btn-sm btn-outline-primary me-1 waves-effect" href="{{ route('admin.users.index') }}?is_archived=1">
+                            <i data-feather="plus"></i>
+                            <span class="active-sorting text-primary">{{ __('users.actions.show_hidden') }}</span>
+                        </a>
+                        @endisset
                     </div>
                 @endcan
             </div>
@@ -50,6 +58,11 @@
 
 @push('scripts')
     <script>
+        var
+        archived='';
+            @isset($_GET['is_archived'])
+            archived='?is_archived=1';
+            @endisset
         var dt_ajax_table = $('.datatables-ajax');
         var dt_ajax = dt_ajax_table.dataTable({
             processing: true,
@@ -66,7 +79,7 @@
                 }
             },
             ajax: {
-                url: "{{ route('admin.users.list') }}",
+                url: "{{ route('admin.users.list') }}"+archived,
                 data: function (d) {
                     d.name   = $('#filterForm #name').val();
                 }
@@ -89,40 +102,55 @@
                 {
                     "targets": -1,
                     "render": function (data, type, row) {
+                        delete_div='';
+                        list_div='';
+                        if(row.deleted_at===null)
+                        {
                         var showUrl = '{{ route("admin.users.show", ":id") }}';
                         showUrl = showUrl.replace(':id', row.id);
                         var editUrl = '{{ route("admin.users.edit", ":id") }}';
                         editUrl = editUrl.replace(':id', row.id);
+                            @canany('users.show')
+                            list_div+=`<a class="dropdown-item" href="`+showUrl+`">
+                                <i data-feather="eye" class="font-medium-2"></i>
+                                    <span>{{ __('users.actions.show') }}</span>
+                                </a>`;
+                            @endcan
+                            @canany('users.edit')
+                            list_div+=`<a class="dropdown-item" href="`+editUrl+`">
+                                <i data-feather="edit-2" class="font-medium-2"></i>
+                                    <span>{{ __('users.actions.edit') }}</span>
+                                </a>`;
+                            @endcan
 
-                        var deleteUrl = '{{ route("admin.users.destroy", ":id") }}';
-                        deleteUrl = deleteUrl.replace(':id', row.id);
+                        @can('users.delete')
+                            var deleteUrl = '{{ route("admin.users.destroy", ":id") }}';
+                            deleteUrl = deleteUrl.replace(':id', row.id);
+                            delete_div=`<a class="dropdown-item delete_item" data-url="`+deleteUrl+`" href="#">
+                                        <i data-feather="trash" class="font-medium-2"></i>
+                                            <span>{{ __('users.actions.delete') }}</span>
+                                    </a>`;
+                        }else{
+                            var deleteUrl = '{{ route("admin.users.restore", ":id") }}';
+                            deleteUrl = deleteUrl.replace(':id', row.id);
+                            delete_div=`<a class="dropdown-item restore_item" data-url="`+deleteUrl+`" href="#">
+                                        <i data-feather="refresh-ccw" class="font-medium-2"></i>
+                                            <span>{{ __('users.actions.restore') }}</span>
+                                    </a>`;
+                        }
+                        @endcan
                         return `
                                <div class="dropdown">
                                     <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
                                             <i data-feather="more-vertical" class="font-medium-2"></i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        @canany('users.show')
-                                        <a class="dropdown-item" href="`+showUrl+`">
-                                        <i data-feather="eye" class="font-medium-2"></i>
-                                            <span>{{ __('users.actions.show') }}</span>
-                                        </a>
-                                        @endcan
-                                        @canany('users.edit')
-                                        <a class="dropdown-item" href="`+editUrl+`">
-                                        <i data-feather="edit-2" class="font-medium-2"></i>
-                                            <span>{{ __('users.actions.edit') }}</span>
-                                        </a>
-                                        @endcan
-                                        @can('users.delete')
-                                        <a class="dropdown-item delete_item" data-url="`+deleteUrl+`" href="#">
-                                            <i data-feather="trash" class="font-medium-2"></i>
-                                             <span>{{ __('users.actions.delete') }}</span>
-                                        </a>
-                                        @endcan
-                        </div>
-                   </div>
-                    `;
+
+                                        `+list_div+`
+                                        `+delete_div+`
+                                    </div>
+                                </div>
+                                `;
                     }
                 }
                 @endcanany
