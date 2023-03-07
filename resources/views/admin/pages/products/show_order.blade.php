@@ -137,15 +137,27 @@
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment2') }}</label>
-                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
+                            @if(pathinfo($item->attachmentpayment2, PATHINFO_EXTENSION)=='pdf')
+                                <a href="{{ $item->attachmentpayment2 }}" download>
+                            @else
+                                <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
+                            @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
-                            <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">>
+                            @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
+                                <a href="{{ $item->checkamount }}" download>
+                            @else
+                                <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">>
+                            @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
+                        @if(pathinfo($item->checkguaranteeamount, PATHINFO_EXTENSION)=='pdf')
+                            <a href="{{ $item->checkguaranteeamount }}" download>
+                        @else
                             <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
+                        @endif
                         </div>
 
                     </div>
