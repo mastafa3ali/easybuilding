@@ -14,15 +14,15 @@ class Order extends Model
     use SoftDeletes;
     const STATUS_PENDDING_X = -1;
 
-    const STATUS_PENDDING = 0;
+    const STATUS_PENDDING = 1;
     
-    const STATUS_ONPROGRESS = 1;
+    const STATUS_ONPROGRESS = 2;
     
-    const STATUS_DONE = 2;
+    const STATUS_DONE = 3;
     
-    const STATUS_ON_WAY= 3;
+    const STATUS_ON_WAY= 4;
     
-    const STATUS_DELIVERD= 4;
+    const STATUS_DELIVERD= 5;
     
 
     const STATUS_REJECT = 3;

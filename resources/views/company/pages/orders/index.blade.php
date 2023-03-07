@@ -17,41 +17,35 @@
         <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
                 <div class="dropdown">
-                    {{-- <a href="{{ route('company.orders.download') }}" class="btn btn-sm btn-outline-primary bg-white me-1 waves-effect border-0">{{ __('products.download') }}</a> --}}
-
-                        {{-- @include('company.pages.orders.filter') --}}
                 </div>
             </div>
         </div>
     </div>
     <div class="content-body">
-
-                <div class="card mt-2">
-                            <div class="card-body p-0">
-                                <table class="datatables-ajax table table-responsive">
-                                    <thead>
-                                    <tr>
-                                        <th>{{ __('orders.code') }}</th>
-                                        <th>{{ __('orders.type') }}</th>
-                                        <th>{{ __('orders.status') }}</th>
-                                        <th>{{ __('orders.address') }}</th>
-                                        <th>{{ __('orders.phone') }}</th>
-                                        <th>{{ __('orders.delivery_phone') }}</th>
-                                        <th>{{ __('orders.total') }}</th>
-                                        <th>{{ __('orders.user') }}</th>
-                                        <th>{{ __('orders.action') }}</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-
+        <div class="card mt-2">
+            <div class="card-body p-0">
+                <table class="datatables-ajax table table-responsive">
+                    <thead>
+                    <tr>
+                        <th>{{ __('orders.code') }}</th>
+                        <th>{{ __('orders.type') }}</th>
+                        <th>{{ __('orders.status') }}</th>
+                        <th>{{ __('orders.address') }}</th>
+                        <th>{{ __('orders.phone') }}</th>
+                        <th>{{ __('orders.delivery_phone') }}</th>
+                        <th>{{ __('orders.total') }}</th>
+                        <th>{{ __('orders.user') }}</th>
+                        <th>{{ __('orders.action') }}</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
     @include('company.pages.orders.modal')
 @stop
 @push('scripts')
     <script>
-
         var dt_ajax_table = $('.datatables-ajax');
         var dt_ajax = dt_ajax_table.dataTable({
             processing: true,
@@ -75,14 +69,12 @@
                     d.student_phone = $('#filterForm #student_phone').val();
                     d.number = $('#filterForm #number').val();
                     d.date = $('#filterForm #date').val();
-
                 }
             },
               drawCallback: function (settings) {
                 feather.replace();
             },
             columns: [
-
                 {data: 'code', name: 'code'},
                 {data: 'type', name: 'type'},
                 {data: 'status', name: 'status'},
@@ -91,8 +83,7 @@
                 {data: 'delivery_phone', name: 'delivery_phone'},
                 {data: 'total', name: 'total'},
                 {data: 'user', name: 'user'},
-                {data: 'actions',name: 'actions',orderable: false,searchable: false},
-
+                {data: 'actions',name: 'actions',orderable: false,searchable: false}
             ],  columnDefs: [
                 {
                     "targets": -1,
@@ -112,7 +103,6 @@
                         </div> `;
                     }
                 }
-
             ]
         });
         $('.btn_filter').click(function (){
