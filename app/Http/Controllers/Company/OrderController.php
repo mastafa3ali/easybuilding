@@ -77,6 +77,12 @@ class OrderController extends Controller
 
                             $statusBtn .= '<a class="dropdown-item  update_status" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
                     }
+                    if ($item->status == Order::STATUS_ONPROGRESS) {
+                            $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
+                    }
+                    if ($item->status == Order::STATUS_ON_WAY) {
+                            $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToDeliverd') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_deliverd") . '</span></a>';
+                    }
                 return $statusBtn;
             })->editColumn('editUrl', function ($item) {
                 $editBtn = '';
@@ -94,9 +100,51 @@ class OrderController extends Controller
     {
         try {
             $item = Order::findOrFail($request->order_id);
-            $item->update(['status' => Order::STATUS_DONE]);
+            $item->update(['status' => Order::STATUS_ONPROGRESS]);
             $fcmTokens[] = $item->user?->fcm_token;
             $message = __('api.order_confirmed',['code'=>$item->code]);
+            $notifications = [
+                    'user_id'=>$item->user_id,
+                    'text'=>$message,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+            ApiNotification::create($notifications);
+            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            flash(__('orders.messages.updated'))->success();
+        } catch (\Exception $e) {
+            flash($e->getMessage())->error();
+        }
+        return back();
+    }
+    public function changeTopRrogress(Request $request): RedirectResponse
+    {
+        try {
+            $item = Order::findOrFail($request->order_id);
+            $item->update(['status' => Order::STATUS_ON_WAY]);
+            $fcmTokens[] = $item->user?->fcm_token;
+            $message = __('api.order_confirmed',['code'=>$item->code]);
+            $notifications = [
+                    'user_id'=>$item->user_id,
+                    'text'=>$message,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+            ApiNotification::create($notifications);
+            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            flash(__('orders.messages.updated'))->success();
+        } catch (\Exception $e) {
+            flash($e->getMessage())->error();
+        }
+        return back();
+    }
+    public function changeToDeliverd(Request $request): RedirectResponse
+    {
+        try {
+            $item = Order::findOrFail($request->order_id);
+            $item->update(['status' => Order::STATUS_DELIVERD]);
+            $fcmTokens[] = $item->user?->fcm_token;
+            $message = __('api.order_deliverd',['code'=>$item->code]);
             $notifications = [
                     'user_id'=>$item->user_id,
                     'text'=>$message,
