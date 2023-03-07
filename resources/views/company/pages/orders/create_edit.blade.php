@@ -140,19 +140,44 @@
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment1') }}</label>
-                            <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
+                            @if(pathinfo($item->attachmentpayment1, PATHINFO_EXTENSION)=='pdf')
+                            <br>    
+                                <a href="{{ $item->attachmentpayment1 }}" download>تحميل المرفق</a>
+                                @else
+                                <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
+                                <a href="{{ $item->attachmentpayment1 }}" download>تحميل المرفق</a>
+                            @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment2') }}</label>
-                            <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
+                            @if(pathinfo($item->attachmentpayment2, PATHINFO_EXTENSION)=='pdf')
+                            <br>
+
+                                <a href="{{ $item->attachmentpayment2 }}" download>تحميل المرفق</a>
+                                @else
+                                <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
+                                <a href="{{ $item->attachmentpayment2 }}" download>تحميل المرفق</a>
+                            @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
-                            <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
+                            @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
+                            <br>
+                                <a href="{{ $item->checkamount }}" download>تحميل المرفق</a>
+                                @else
+                                <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
+                                <a href="{{ $item->checkamount }}" download>تحميل المرفق</a>
+                            @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
+                            @if(pathinfo($item->checkguaranteeamount, PATHINFO_EXTENSION)=='pdf')
+                            <br>  
+                            <a href="{{ $item->checkguaranteeamount }}" download>تحميل المرفق</a>
+                            @else
                             <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
+                            <a href="{{ $item->checkguaranteeamount }}" download>تحميل المرفق</a>
+                            @endif
                         </div>
 
                     </div>

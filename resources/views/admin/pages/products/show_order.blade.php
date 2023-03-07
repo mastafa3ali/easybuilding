@@ -136,8 +136,9 @@
                             @if(pathinfo($item->attachmentpayment1, PATHINFO_EXTENSION)=='pdf')
                             <br>    
                                 <a href="{{ $item->attachmentpayment1 }}" download>تحميل المرفق</a>
-                            @else
+                                @else
                                 <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
+                                <a href="{{ $item->attachmentpayment1 }}" download>تحميل المرفق</a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
@@ -146,8 +147,9 @@
                             <br>
 
                                 <a href="{{ $item->attachmentpayment2 }}" download>تحميل المرفق</a>
-                            @else
+                                @else
                                 <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
+                                <a href="{{ $item->attachmentpayment2 }}" download>تحميل المرفق</a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
@@ -155,8 +157,9 @@
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
                             <br>
                                 <a href="{{ $item->checkamount }}" download>تحميل المرفق</a>
-                            @else
+                                @else
                                 <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
+                                <a href="{{ $item->checkamount }}" download>تحميل المرفق</a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
@@ -165,7 +168,8 @@
                             <br>  
                             <a href="{{ $item->checkguaranteeamount }}" download>تحميل المرفق</a>
                             @else
-                                <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
+                            <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
+                            <a href="{{ $item->checkguaranteeamount }}" download>تحميل المرفق</a>
                             @endif
                         </div>
 
