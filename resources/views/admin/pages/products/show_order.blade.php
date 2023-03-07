@@ -62,10 +62,7 @@
                             <label class="form-label">{{ __('orders.guarantee_amount') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->guarantee_amount }}">
                         </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.total') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->total }}">
-                        </div>
+                       
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.user') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->user?->name }}">
@@ -74,10 +71,7 @@
                             <label class="form-label">{{ __('orders.company') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->company?->name }}">
                         </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.check_guarantee') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->check_guarantee }}">
-                        </div>
+                        
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->localtion }}">

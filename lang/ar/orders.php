@@ -57,7 +57,7 @@ return [
     'guarantee_amount'=>'مبلغ الضمان',
     'company'=>'الشركة',
     'check_guarantee'=>'شيك مبلغ الضمان',
-    'check_guarantee_amount'=>'صورة شيك مبلغ الضمان',
+    'check_guarantee_amount'=>'شيك مبلغ الايجار',
     'localtion'=>'الموقع',
     'created_at'=>'انشئ فى',
     'attachment1'=>'المخطط الانشائى',

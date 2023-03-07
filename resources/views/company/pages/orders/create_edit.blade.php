@@ -36,10 +36,7 @@
                             <label class="form-label">{{ __('orders.phone') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->phone }}">
                         </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.phone2') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->phone2 }}">
-                        </div>
+                        
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.delivery_phone') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->delivery_phone }}">
@@ -60,29 +57,19 @@
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.payment') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->payment }}">
+                            <input disabled class="form-control" type="text" value="{{ __('orders.payments.'.$item->payment) }}">
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.guarantee_amount') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->guarantee_amount }}">
                         </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.total') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->total }}">
-                        </div>
+                       
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.user') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->user_id }}">
+                            <input disabled class="form-control" type="text" value="{{ $item->user?->name }}">
                         </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.company') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->company_id }}">
-                        </div>
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.check_guarantee') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->check_guarantee }}">
-                        </div>
-
+                       
+                        
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
