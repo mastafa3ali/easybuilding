@@ -35,14 +35,18 @@ class OrderController extends Controller
             $request->attachment2->move(public_path('storage/orders'), $fileName);
             $attachment2 = $fileName;
         }
-        $product_details = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3];
         $product = Product::find($request->product_id);
+
+        $product_details[] = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3,'price'=>$product->price];
+
         $guarantee_amount=(float)$product->price * (float)$product->guarantee_amount * $request->attribute_1*(float)$request->attribute_2 * (float)(($request->attribute_1 > 0) ? (float)$request->attribute_1 : 1);
         $data = [
             'details' => $product_details,
             'user_id' => auth()->id(),
             'company_id' => $request->company_id,
             'address' => $request->address,
+            'long' => $request->long,
+            'lat' => $request->lat,
             'product_id' => $request->product_id,
             'phone' => $request->phone,
             'type' => Order::TYPE_RENT,
@@ -53,7 +57,7 @@ class OrderController extends Controller
             'status' =>  Order::STATUS_PENDDING_X,
             'attachment1' => $attachment1,
             'attachment2' => $attachment2,
-            'delivery_date' => $request->delivery_date,
+            'delivery_date' => $request->deliver_date,
             'guarantee_amount' => $guarantee_amount,
             'total'=>(float)$product->price+(float)$guarantee_amount
         ];
@@ -76,17 +80,21 @@ class OrderController extends Controller
             $request->attachment2->move(public_path('storage/orders'), $fileName);
             $attachment2 = $fileName;
         }
-        $product_details = $request->product_details;
+        $json_details = [];
         $total = 0;
         foreach($request->product_details as $product){
             $item = Product::findOrFail($product['id']);
             $total = $total+ ((float)$item->price * (int)$product['qty']);
+            $product['price'] = $item->price;
+            $json_details[] = $product;
         }
         $data = [
-            'details' => $product_details,
+            'details' => $json_details,
             'user_id' => auth()->id(),
             'company_id' => $request->company_id,
             'address' => $request->address,
+            'long' => $request->long,
+            'lat' => $request->lat,
             'product_id' => $request->product_details[0]['id'],
             'phone' => $request->phone,
             'phone2' => $request->phone2,
@@ -97,7 +105,7 @@ class OrderController extends Controller
             'status' =>  Order::STATUS_PENDDING_X,
             'attachment1' => $attachment1,
             'attachment2' => $attachment2,
-            'delivery_date' => $request->delivery_date,
+            'delivery_date' => $request->deliver_date,
             'total'=>$total
 
         ];

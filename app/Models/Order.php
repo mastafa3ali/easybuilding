@@ -49,9 +49,10 @@ class Order extends Model
         'check_guarantee_amount',
         'localtion',
         'type',
-        'product_id'
+        'product_id',
+        'long',
+        'lat'
     ];
-
     protected $appends = [
         'checkamount',
         'checkguaranteeamount',
@@ -76,22 +77,22 @@ class Order extends Model
     }
     public function getAttachmentpayment1Attribute()
     {
-        return array_key_exists('attachment1', $this->attributes) ? ($this->attributes['attachment1'] != null ? asset('storage/orders/' . $this->attributes['attachment1']) : null) : null;
+        return array_key_exists('attachment1', $this->attributes) ? ($this->attributes['attachment1'] != null ? asset('storage/orders/' . $this->attributes['attachment1']) : asset("default.jpg")) : asset("default.jpg");
 
     }
     public function getAttachmentpayment2Attribute()
     {
-        return array_key_exists('attachment2', $this->attributes) ? ($this->attributes['attachment2'] != null ? asset('storage/orders/' . $this->attributes['attachment2']) : null) : null;
+        return array_key_exists('attachment2', $this->attributes) ? ($this->attributes['attachment2'] != null ? asset('storage/orders/' . $this->attributes['attachment2']) : asset("default.jpg")) : asset("default.jpg");
 
     }
     public function getCheckamountAttribute()
     {
-        return array_key_exists('check_guarantee', $this->attributes) ? ($this->attributes['check_guarantee'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee']) : null) : null;
+        return array_key_exists('check_guarantee', $this->attributes) ? ($this->attributes['check_guarantee'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee']) : asset("default.jpg")) : asset("default.jpg");
 
     }
     public function getCheckguaranteeamountAttribute()
     {
-        return array_key_exists('check_guarantee_amount', $this->attributes) ? ($this->attributes['check_guarantee_amount'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee_amount']) : null) : null;
+        return array_key_exists('check_guarantee_amount', $this->attributes) ? ($this->attributes['check_guarantee_amount'] != null ? asset('storage/orders/' . $this->attributes['check_guarantee_amount']) : asset("default.jpg")) : asset("default.jpg");
 
     }
 

@@ -44,11 +44,7 @@
                             <label class="form-label">{{ __('orders.area') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->area }}">
                         </div>
-                        {{-- <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.details') }}</label>
-                            <input disabled class="form-control" type="text" value="{{ $item->details }}">
-                        </div> --}}
-
+                       
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.delivery_date') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->delivery_date }}">
@@ -58,11 +54,12 @@
                             <label class="form-label">{{ __('orders.payment') }}</label>
                             <input disabled class="form-control" type="text" value="{{ __('orders.payments.'.$item->payment) }}">
                         </div>
+                        @if($item->type==2)
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.guarantee_amount') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->guarantee_amount }}">
                         </div>
-                       
+                       @endif
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.user') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->user?->name }}">
@@ -91,83 +88,118 @@
                          <h4 class="text-center">{{ __('orders.details') }}</h4>
 
                          <table class="table">
+                             @if ($item->type==1)
                             <tr>
                              <th>{{ __('products.plural') }}</th>
-                             <th>{{ __('products.qty') }}</th>
+                             <th>{{ __('products.price') }}</th>
+                             <th >{{ __('products.qty') }}</th>
+                            </tr>
+                            @else
+                            <tr>
+                             <th>{{ __('products.plural') }}</th>
                              <th>{{ __('products.attributes.1') }}</th>
                              <th>{{ __('products.attributes.2') }}</th>
                              <th>{{ __('products.attributes.3') }}</th>
+                             <th>{{ __('products.rent_price') }}</th>
                             </tr>
+                            @endif
                             @if ($item->type==1)
                             @foreach ($item->details as $product)
                             <tr>
                                 <td>{{ $item->productDetails($product['id'])?->name }}</td>
-                                <td colspan="3">{{ $product['qty'] }}</td>
-
+                                <td >{{ $product['qty'] }}</td>
+                                <td >{{ $product['price']??'' }}</td>
                             </tr>
                             @endforeach
-
                             @else
-
                             @foreach ($item->details as $product)
                             <tr>
                                 <td>{{ $item->productDetails($product['id'])?->name }}</td>
-                                <td>---</td>
                                 <td>{{ $product['attribute_1'] }}</td>
                                 <td>{{ $product['attribute_2'] }}</td>
                                 <td>{{ $product['attribute_3'] }}</td>
-
+                                <td>{{ $product['price']??'' }}</td>
                             </tr>
                             @endforeach
-
                             @endif
                         </table>
                     </div>
+                    @if($item->type==2)                        
                     <div class="row">
-
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment1') }}</label>
                             @if(pathinfo($item->attachmentpayment1, PATHINFO_EXTENSION)=='pdf')
                             <br>    
-                                <a href="{{ $item->attachmentpayment1 }}" download>تحميل المرفق</a>
+                                <a href="{{ $item->attachmentpayment1 }}" download>
+                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                </a>
                                 @else
+                                <a href="{{ $item->attachmentpayment1 }}" download>
                                 <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
-                                <a href="{{ $item->attachmentpayment1 }}" download>تحميل المرفق</a>
+                                </a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment2') }}</label>
                             @if(pathinfo($item->attachmentpayment2, PATHINFO_EXTENSION)=='pdf')
                             <br>
-
-                                <a href="{{ $item->attachmentpayment2 }}" download>تحميل المرفق</a>
+                                <a href="{{ $item->attachmentpayment2 }}" download>
+                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                </a>
                                 @else
+                                <a href="{{ $item->attachmentpayment2 }}" download>
                                 <img src="{{ $item->attachmentpayment2 }}" class="img-fluid img-thumbnail">
-                                <a href="{{ $item->attachmentpayment2 }}" download>تحميل المرفق</a>
+                                </a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
                             <br>
-                                <a href="{{ $item->checkamount }}" download>تحميل المرفق</a>
+                                <a href="{{ $item->checkamount }}" download>
+                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                </a>
                                 @else
+                                <a href="{{ $item->checkamount }}" download>
                                 <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
-                                <a href="{{ $item->checkamount }}" download>تحميل المرفق</a>
+                                </a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
                             @if(pathinfo($item->checkguaranteeamount, PATHINFO_EXTENSION)=='pdf')
                             <br>  
-                            <a href="{{ $item->checkguaranteeamount }}" download>تحميل المرفق</a>
+                            <a href="{{ $item->checkguaranteeamount }}" download>
+                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                            </a>
                             @else
+                            <a href="{{ $item->checkguaranteeamount }}" download>
                             <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
-                            <a href="{{ $item->checkguaranteeamount }}" download>تحميل المرفق</a>
+                            </a>
                             @endif
                         </div>
-
                     </div>
+                    @endif
+                    @if($item->type==1)                        
+                    <div class="row">
+                        
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.check_amount') }}</label>
+                            @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
+                            <br>
+                                <a href="{{ $item->checkamount }}" download>
+                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                </a>
+                                @else
+                                <a href="{{ $item->checkamount }}" download>
+                                <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
+                                </a>
+                            @endif
+                        </div>
+                       
+                    </div>
+                    @endif
+
                 </div>
             </div>
         </div>
