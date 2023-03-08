@@ -73,7 +73,7 @@
                             <label class="form-label">{{ __('orders.localtion') }}</label>
                             
 
-                            <a href="http://maps.googleapis.com/maps/api/geocode/json?latlng={{ $item->lat }},{{ $item->long }}&sensor=false" class="btn btn-sm btn-outline-primary me-1 waves-effect">الذهاب الى الموقع</a>
+                            <a href="http://maps.google.com/?q={{ $item->lat }},{{ $item->long }}" class="btn btn-sm btn-outline-primary me-1 waves-effect">الذهاب الى الموقع</a>
                             <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
                         </div>
                         <div class="mb-1 col-md-4">
