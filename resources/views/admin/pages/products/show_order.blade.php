@@ -44,7 +44,7 @@
                             <label class="form-label">{{ __('orders.area') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->area }}">
                         </div>
-                       
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.delivery_date') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->delivery_date }}">
@@ -68,9 +68,12 @@
                             <label class="form-label">{{ __('orders.company') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->company?->name }}">
                         </div>
-                        
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
+                            
+
+                            <a href="http://maps.googleapis.com/maps/api/geocode/json?latlng={{ $item->lat }},{{ $item->long }}&sensor=false" class="btn btn-sm btn-outline-primary me-1 waves-effect">الذهاب الى الموقع</a>
                             <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
                         </div>
                         <div class="mb-1 col-md-4">
@@ -124,12 +127,12 @@
                             @endif
                         </table>
                     </div>
-                    @if($item->type==2)                        
+                    @if($item->type==2)
                     <div class="row">
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.attachment1') }}</label>
                             @if(pathinfo($item->attachmentpayment1, PATHINFO_EXTENSION)=='pdf')
-                            <br>    
+                            <br>
                                 <a href="{{ $item->attachmentpayment1 }}" download>
                                 <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
                                 </a>
@@ -168,7 +171,7 @@
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
                             @if(pathinfo($item->checkguaranteeamount, PATHINFO_EXTENSION)=='pdf')
-                            <br>  
+                            <br>
                             <a href="{{ $item->checkguaranteeamount }}" download>
                                 <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
                             </a>
@@ -180,9 +183,9 @@
                         </div>
                     </div>
                     @endif
-                    @if($item->type==1)                        
+                    @if($item->type==1)
                     <div class="row">
-                        
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_amount') }}</label>
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
@@ -196,7 +199,7 @@
                                 </a>
                             @endif
                         </div>
-                       
+
                     </div>
                     @endif
 
