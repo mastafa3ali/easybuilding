@@ -43,8 +43,8 @@ class OrderController extends Controller
         $product_details[] = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3,'price'=>$product->price];
 
 
-        $attribute = (float) ($request->attribute_1 > 0 ?? 1) * (float) ($request->attribute_2 > 0 ?? 1) * (float) ($request->attribute_3 > 0 ?? 1);
-        $guarantee_amount=(float)$product->price * (float)$product->guarantee_amount * $attribute;
+        $attribute =  (floatval($request->attribute_1)) *  (floatval($request->attribute_2)) *  (floatval($request->attribute_3));
+        $guarantee_amount=$product->price * $product->guarantee_amount * $attribute;
         $data = [
             'details' => $product_details,
             'user_id' => auth()->id(),
@@ -64,7 +64,7 @@ class OrderController extends Controller
             'attachment2' => $attachment2,
             'delivery_date' => $request->deliver_date,
             'guarantee_amount' => $guarantee_amount,
-            'total'=>(float)$product->price+(float)$guarantee_amount
+            'total'=>(float)$product->price+$guarantee_amount
         ];
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
