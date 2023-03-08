@@ -35,8 +35,11 @@ class OrderController extends Controller
             $request->attachment2->move(public_path('storage/orders'), $fileName);
             $attachment2 = $fileName;
         }
-        $product = CompanyProduct::where('product_id',$request->product_id)->where('company_id',$request->company_id)->findOrFail();
+        $product = CompanyProduct::where('product_id',$request->product_id)->where('company_id',$request->company_id)->first();
+        if($product==null){
+                return apiResponse(false, null, 'حدث خطأ ما الرجاء تحديث الصفحة', null, 200);
 
+        }
         $product_details[] = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3,'price'=>$product->price];
 
 
