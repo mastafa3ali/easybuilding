@@ -79,7 +79,7 @@
                             @enderror
                         </div>
                     </div>
-                    
+
                     <div class="row">
                         <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
                             <label class="form-label" for="description">{{ __('products.description') }}</label>
@@ -91,6 +91,22 @@
                     </div>
 
                     <div class="row">
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.attachment1') }}</label>
+                            @if(pathinfo($item->attachmentpayment1, PATHINFO_EXTENSION)=='pdf')
+                            <br>
+                                <a href="{{ $item->attachmentpayment1 }}" download>
+                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                </a>
+                                @else
+                                <a href="{{ $item->attachmentpayment1 }}" download>
+                                <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
+                                </a>
+                            @endif
+                        </div>
+
+
+
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('users.image') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">
@@ -100,8 +116,15 @@
                             <div>
                                 <br>
                                 @if(isset($item) && !empty($item->image))
-                                    <img src="{{ $item->photo }}"
-                                         class="img-fluid img-thumbnail">
+                                    @if(pathinfo($item->photo, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->photo }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->photo }}" download>
+                                        <img src="{{ $item->photo }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -114,8 +137,15 @@
                             <div>
                                 <br>
                                 @if(isset($item) && !empty($item->passport))
-                                    <img src="{{ $item->passport }}"
-                                         class="img-fluid img-thumbnail">
+                                    @if(pathinfo($item->passport, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->passport }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->passport }}" download>
+                                        <img src="{{ $item->passport }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -127,9 +157,16 @@
                             @enderror
                             <div>
                                 <br>
-                                @if(isset($item) && !empty($item->licence))
-                                    <img src="{{ $item->licence }}"
-                                         class="img-fluid img-thumbnail">
+                                 @if(isset($item) && !empty($item->licence))
+                                    @if(pathinfo($item->licence, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->licence }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->licence }}" download>
+                                        <img src="{{ $item->licence }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
