@@ -100,16 +100,9 @@
                             @enderror
                             <div>
                                 <br>
-                                @if(isset($item) && !empty($item->image))
-                                    @if(pathinfo($item->photo, PATHINFO_EXTENSION)=='pdf')
-                                        <a href="{{ $item->photo }}" download>
-                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
-                                        </a>
-                                        @else
-                                        <a href="{{ $item->photo }}" download>
-                                        <img src="{{ $item->photo }}" class="img-fluid img-thumbnail">
-                                        </a>
-                                    @endif
+                                @if(!empty($item->image))
+                                    <img src="{{ $item->photo }}"
+                                         class="img-fluid img-thumbnail">
                                 @endif
                             </div>
                         </div>
