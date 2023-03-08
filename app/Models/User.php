@@ -44,7 +44,7 @@ class User extends Authenticatable
     public const TYPE_MERCHANT = 4;
     public const TYPE_OWNER = 3;
 
-    protected $appends = ['photo'];
+    protected $appends = ['photo','licence','passport'];
     public function getPhotoAttribute()
     {
         return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/users/' . $this->attributes['image']) : null) : null;

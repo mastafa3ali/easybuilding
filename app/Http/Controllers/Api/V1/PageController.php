@@ -109,6 +109,7 @@ class PageController extends Controller
         ->select([
             'company_products.price as price',
             'company_products.rent_type',
+            'company_products.image as product_image',
             'users.id',
             'users.name',
             'users.phone',

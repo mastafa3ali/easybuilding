@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="content-body">
             <div class="card">
@@ -24,17 +24,17 @@
                             <label class="form-label">{{ __('users.name') }} : </label>
                             <label class="form-label">{{ $item->name  }}</label>
                         </div>
-                       
+
                         <div class="mb-1 col-md-3  @error('email') is-invalid @enderror">
                             <label class="form-label">{{ __('users.email') }}  :  </label>
                             <label class="form-label">{{ $item->email }}</label>
                         </div>
-                       
+
                         <div class="mb-1 col-md-3  @error('type') is-invalid @enderror">
                             <label class="form-label">{{ __('users.type') }} : </label>
                             <label class="form-label">{{ __('users.types.'.$item->type) }}</label>
                         </div>
-                       
+
                         <div class="mb-1 col-md-3  @error('phone') is-invalid @enderror">
                             <label class="form-label">{{ __('users.phone') }} : </label>
                             <label class="form-label">{{ $item->phone }}</label>
@@ -57,9 +57,16 @@
                             <label class="form-label" for="passport">{{ __('users.passport') }}</label>
                             <div>
                                 <br>
-                                @if(!empty($item->passport))
-                                    <img src="{{ $item->passport }}"
-                                         class="img-fluid img-thumbnail">
+                                 @if(isset($item) && !empty($item->passport))
+                                    @if(pathinfo($item->passport, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->passport }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->passport }}" download>
+                                        <img src="{{ $item->passport }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -67,9 +74,16 @@
                             <label class="form-label" for="licence">{{ __('users.licence') }}</label>
                             <div>
                                 <br>
-                                @if(!empty($item->licence))
-                                    <img src="{{ $item->licence }}"
-                                         class="img-fluid img-thumbnail">
+                                @if(isset($item) && !empty($item->licence))
+                                    @if(pathinfo($item->licence, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->licence }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->licence }}" download>
+                                        <img src="{{ $item->licence }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
