@@ -91,21 +91,6 @@
                     </div>
 
                     <div class="row">
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.attachment1') }}</label>
-                            @if(pathinfo($item->attachmentpayment1, PATHINFO_EXTENSION)=='pdf')
-                            <br>
-                                <a href="{{ $item->attachmentpayment1 }}" download>
-                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
-                                </a>
-                                @else
-                                <a href="{{ $item->attachmentpayment1 }}" download>
-                                <img src="{{ $item->attachmentpayment1 }}" class="img-fluid img-thumbnail">
-                                </a>
-                            @endif
-                        </div>
-
-
 
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('users.image') }}</label>
