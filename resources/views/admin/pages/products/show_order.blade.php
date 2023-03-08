@@ -72,9 +72,8 @@
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
                             
-
-                            <a href="http://maps.google.com/?q={{ $item->lat }},{{ $item->long }}" class="btn btn-sm btn-outline-primary me-1 waves-effect">الذهاب الى الموقع</a>
-                            <input disabled class="form-control" type="text" value="{{ $item->localtion }}">
+                            
+                            <a href="http://maps.google.com/?q={{ $item->lat }},{{ $item->long }}" class="btn btn-sm btn-outline-primary me-1 waves-effect form-control">الذهاب الى الموقع</a>
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.type') }}</label>
