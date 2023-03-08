@@ -21,6 +21,11 @@ class CompanyResource extends JsonResource
         }else{
             $data['product_image']           = null;
         }
+        if(isset($this->guarantee_amount)){
+            $data['guarantee_amount']           =  $this->guarantee_amount;
+        }else{
+            $data['guarantee_amount']           = null;
+        }
         $data['description']         = $this->description;
         $data['rent_type']           = isset($this->rent_type) ? __('products.rent_types.'.$this->rent_type): null;
         $data['saved']               = User::saved($this->id);
