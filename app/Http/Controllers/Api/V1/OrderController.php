@@ -39,7 +39,9 @@ class OrderController extends Controller
 
         $product_details[] = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3,'price'=>$product->price];
 
-        $guarantee_amount=(float)$product->price * (float)$product->guarantee_amount * $request->attribute_1*(float)$request->attribute_2 * (float)(($request->attribute_1 > 0) ? (float)$request->attribute_1 : 1);
+
+        $attribute = (float) ($request->attribute_1 > 0 ?? 1) * (float) ($request->attribute_2 > 0 ?? 1) * (float) ($request->attribute_3 > 0 ?? 1);
+        $guarantee_amount=(float)$product->price * (float)$product->guarantee_amount * $attribute;
         $data = [
             'details' => $product_details,
             'user_id' => auth()->id(),
