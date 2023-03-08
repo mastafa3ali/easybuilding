@@ -71,8 +71,8 @@
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.localtion') }}</label>
-                            
-                            
+
+
                             <a href="http://maps.google.com/?q={{ $item->lat }},{{ $item->long }}" class="btn btn-sm btn-outline-primary me-1 waves-effect form-control">الذهاب الى الموقع</a>
                         </div>
                         <div class="mb-1 col-md-4">
@@ -93,8 +93,8 @@
                              @if ($item->type==1)
                             <tr>
                              <th>{{ __('products.plural') }}</th>
-                             <th>{{ __('products.price') }}</th>
                              <th >{{ __('products.qty') }}</th>
+                             <th>{{ __('products.price') }}</th>
                             </tr>
                             @else
                             <tr>
