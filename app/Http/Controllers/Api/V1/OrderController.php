@@ -11,7 +11,7 @@ use App\Http\Resources\SubCategoryResource;
 use App\Models\ApiNotification;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\SubCategory;
+use App\Models\CompanyProduct;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
@@ -35,7 +35,7 @@ class OrderController extends Controller
             $request->attachment2->move(public_path('storage/orders'), $fileName);
             $attachment2 = $fileName;
         }
-        $product = Product::find($request->product_id);
+        $product = CompanyProduct::where('product_id',$request->product_id)->where('company_id',$request->company_id)->findOrFail();
 
         $product_details[] = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3,'price'=>$product->price];
 
