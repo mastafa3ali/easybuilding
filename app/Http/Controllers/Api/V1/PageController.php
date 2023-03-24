@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactRequest;
 use App\Http\Resources\CompanyResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SavedResource;
@@ -12,10 +13,10 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Saved;
 use App\Models\Setting;
+use App\Models\Contact;
 use App\Models\Slider;
 use App\Models\CompanyProduct;
 use App\Models\SubCategory;
-use App\Models\TerminalData;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
@@ -239,6 +240,14 @@ class PageController extends Controller
     public function getProperities($category_id){
         // $data = TerminalData::where('user_id', auth()->id())->where('category_id', $category_id)->first();
         // return apiResponse(true,$data, "", null, 200);
+    }
+    public function contactUs(ContactRequest $request){
+        $data=Contact::create([
+            'name'=>$request->name,
+            'reason'=>$request->reason,
+            'problem'=>$request->message,
+        ]);
+        return apiResponse(true,$data, "", null, 200);
     }
 
 }

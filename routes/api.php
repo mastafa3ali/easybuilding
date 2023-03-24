@@ -38,17 +38,18 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
     Route::get('product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
     Route::get('about', [App\Http\Controllers\Api\V1\SettingController::class, 'about']);
+    Route::post('contact-us', [App\Http\Controllers\Api\V1\PageController::class, 'contactUs']);
     Route::get('terms', [App\Http\Controllers\Api\V1\SettingController::class, 'terms']);
     Route::get('privacy', [App\Http\Controllers\Api\V1\SettingController::class, 'privacy']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
 
-    Route::get('auth-get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
-    Route::get('auth-get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
-    Route::get('auth-get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
-    Route::get('auth-get-rent/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getRent']);
-    Route::get('auth-products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
-    Route::get('auth-product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
+        Route::get('auth-get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
+        Route::get('auth-get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
+        Route::get('auth-get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
+        Route::get('auth-get-rent/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getRent']);
+        Route::get('auth-products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
+        Route::get('auth-product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
 
         Route::post('save-properities', [App\Http\Controllers\Api\V1\PageController::class, 'saveproperities']);
 
