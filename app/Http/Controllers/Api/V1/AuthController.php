@@ -49,6 +49,7 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.cant_update'), null, 401);
         }
     }
+
    public function updateimage(Request $request)
     {
 
@@ -58,13 +59,25 @@ class AuthController extends Controller
             $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
             $request->image->move(public_path('storage/users'), $fileName);
             $currentUser->image = $fileName;
-            if ($currentUser->save()) {
-                return apiResponse(true, null, __('api.update_success'), null, 200);
-            } else {
-                return apiResponse(false, null, __('api.cant_update'), null, 401);
-            }
         }
-        return apiResponse(false, null, __('api.cant_update'), null, 401);
+        //licence  passport
+        $licence= $request->file('licence');
+        if($licence){
+            $fileName = time() . rand(0, 999999999) . '.' . $licence->getClientOriginalExtension();
+            $request->licence->move(public_path('storage/users'), $fileName);
+            $currentUser->licence = $fileName;
+        }
+        $passport= $request->file('passport');
+        if($passport){
+            $fileName = time() . rand(0, 999999999) . '.' . $passport->getClientOriginalExtension();
+            $request->passport->move(public_path('storage/users'), $fileName);
+            $currentUser->passport = $fileName;
+        }
+        if ($currentUser->save()) {
+            return apiResponse(true, null, __('api.update_success'), null, 200);
+        } else {
+            return apiResponse(false, null, __('api.cant_update'), null, 401);
+        }
     }
     function sendSMS($userAccount, $passAccount, $numbers, $sender, $msg, $timeSend=0, $dateSend=0, $viewResult=1, $MsgID=0)
     {
