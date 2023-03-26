@@ -117,6 +117,22 @@ class OrderController extends Controller
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
     }
+    public function saveAttachment(Request $request)
+    {
+    if ($request->hasFile('attachment1')) {
+            $attachment1= $request->file('attachment1');
+            $fileName = time() . rand(0, 999999999) . '.' . $attachment1->getClientOriginalExtension();
+            $request->attachment1->move(public_path('storage/orders'), $fileName);
+            $attachment1 = $fileName;
+        }
+        if ($request->hasFile('attachment2')) {
+            $attachment2= $request->file('attachment2');
+            $fileName = time() . rand(0, 999999999) . '.' . $attachment2->getClientOriginalExtension();
+            $request->attachment2->move(public_path('storage/orders'), $fileName);
+            $attachment2 = $fileName;
+        }
+
+    }
     public function orderSubmit(OrderSubmitRequest $request)
     {
         $check_guarantee_amount = null;
