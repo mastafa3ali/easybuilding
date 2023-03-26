@@ -119,7 +119,9 @@ class OrderController extends Controller
     }
     public function saveAttachment(Request $request)
     {
-    if ($request->hasFile('attachment1')) {
+        $attachment1 = null;
+        $attachment2 = null;
+       if ($request->hasFile('attachment1')) {
             $attachment1= $request->file('attachment1');
             $fileName = time() . rand(0, 999999999) . '.' . $attachment1->getClientOriginalExtension();
             $request->attachment1->move(public_path('storage/orders'), $fileName);
@@ -131,6 +133,13 @@ class OrderController extends Controller
             $request->attachment2->move(public_path('storage/orders'), $fileName);
             $attachment2 = $fileName;
         }
+
+        $order=Order::findOrFail($request->order_id);
+        $order->update([
+            'attachment1' => $attachment1,
+            'attachment2' => $attachment2,
+        ]);
+        return apiResponse(true, $order->id, null, null, 200);
 
     }
     public function orderSubmit(OrderSubmitRequest $request)
