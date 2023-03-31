@@ -23,7 +23,7 @@
                         <div class="dropdown">
                             <button class="btn btn-sm btn-outline-primary me-1 waves-effect">
                                 <i data-feather="save"></i>
-                                <span class="active-sorting text-primary">{{ __('students.actions.save') }}</span>
+                                <span class="active-sorting text-primary">{{ __('admin.actions.save') }}</span>
                             </button>
                         </div>
                 </div>
@@ -67,7 +67,7 @@
                                 @endif
                             </div>
                         </div>
-                  
+
                         <div class="mb-1 col-md-12 @error('about_content') is-invalid @enderror">
                             <label class="form-label" for="about_content">
                             </label>
