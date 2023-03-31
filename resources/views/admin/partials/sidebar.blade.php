@@ -102,7 +102,7 @@
                         <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.privacy') }}</span>
                     </a>
                 </li>
-            @endcan
+            @endcan --}}
             @can('settings.terms')
                 <li>
                     <a class="d-flex align-items-center" href="{{ route('admin.settings.terms') }} ">
@@ -110,7 +110,7 @@
                         <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.terms') }}</span>
                     </a>
                 </li>
-            @endcan --}}
+            @endcan
             @can('users.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.users.index') }} ">
