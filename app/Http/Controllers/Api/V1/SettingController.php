@@ -35,8 +35,8 @@ class SettingController extends Controller
 
     public function terms()
     {
-        $data = Setting::where('key', 'LIKE', 'terms_')->get();
-        
+        $data = Setting::where('key', 'LIKE', 'terms_%')->get();
+
         return apiResponse(true, $data, null, null, 200);
     }
 
