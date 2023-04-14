@@ -95,6 +95,12 @@ class CategoryController extends Controller
         $item = $item->fill($data);
         if ($item->save()) {
 
+            if($request->filled('active')){
+                $item->active = 1;
+            }else{
+                $item->active = 0;
+            }
+
             if ($request->hasFile('image')) {
                 $image= $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
@@ -113,9 +119,12 @@ class CategoryController extends Controller
         return FacadesDataTables::of($data)
         ->addIndexColumn()
         ->addColumn('photo', function ($item) {
-                return '<img src="' . $item->photo . '" height="100px" width="100px">';
-            })
-            ->rawColumns(['photo'])
+            return '<img src="' . $item->photo . '" height="100px" width="100px">';
+        })
+        ->editColumn('active', function ($item) {
+            return $item->active ? '<button class="btn btn-sm btn-outline-success me-1 waves-effect"><i data-feather="check" ></i></button>':'<button class="btn btn-sm btn-outline-danger me-1 waves-effect"><i data-feather="x" ></i></button>';
+        })
+        ->rawColumns(['photo','active'])
         ->make(true);
     }
 }

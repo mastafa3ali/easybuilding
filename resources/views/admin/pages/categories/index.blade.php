@@ -35,6 +35,7 @@
                     <tr>
                         <th>{{ __('categories.default.name') }}</th>
                         <th>{{ __('categories.sort') }}</th>
+                        <th>{{ __('categories.active') }}</th>
                         <th>{{ __('categories.image') }}</th>
                         @canany('categories.edit','categories.delete')
                             <th width="15%" class="text-center">{{ __('categories.options') }}</th>
@@ -77,6 +78,7 @@
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'title', name: 'title'},
                 {data: 'sort', name: 'sort'},
+                {data: 'active', name: 'active'},
                 {data: 'photo', name: 'photo'},
                     @canany('categories.edit','categories.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},

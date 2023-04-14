@@ -1,14 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
-
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProductResource;
-use App\Models\Product;
 use App\Models\Setting;
-use Validator;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {

@@ -149,6 +149,8 @@ class OrderController extends Controller
                     'user_id'=>$item->user_id,
                     'text'=>$message,
                     'day'=>date('Y-m-d'),
+                    'model_id'=>$item->id,
+
                     'time'=>date('H:i'),
                 ];
             ApiNotification::create($notifications);
@@ -169,6 +171,7 @@ class OrderController extends Controller
             $notifications = [
                     'user_id'=>$item->user_id,
                     'text'=>$message,
+                    'model_id'=>$item->id,
                     'day'=>date('Y-m-d'),
                     'time'=>date('H:i'),
                 ];
