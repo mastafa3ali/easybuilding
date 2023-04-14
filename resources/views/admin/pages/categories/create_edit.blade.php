@@ -33,7 +33,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-6  @error('title') is-invalid @enderror">
+                        <div class="mb-1 col-md-4  @error('title') is-invalid @enderror">
                             <label class="form-label" for="title">{{ __('categories.default.name') }}</label>
                             <input type="text" name="title" id="title" class="form-control" placeholder=""
                                    value="{{ $item->title ?? old('title') }}" required/>
@@ -41,11 +41,23 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-1 col-md-6  @error('sort') is-invalid @enderror">
+                        <div class="mb-1 col-md-4  @error('sort') is-invalid @enderror">
                             <label class="form-label" for="sort">{{ __('categories.sort') }}</label>
                             <input type="number" name="sort" id="sort" class="form-control" placeholder=""
                                    value="{{ $item->sort ?? old('sort') }}" required/>
                             @error('sort')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-1 col-md-2  @error('active') is-invalid @enderror">
+                            <br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="active"
+                                        value="1" id="active"
+                                    @checked($item->active ?? false )/>
+                                <label class="form-check-label" for="active">{{ __('categories.active') }}</label>
+                            </div>
+                            @error('active')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>

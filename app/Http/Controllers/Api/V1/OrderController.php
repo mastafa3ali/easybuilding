@@ -175,17 +175,19 @@ class OrderController extends Controller
         $notifications = [
                 'user_id'=>auth()->id(),
                 'text'=>$message,
+                'model_id'=>$order->id,
                 'day'=>date('Y-m-d'),
                 'time'=>date('H:i'),
             ];
         ApiNotification::create($notifications);
         Notification::send(null,new SendPushNotification($message,$fcmTokens));
 
-           $fcmTokens2[] = $company?->fcm_token;
+        $fcmTokens2[] = $company?->fcm_token;
         $message = __('api.new_order_request');
         $notifications = [
                 'user_id'=>auth()->id(),
                 'text'=>$message,
+                'model_id'=>$order->id,
                 'day'=>date('Y-m-d'),
                 'time'=>date('H:i'),
             ];

@@ -11,7 +11,7 @@ class Category extends Model
 {
     use SoftDeletes;
     protected $table = 'categories';
-    protected $fillable = ['title', 'image','sort'];
+    protected $fillable = ['title', 'image','sort','active'];
     protected $appends = ['photo'];
 
     protected static $orderByColumn = 'sort';
