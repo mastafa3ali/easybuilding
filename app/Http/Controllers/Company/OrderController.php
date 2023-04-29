@@ -73,15 +73,15 @@ class OrderController extends Controller
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';
                     if ($item->status == Order::STATUS_PENDDING) {
-                            $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
+                            $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
 
-                            $statusBtn .= '<a class="dropdown-item  update_status" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
+                            $statusBtn .= '<a class="dropdown-item  update_status" data-status="1" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
                     }
                     if ($item->status == Order::STATUS_ONPROGRESS) {
-                            $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
+                            $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
                     }
                     if ($item->status == Order::STATUS_ON_WAY) {
-                            $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToDeliverd') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_deliverd") . '</span></a>';
+                            $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeToDeliverd') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_deliverd") . '</span></a>';
                     }
                 return $statusBtn;
             })->editColumn('editUrl', function ($item) {
@@ -164,20 +164,23 @@ class OrderController extends Controller
     public function changeToCanceled(Request $request): RedirectResponse
     {
         try {
+             $this->validate($request, [
+                'order_id' => 'required',
+                'reason' => 'required',
+            ]);
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_REJECT]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_canceled',['code'=>$item->code]);
+            $message = __('api.order_canceled',['code'=>$item->code]).' والسبب '.$request->reason;
             $notifications = [
-                    'user_id'=>$item->user_id,
-                    'text'=>$message,
-                    'model_id'=>$item->id,
-                    'day'=>date('Y-m-d'),
-                    'time'=>date('H:i'),
-                ];
+                'user_id'=>$item->user_id,
+                'text'=>$message,
+                'model_id'=>$item->id,
+                'day'=>date('Y-m-d'),
+                'time'=>date('H:i'),
+            ];
             ApiNotification::create($notifications);
             Notification::send(null,new SendPushNotification($message,$fcmTokens));
-
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();

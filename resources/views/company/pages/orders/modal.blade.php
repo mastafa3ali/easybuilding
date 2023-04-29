@@ -11,6 +11,9 @@
                         <div class="modal-body">
                             <div class="mb-1">
                                 <h3>{{ __('orders.are_you_sure_change_status') }}</h3>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="reason" id="reason" style="display: none" placeholder="ادخل السبب فى حالة الرفض"></textarea>
+                                </div>
                                 <input type="hidden" name="order_id" id="order_id">
                             </div>
                         </div>
