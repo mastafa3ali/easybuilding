@@ -103,7 +103,7 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = CgeompanyProduct::leftJoin('products','products.id','company_products.product_id')
+        $data = CompanyProduct::leftJoin('products','products.id','company_products.product_id')
         ->leftJoin('users','users.id','company_products.company_id')
         ->where('products.type',Product::TYPE_RENT)
         ->where('users.id',auth()->id())->select([

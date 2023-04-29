@@ -111,6 +111,13 @@
         $('body').on('click', '.update_status', function() {
             var url = $(this).attr('data-url');
             var id = $(this).attr('data-order_id');
+            var status = $(this).attr('data-status');
+            if(status==1){
+                console.log(status)
+                $('#reason').show();
+            }else{
+                $('#reason').hide();
+            }
             $('#updateStatusForm').attr('action', url)
             $('#order_id').val(id)
             $('#modalUpdateStatus').modal('show')
