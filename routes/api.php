@@ -31,7 +31,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('product-images/{product_id}/{company_id}', [App\Http\Controllers\Api\V1\PageController::class, 'productImages']);
     Route::get('home', [App\Http\Controllers\Api\V1\PageController::class, 'home']);
     Route::get('search', [App\Http\Controllers\Api\V1\PageController::class, 'search']);
-    Route::get('get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
+    Route::get('get-companies/{id}/{?sort_type}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
     Route::get('get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
     Route::get('get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
     Route::get('get-rent/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getRent']);
@@ -44,15 +44,14 @@ Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
 
-        Route::get('auth-get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
+        Route::get('auth-get-companies/{id}/{?sort_type}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
         Route::get('auth-get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
         Route::get('auth-get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);
         Route::get('auth-get-rent/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getRent']);
         Route::get('auth-products', [App\Http\Controllers\Api\V1\ProductController::class, 'index']);
         Route::get('auth-product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
-
+        Route::get('company-payment/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'getCompanyPayment']);
         Route::post('save-properities', [App\Http\Controllers\Api\V1\PageController::class, 'saveproperities']);
-
         Route::get('get-properities/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getProperities']);
         Route::get('get-saved-products', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedProduct']);
         Route::get('get-saved-companies', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedCompany']);
