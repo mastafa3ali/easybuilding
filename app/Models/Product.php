@@ -11,7 +11,7 @@ class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images'];
+    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images','rate'];
     protected $appends = ['photo','photos'];
     protected $casts = [
         'images'=>'array'

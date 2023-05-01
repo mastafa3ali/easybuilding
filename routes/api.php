@@ -58,6 +58,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('get-saved-companies', [App\Http\Controllers\Api\V1\PageController::class, 'getSavedCompany']);
         Route::get('sales', [App\Http\Controllers\Api\V1\PageController::class, 'sales']);
         Route::post('save', [App\Http\Controllers\Api\V1\PageController::class, 'makeSaved']);
+        Route::post('rate', [App\Http\Controllers\Api\V1\PageController::class, 'saveRate']);
         Route::post('order', [App\Http\Controllers\Api\V1\OrderController::class, 'store']);
         Route::post('save_attatchment', [App\Http\Controllers\Api\V1\OrderController::class, 'saveAttachment']);
 

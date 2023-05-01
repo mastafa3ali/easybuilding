@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Requests\OrderSubmitRequest;
 use App\Http\Requests\SaleOrderRequest;
+use App\Http\Resources\OrderDetailsResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\SubCategoryResource;
 use App\Models\ApiNotification;
@@ -44,7 +45,7 @@ class OrderController extends Controller
 
 
         $attribute =  (floatval($request->attribute_1)) *  (floatval($request->attribute_2)) *  (floatval($request->attribute_3));
-        $guarantee_amount=$product->price * $product->guarantee_amount * $attribute;
+        $guarantee_amount=(float)$product->price * (float)$product->guarantee_amount * (float)$attribute;
         $data = [
             'details' => $product_details,
             'user_id' => auth()->id(),
@@ -64,7 +65,7 @@ class OrderController extends Controller
             'attachment2' => $attachment2,
             'delivery_date' => $request->deliver_date,
             'guarantee_amount' => $guarantee_amount,
-            'total'=>(float)$product->price+$guarantee_amount
+            'total'=>(float)$product->price+(float)$guarantee_amount
         ];
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
@@ -240,8 +241,9 @@ class OrderController extends Controller
 
     public function getOrder($id){
         $data = [];
-        $data = Order::with(['company','product'])->where('id', $id)->first();
-        return apiResponse(true, new OrderResource($data), null, null, 200);
+        $data = Order::with(['company','product'])->findOrFail($id);
+
+        return apiResponse(true, new OrderDetailsResource($data), null, null, 200);
     }
 
 }
