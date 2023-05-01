@@ -55,6 +55,7 @@ class OrderDetailsResource extends JsonResource
         $data['delivery_date']    = $this->delivery_date;
         $data['payment']          = $this->payment;
         $data['guarantee_amount'] = $this->guarantee_amount;
+        $data['type']       = $this->type;
         $data['created_at']       = $this->created_at;
 
         return $data;
