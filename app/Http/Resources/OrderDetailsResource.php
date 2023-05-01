@@ -31,7 +31,7 @@ class OrderDetailsResource extends JsonResource
                 $item['id']=$product['id'] ;
                 $item['name']=$this->productDetails($product['id'])?->name ;
                 $item['image']=$this->productDetails($product['id'])?->photo ;
-                $item['qty']=$product['qty'] ;
+                $item['qty']=1;
                 $item['price']=$product['price']??'' ;
                 $item['attribute_1']=$product['attribute_1'];
                 $item['attribute_2']=$product['attribute_2'];
