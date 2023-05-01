@@ -17,6 +17,7 @@ use App\Models\Setting;
 use App\Models\Contact;
 use App\Models\Slider;
 use App\Models\CompanyProduct;
+use App\Models\Payment;
 use App\Models\Rate;
 use App\Models\SubCategory;
 use App\Models\User;
@@ -101,8 +102,13 @@ class PageController extends Controller
         return apiResponse(true, $data, null, null, 200);
     }
 
-    public function getCompanies($id)
+    public function getCompanies($id,$sort_type='ASC')
     {
+        if($sort_type==0){
+            $sort = 'ASC';
+        }else{
+            $sort = 'DESC';
+        }
         //بترجع الشركات اللى ضايفه عروض على المنتج للايجار
         $data = User::where('users.type',User::TYPE_COMPANY)
         ->leftJoin('company_products','company_products.company_id','users.id')
@@ -119,7 +125,7 @@ class PageController extends Controller
             'users.phone',
             'users.description',
             'users.image'
-        ])->orderBy('company_products.price')
+        ])->orderBy('users.rate',$sort)
         ->get();
         return apiResponse(false,CompanyResource::collection($data), null, null, 200);
     }
@@ -274,6 +280,11 @@ class PageController extends Controller
             'reason'=>$request->reason,
             'problem'=>$request->message,
         ]);
+        return apiResponse(true,$data, "", null, 200);
+    }
+    public function getCompanyPayment($id){
+
+        $data=Payment::where('company_id',$id)->get();
         return apiResponse(true,$data, "", null, 200);
     }
 
