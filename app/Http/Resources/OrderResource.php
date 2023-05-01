@@ -2,9 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Product;
-use App\Models\Saved;
-use App\Models\User;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -13,6 +11,8 @@ class OrderResource extends JsonResource
     {
         $data =[];
         $data['id']             = $this->id;
+        $data['company_id']   = $this->company?->id;
+        $data['product_id']  = $this->product?->id;
         $data['company_name']   = $this->company?->name;
         $data['company_photo']  = $this->company?->photo;
         $data['product_photo']  = $this->product?->photo;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
+use App\Http\Requests\RateRequest;
 use App\Http\Resources\CompanyResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SavedResource;
@@ -16,6 +17,7 @@ use App\Models\Setting;
 use App\Models\Contact;
 use App\Models\Slider;
 use App\Models\CompanyProduct;
+use App\Models\Rate;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
@@ -219,6 +221,31 @@ class PageController extends Controller
             $data['companies'] = CompanyResource::collection($companies);
             return apiResponse(true,$data, "", null, 200);
         }
+    }
+
+    public function saveRate(RateRequest $request){
+        $input = [
+            'value' => $request->value,
+            'message' => $request->message,
+            'type' => $request->type,
+            'model_id' => $request->model_id,
+            'user_id' => auth()->user()->id,
+        ];
+        $data = Rate::create($input);
+        if ($data) {
+            $rate = Rate::where('type', $request->type)->where('model_id', $request->model_id)->sum('value');
+            $count = Rate::where('type', $request->type)->where('model_id', $request->model_id)->count();
+            if ($request->type == 1) {
+                $item = Product::findOrFail($request->model_id);
+            }
+            if ($request->type == 2) {
+                $item = Product::findOrFail($request->model_id);
+            }
+            $item->rate = $rate / $count;
+            $item->save();
+        }
+        return apiResponse(true, $data, "", null, 200);
+
     }
     public function saveproperities(Request $request){
         // $data = [

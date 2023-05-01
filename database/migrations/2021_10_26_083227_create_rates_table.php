@@ -18,7 +18,8 @@ class CreateRatesTable extends Migration
             $table->integer('value');
             $table->text('message')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->morphs('rateable');
+            $table->tinyInteger('type');
+            $table->unsignedBigInteger('model_id');
             $table->softDeletes();
             $table->timestamps();
         });
