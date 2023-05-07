@@ -27,7 +27,7 @@ class RateRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required|in:1,2,3,4,5',
+            'value' => 'required',
             'model_id' => 'required',
             'type' => 'required|in:1,2'
         ];

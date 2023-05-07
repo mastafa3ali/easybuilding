@@ -15,7 +15,7 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->integer('value');
+            $table->decimal('value');
             $table->text('message')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->tinyInteger('type');

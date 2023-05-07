@@ -44,6 +44,8 @@ class OrderDetailsResource extends JsonResource
         $data['company_id']       = $this->company?->id;
         $data['products']         = $products;
         $data['company_name']     = $this->company?->name;
+        $data['company_description']     = $this->company?->description;
+        $data['company_rate']     = $this->company?->rate;
         $data['company_photo']    = $this->company?->photo;
         $data['total']            = $this->total;
         $data['code']             = $this->code;
