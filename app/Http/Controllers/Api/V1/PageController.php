@@ -104,7 +104,8 @@ class PageController extends Controller
 
     public function getCompanies($id,$sort_type='ASC')
     {
-        if($sort_type==0){
+
+        if(request()->sort_type==0){
             $sort = 'ASC';
         }else{
             $sort = 'DESC';
