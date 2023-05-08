@@ -16,6 +16,16 @@ class CompanyResource extends JsonResource
         if(isset($this->price)){
             $data['price']           = $this->price;
         }
+        if(isset($this->price_2)){
+            $data['price_2']           = $this->price_2;
+        }
+        if(isset($this->price_3)){
+            $data['price_3']           = $this->price_3;
+        }
+        if(isset($this->price_4)){
+            $data['price_4']           = $this->price_4;
+        }
+       
         if(isset($this->product_image)){
             $data['product_image']           = asset('storage/products/' . $this->product_image);
         }else{
