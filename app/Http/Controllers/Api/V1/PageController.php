@@ -122,6 +122,7 @@ class PageController extends Controller
             'company_products.image as product_image',
             'company_products.guarantee_amount as guarantee_amount',
             'users.id',
+            'users.rate',
             'users.name',
             'users.phone',
             'users.description',
