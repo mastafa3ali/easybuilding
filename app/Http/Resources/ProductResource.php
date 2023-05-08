@@ -18,6 +18,7 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'description' => $this->description,
             'type'  => $this->type,
+            'rate'  => $this->rate,
             'guarantee_amount' => $this->guarantee_amount,
             'properties' => $this->subcategory?->properties,
             'saved' => Product::saved($this->id)
