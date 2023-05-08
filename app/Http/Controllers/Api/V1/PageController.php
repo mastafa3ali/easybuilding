@@ -151,7 +151,12 @@ class PageController extends Controller
     }
     public function getCompanyProduct($id,$category_id)
     {
-        $products = Product::with('subcategory')->where('category_id',$category_id)->where('company_id',$id)->get();
+        if(request()->sort_type==0){
+            $sort = 'ASC';
+        }else{
+            $sort = 'DESC';
+        }
+        $products = Product::with('subcategory')->where('category_id',$category_id)->where('company_id',$id)->orderBy('rate',$sort)->get();
         $data = ProductResource::collection($products);
         return apiResponse(true, $data, null, null, 200);
     }
