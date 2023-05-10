@@ -65,7 +65,7 @@ class OrderController extends Controller
             'attachment2' => $attachment2,
             'delivery_date' => $request->deliver_date,
             'guarantee_amount' => $guarantee_amount,
-            'total'=>(float)$product->price+(float)$guarantee_amount
+            'total'=>$request->total
         ];
         $order = Order::create($data);
         return apiResponse(true, $order->id, null, null, 200);
