@@ -104,9 +104,8 @@ class ProductController extends Controller
     public function list(Request $request): JsonResponse
     {
         $data = CompanyProduct::leftJoin('products','products.id','company_products.product_id')
-        ->leftJoin('users','users.id','company_products.company_id')
         ->where('products.type',Product::TYPE_RENT)
-        ->where('users.id',auth()->id())->select([
+        ->where('company_products.company_id',auth()->id())->select([
             'products.name',
             'products.type',
             'company_products.description',
@@ -125,6 +124,7 @@ class ProductController extends Controller
     public function select(Request $request): JsonResponse|string
     {
        $data = Product::whereNull('company_id')->distinct()
+            ->where('products.type',Product::TYPE_RENT)
             ->where(function ($query) use ($request) {
                 if ($request->filled('q')) {
                     $query->where('name', 'LIKE', '%' . $request->q . '%');

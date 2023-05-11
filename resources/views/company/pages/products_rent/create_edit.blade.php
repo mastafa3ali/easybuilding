@@ -54,7 +54,7 @@
                                 <option value="3">{{ __('products.rent_types.3') }}</option>
                                 <option value="4">{{ __('products.rent_types.4') }}</option>
                                 <option value="5">{{ __('products.rent_types.5') }}</option>
-                               
+
                             </select>
                             @error('rent_type')
                             <span class="error">{{ $message }}</span>
@@ -107,14 +107,44 @@
                             </div>
                         </div>
                         <div class="row">
-                        <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
-                            <label class="form-label" for="description">{{ __('products.description') }}</label>
-                            <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
-                            @error('description')
+                            <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
+                                <label class="form-label" for="description">{{ __('products.description') }}</label>
+                                <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                                @error('description')
+                                <span class="error">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    <div class="row">
+                        <h2>{{ __('products.other_price') }}</h2>
+                        <div class="mb-1 col-md-4  @error('price_2') is-invalid @enderror">
+                            <label class="form-label" for="price_2">{{ __('products.price_2') }}</label>
+                            <input type="number" name="price_2" id="price_2" class="form-control" placeholder=""
+                            value="{{ $item->price_2 ?? old('price_2') }}" />
+                            @error('price_2')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1 col-md-4  @error('price_3') is-invalid @enderror">
+                            <label class="form-label" for="price_3">{{ __('products.price_3') }}</label>
+                            <input type="number" name="price_3" id="price_3" class="form-control" placeholder=""
+                            value="{{ $item->price_3 ?? old('price_3') }}" />
+                            @error('price_3')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1 col-md-4  @error('price_4') is-invalid @enderror">
+                            <label class="form-label" for="price_4">{{ __('products.price_4') }}</label>
+                            <input type="number" name="price_4" id="price_4" class="form-control" placeholder=""
+                            value="{{ $item->price_4 ?? old('price_4') }}" />
+                            @error('price_4')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
