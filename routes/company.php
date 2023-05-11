@@ -34,7 +34,7 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::get('orders/{id}/edit', [App\Http\Controllers\Company\OrderController::class, 'edit'])->name('orders.edit');
     Route::get('orders/show/{id}', [App\Http\Controllers\Company\OrderController::class, 'show'])->name('orders.show');
     Route::delete('orders/{id}', [App\Http\Controllers\Company\OrderController::class, 'destroy'])->name('orders.destroy');
-    
+
     Route::post('orders/change-to-progress', [App\Http\Controllers\Company\OrderController::class, 'changeTopRrogress'])->name('orders.changeTopRrogress');
     Route::post('orders/change-to-deliverd', [App\Http\Controllers\Company\OrderController::class, 'changeToDeliverd'])->name('orders.changeToDeliverd');
 
