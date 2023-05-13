@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
-                            <label class="form-label" for="price">{{ __('products.price') }}</label>
+                            <label class="form-label" for="price">{{ __('products.main_price') }}</label>
                             <input type="number" name="price" id="price" class="form-control" placeholder=""
                                    value="{{ $item->price ?? old('price') }}" />
                             @error('price')
@@ -115,7 +115,7 @@
                                 @enderror
                             </div>
                         </div>
-                    <div class="row">
+                    <div class="row" id="other_price" >
                         <h2>{{ __('products.other_price') }}</h2>
                         <div class="mb-1 col-md-4  @error('price_2') is-invalid @enderror">
                             <label class="form-label" for="price_2">{{ __('products.price_2') }}</label>
@@ -153,7 +153,7 @@
 @push('scripts')
     <script>
     $(window).on('load', function() {
-
+        checkPrice();
         $('body').on('change', '.select_type', function (){
             var type= $(this).val();
             if(type==1){
@@ -164,6 +164,30 @@
             }
             return false;
         });
-    })
+
+        $('body').on('change', '#product_id', function (){
+            checkPrice();
+        });
+
+    });
+
+    function checkPrice(){
+
+        var product_id = $("#product_id").val();
+            $('#other_price').hide();
+            $.ajax({
+                type:'GET',
+                url:"{{ route('company.products.check') }}",
+                data:{product_id:product_id},
+                success:function(data){
+                    console.log(data);
+                    if(data==1){
+                        $('#other_price').show();
+                    }
+                }
+            });
+
+    }
+
 </script>
 @endpush
