@@ -90,33 +90,34 @@
                 {
                     "targets": -1,
                     "render": function (data, type, row) {
-                        var editUrl = '{{ route("admin.sub_categories.edit", ":id") }}';
-                        editUrl = editUrl.replace(':id', row.id);
+                        return '';
+                        //  var editUrl = '{{ route("admin.sub_categories.edit", ":id") }}';
+                        //  editUrl = editUrl.replace(':id', row.id);
 
-                        var deleteUrl = '{{ route("admin.sub_categories.destroy", ":id") }}';
-                        deleteUrl = deleteUrl.replace(':id', row.id);
+                        //  var deleteUrl = '{{ route("admin.sub_categories.destroy", ":id") }}';
+                        //  deleteUrl = deleteUrl.replace(':id', row.id);
 
-                        return `
-                               <div class="dropdown">
-                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
-                                            <i data-feather="more-vertical" class="font-medium-2"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        @can('sub_categories.edit')
-                        <a class="dropdown-item" href="`+editUrl+`">
-                                        <i data-feather="edit-2" class="font-medium-2"></i>
-                                            <span>{{ __('sub_categories.actions.edit') }}</span>
-                                        </a>
-                                        @endcan
-                        @can('sub_categories.delete')
-                        <a class="dropdown-item delete_item" data-url="`+deleteUrl+`" href="#">
-                                            <i data-feather="trash" class="font-medium-2"></i>
-                                             <span>{{ __('sub_categories.actions.delete') }}</span>
-                                        </a>
-                                        @endcan
-                        </div>
-                   </div>
-                    `;
+                        //  return `
+                        //         <div class="dropdown">
+                        //              <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
+                        //                      <i data-feather="more-vertical" class="font-medium-2"></i>
+                        //              </button>
+                        //              <div class="dropdown-menu">
+                        //                  @can('sub_categories.edit')
+                        //                  <a class="dropdown-item" href="`+editUrl+`">
+                        //                  <i data-feather="edit-2" class="font-medium-2"></i>
+                        //                      <span>{{ __('sub_categories.actions.edit') }}</span>
+                        //                  </a>
+                        //                  @endcan
+                        //                  @can('sub_categories.delete')
+                        //                  <a class="dropdown-item delete_item" data-url="`+deleteUrl+`" href="#">
+                        //                      <i data-feather="trash" class="font-medium-2"></i>
+                        //                       <span>{{ __('sub_categories.actions.delete') }}</span>
+                        //                  </a>
+                        //                  @endcan
+                        //              </div>
+                        //          </div>
+                        //     `;
                     }
                 }
                 @endcanany

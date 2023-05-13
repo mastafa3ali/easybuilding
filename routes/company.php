@@ -12,6 +12,7 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::get('/', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('home');
 
     Route::get('products/select', [App\Http\Controllers\Company\ProductController::class, 'select'])->name('products.select');
+    Route::get('products/check', [App\Http\Controllers\Company\ProductController::class, 'check'])->name('products.check');
     Route::delete('products/bulk', [App\Http\Controllers\Company\ProductController::class, 'deleteBulk'])->name('products.deleteBulk');
     Route::get('products/list', [App\Http\Controllers\Company\ProductController::class, 'list'])->name('products.list');
     Route::resource('products', App\Http\Controllers\Company\ProductController::class);
