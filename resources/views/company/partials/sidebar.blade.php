@@ -39,6 +39,12 @@ $route = \Route::currentRouteName();
                             <span data-i18n="List">{{ __('admin.orders') }}</span>
                         </a>
                     </li>
+                    <li class="nav-item {{ request()->routeIs('company.payments') ? 'active' : '' }}">
+                        <a class="nav-link d-flex align-items-center" href="{{ route('company.payments') }}">
+                            <i data-feather="book"></i>
+                            <span data-i18n="List">{{ __('admin.payments') }}</span>
+                        </a>
+                    </li>
                       {{-- <li class="dropdown nav-item {{ request()->routeIs('company.reports*') ? 'active' : '' }}" data-menu="dropdown">
                     <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                         <i data-feather="package"></i>

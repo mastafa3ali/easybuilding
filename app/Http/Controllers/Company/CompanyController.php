@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -22,6 +23,27 @@ class CompanyController extends Controller
         $onprogress_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_ONPROGRESS)->count();
         $compleated_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_DONE)->count();
         return view($this->viewIndex, get_defined_vars());
+    }
+    public function payments(Request $request)
+    {
+        $item = Payment::where('company_id',auth()->id())->first();
+
+        return view('company.pages.payments.index', get_defined_vars());
+    }
+    public function savePayments(Request $request)
+    {
+         $this->validate($request, [
+               'payment' => 'required'
+            ]);
+        $payments = Payment::where('company_id',auth()->id())->first();
+        if($payments){
+            $payments->update(['payments'=>$request->payment]);
+        }else{
+            Payment::create(['payments'=>$request->payment,'company_id'=>auth()->id()]);
+        }
+        flash(__('orders.messages.updated'))->success();
+
+        return back();
     }
     public function updateToken(Request $request){
         try{

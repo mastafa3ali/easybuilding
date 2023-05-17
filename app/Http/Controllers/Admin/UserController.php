@@ -150,6 +150,20 @@ class UserController extends Controller
             ->get();
         return response()->json($data);
     }
+    public function clientsSelect(Request $request): JsonResponse|string
+    {
+       $data = User::distinct()
+            ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    $query->where('name', 'LIKE', '%' . $request->q . '%');
+                }
+            })
+            ->where('type',User::TYPE_MERCHANT)
+            ->orWhere('type',User::TYPE_OWNER)
+            ->select('id', 'name AS text')
+            ->get();
+        return response()->json($data);
+    }
     public function companiesSelect(Request $request): JsonResponse|string
     {
        $data = User::distinct()
@@ -160,7 +174,6 @@ class UserController extends Controller
             })
             ->where('type',User::TYPE_COMPANY)
             ->select('id', 'name AS text')
-            ->take(10)
             ->get();
         return response()->json($data);
     }
