@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use App\Models\ApiNotification;
 use App\Models\Order;
+use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -15,8 +16,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
 {
-
-
     public function __construct()
     {
     }
@@ -26,6 +25,11 @@ class OrderController extends Controller
     {
         return view('company.pages.orders.index');
     }
+    public function user($id)
+    {
+        $item = User::findOrFail($id);
+        return view('company.pages.orders.user',get_defined_vars());
+    }
 
 
 
@@ -33,7 +37,7 @@ class OrderController extends Controller
     {
 
         $data = Order::with('user')
-        ->where('company_id',session('companyId'))
+        ->where('company_id', session('companyId'))
         ->where(function ($query) use ($request) {
             if ($request->filled('number')) {
                 $query->where('number', $request->number);
@@ -41,7 +45,7 @@ class OrderController extends Controller
             if ($request->filled('date')) {
                 $query->whereRaw('DATE(created_at) = ?', $request->date);
             }
-        })->where('status','!=',Order::STATUS_PENDDING_X)
+        })->where('status', '!=', Order::STATUS_PENDDING_X)
             ->OrderBy('id', 'DESC')->select('*');
 
         return DataTables::of($data)
@@ -68,25 +72,25 @@ class OrderController extends Controller
                 return '<button type="button" class="btn btn-sm btn-outline-success round waves-effect active border-0">' . strval(__('orders.types.' . $item->type)) . '</button>';
             })
             ->editColumn('user', function ($item) {
-                return $item->user?->name;
+                return '<a href="'.route('company.orders.user', ["id"=>$item->user_id]).'">'.$item->user?->name.'</a>';
             })
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';
-                    if ($item->status == Order::STATUS_PENDDING) {
-                            $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
+                if ($item->status == Order::STATUS_PENDDING) {
+                    $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
 
-                            $statusBtn .= '<a class="dropdown-item  update_status" data-status="1" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
-                    }
-                    if ($item->status == Order::STATUS_ONPROGRESS) {
-                            $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
-                    }
-                    if ($item->status == Order::STATUS_ON_WAY) {
-                            $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeToDeliverd') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_deliverd") . '</span></a>';
-                    }
+                    $statusBtn .= '<a class="dropdown-item  update_status" data-status="1" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
+                }
+                if ($item->status == Order::STATUS_ONPROGRESS) {
+                    $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
+                }
+                if ($item->status == Order::STATUS_ON_WAY) {
+                    $statusBtn .= ' <a class="dropdown-item update_status" data-status="0" data-url="' . route('company.orders.changeToDeliverd') . '" data-order_id="' . $item->id . '"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_deliverd") . '</span></a>';
+                }
                 return $statusBtn;
             })->editColumn('editUrl', function ($item) {
                 $editBtn = '';
-                    $editBtn = ' <a class="dropdown-item" href="' . route("company.orders.show", $item->id) . '">
+                $editBtn = ' <a class="dropdown-item" href="' . route("company.orders.show", $item->id) . '">
                                 <i data-feather="eye" class="font-medium-2"></i>
                                     <span> ' . __("products.actions.show") . '</span>
                                 </a>';
@@ -102,7 +106,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ONPROGRESS]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_confirmed',['code'=>$item->code]);
+            $message = __('api.order_confirmed', ['code'=>$item->code]);
             $notifications = [
                     'user_id'=>$item->user_id,
                     'text'=>$message,
@@ -110,7 +114,7 @@ class OrderController extends Controller
                     'time'=>date('H:i'),
                 ];
             ApiNotification::create($notifications);
-            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
@@ -123,7 +127,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_confirmed',['code'=>$item->code]);
+            $message = __('api.order_confirmed', ['code'=>$item->code]);
             $notifications = [
                     'user_id'=>$item->user_id,
                     'text'=>$message,
@@ -131,7 +135,7 @@ class OrderController extends Controller
                     'time'=>date('H:i'),
                 ];
             ApiNotification::create($notifications);
-            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
@@ -144,7 +148,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_DELIVERD]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_deliverd',['code'=>$item->code]);
+            $message = __('api.order_deliverd', ['code'=>$item->code]);
             $notifications = [
                     'user_id'=>$item->user_id,
                     'text'=>$message,
@@ -154,7 +158,7 @@ class OrderController extends Controller
                     'time'=>date('H:i'),
                 ];
             ApiNotification::create($notifications);
-            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
@@ -164,14 +168,14 @@ class OrderController extends Controller
     public function changeToCanceled(Request $request): RedirectResponse
     {
         try {
-             $this->validate($request, [
-                'order_id' => 'required',
-                'reason' => 'required',
+            $this->validate($request, [
+               'order_id' => 'required',
+               'reason' => 'required',
             ]);
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_REJECT]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_canceled',['code'=>$item->code]).' والسبب '.$request->reason;
+            $message = __('api.order_canceled', ['code'=>$item->code]).' والسبب '.$request->reason;
             $notifications = [
                 'user_id'=>$item->user_id,
                 'text'=>$message,
@@ -180,7 +184,7 @@ class OrderController extends Controller
                 'time'=>date('H:i'),
             ];
             ApiNotification::create($notifications);
-            Notification::send(null,new SendPushNotification($message,$fcmTokens));
+            Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
         } catch (\Exception $e) {
             flash($e->getMessage())->error();
@@ -206,7 +210,7 @@ class OrderController extends Controller
     public function download(Request $request)
     {
         $orders =  Order::whereHas('product', function ($query) {
-            $query->where('company_id',  session('companyId'));
+            $query->where('company_id', session('companyId'));
         })->get()->toArray();
 
         return FastExcel::data($orders)->download('orders.xlsx', function ($item) {
@@ -230,7 +234,7 @@ class OrderController extends Controller
     {
         try {
             $item = Order::whereHas('product', function ($query) {
-                $query->where('company_id',  session('companyId'));
+                $query->where('company_id', session('companyId'));
             })->findOrFail($id);
             $item->delete();
             flash(__('orders.messages.deleted'))->success();

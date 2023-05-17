@@ -29,6 +29,7 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
 
     Route::get('orders', [App\Http\Controllers\Company\OrderController::class, 'index'])->name('orders');
     Route::get('list', [App\Http\Controllers\Company\OrderController::class, 'list'])->name('orders.list');
+    Route::get('user/{id}', [App\Http\Controllers\Company\OrderController::class, 'user'])->name('orders.user');
     Route::get('orders/download', [App\Http\Controllers\Company\OrderController::class, 'download'])->name('orders.download');
     Route::post('orders/change-to-confirmed', [App\Http\Controllers\Company\OrderController::class, 'changeToConfirmed'])->name('orders.changeToConfirmed');
     Route::post('orders/change-to-canceled', [App\Http\Controllers\Company\OrderController::class, 'changeToCanceled'])->name('orders.changeToCanceled');
