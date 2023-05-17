@@ -51,6 +51,13 @@ class PageController extends Controller
     }
     public function getSales($id)
     {
+
+        if(request()->sort_type==0) {
+            $sort = 'ASC';
+        } elseif(request()->sort_type==1) {
+            $sort = 'DESC';
+        }
+
         //بتعرض الشركات للبيع الخاصة للكاتيجورى
         $data = User::where('users.type', User::TYPE_COMPANY)
            ->join('products', 'products.company_id', 'users.id')
@@ -64,7 +71,7 @@ class PageController extends Controller
                'users.phone',
                'users.description',
                'users.image'
-           ])
+           ])->orderBy('id',$sort)
         ->get();
 
 
