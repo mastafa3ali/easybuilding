@@ -20,7 +20,6 @@ class OrderController extends Controller
     {
     }
 
-
     public function index(Request $request)
     {
         return view('company.pages.orders.index');
@@ -28,14 +27,11 @@ class OrderController extends Controller
     public function user($id)
     {
         $item = User::findOrFail($id);
-        return view('company.pages.orders.user',get_defined_vars());
+        return view('company.pages.orders.user', get_defined_vars());
     }
-
-
 
     public function list(Request $request): object
     {
-
         $data = Order::with('user')
         ->where('company_id', session('companyId'))
         ->where(function ($query) use ($request) {
@@ -46,11 +42,9 @@ class OrderController extends Controller
                 $query->whereRaw('DATE(created_at) = ?', $request->date);
             }
         })->where('status', '!=', Order::STATUS_PENDDING_X)
-            ->OrderBy('id', 'DESC')->select('*');
-
+        ->OrderBy('id', 'DESC')->select('*');
         return DataTables::of($data)
             ->addIndexColumn()
-
             ->editColumn('status', function ($item) {
                 $class="";
                 switch ($item->status) {

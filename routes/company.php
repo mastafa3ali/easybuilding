@@ -23,7 +23,8 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::get('product_ssale/list', [App\Http\Controllers\Company\ProductSaleController::class, 'list'])->name('product_ssale.list');
     Route::resource('product_ssale', App\Http\Controllers\Company\ProductSaleController::class);
 
-
+    Route::get('payments', [App\Http\Controllers\Company\CompanyController::class, 'payments'])->name('payments');
+    Route::post('save-payments', [App\Http\Controllers\Company\CompanyController::class, 'savePayments'])->name('payments.store');
     Route::get('categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectcategories'])->name('categories.select');
     Route::get('sub_categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectSubCategory'])->name('sub_categories.select');
 

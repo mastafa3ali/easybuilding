@@ -17,18 +17,6 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::patch('/fcm-token', [App\Http\Controllers\Admin\AdminController::class, 'updateToken'])->name('fcmToken');
         Route::post('/send-notification',[App\Http\Controllers\Admin\AdminController::class,'notification'])->name('notification');
 
-        Route::get('newghaith/select', [App\Http\Controllers\Admin\NewghaithController::class, 'select'])->name('newghaith.select');
-        Route::get('newghaith/lessons', [App\Http\Controllers\Admin\NewghaithController::class, 'lessons'])->name('newghaith.lessons');
-        Route::get('newghaith/sections', [App\Http\Controllers\Admin\NewghaithController::class, 'sections'])->name('newghaith.sections');
-        Route::delete('newghaith/bulk', [App\Http\Controllers\Admin\NewghaithController::class, 'deleteBulk'])->name('newghaith.deleteBulk')->middleware('permission:newghaith.delete');
-        Route::get('newghaith/list', [App\Http\Controllers\Admin\NewghaithController::class, 'list'])->name('newghaith.list')->middleware('permission:newghaith.view');
-        Route::post('newghaith', [App\Http\Controllers\Admin\NewghaithController::class, 'store'])->name('newghaith.store')->middleware('permission:newghaith.create');
-        Route::delete('newghaith/{id}', [App\Http\Controllers\Admin\NewghaithController::class, 'destroy'])->name('newghaith.destroy')->middleware('permission:newghaith.delete');
-        Route::get('newghaith', [App\Http\Controllers\Admin\NewghaithController::class, 'index'])->name('newghaith.index')->middleware('permission:newghaith.view');
-        Route::get('newghaith/create', [App\Http\Controllers\Admin\NewghaithController::class, 'create'])->name('newghaith.create')->middleware('permission:newghaith.create');
-        Route::match(['PUT', 'PATCH'], 'newghaith/{id}', [App\Http\Controllers\Admin\NewghaithController::class, 'update'])->name('newghaith.update')->middleware('permission:newghaith.edit');
-        Route::get('newghaith/{id}/edit', [App\Http\Controllers\Admin\NewghaithController::class, 'edit'])->name('newghaith.edit')->middleware('permission:newghaith.edit');
-
 
         Route::get('sliders/select', [App\Http\Controllers\Admin\SliderController::class, 'select'])->name('sliders.select');
         Route::delete('sliders/bulk', [App\Http\Controllers\Admin\SliderController::class, 'deleteBulk'])->name('sliders.deleteBulk')->middleware('permission:sliders.delete');
@@ -39,6 +27,16 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::get('sliders/create', [App\Http\Controllers\Admin\SliderController::class, 'create'])->name('sliders.create')->middleware('permission:sliders.create');
         Route::match(['PUT', 'PATCH'], 'sliders/{id}', [App\Http\Controllers\Admin\SliderController::class, 'update'])->name('sliders.update')->middleware('permission:sliders.edit');
         Route::get('sliders/{id}/edit', [App\Http\Controllers\Admin\SliderController::class, 'edit'])->name('sliders.edit')->middleware('permission:sliders.edit');
+
+        Route::get('notifications/select', [App\Http\Controllers\Admin\NotificationController::class, 'select'])->name('notifications.select');
+        Route::delete('notifications/bulk', [App\Http\Controllers\Admin\NotificationController::class, 'deleteBulk'])->name('notifications.deleteBulk')->middleware('permission:notifications.delete');
+        Route::get('notifications/list', [App\Http\Controllers\Admin\NotificationController::class, 'list'])->name('notifications.list')->middleware('permission:notifications.view');
+        Route::post('notifications', [App\Http\Controllers\Admin\NotificationController::class, 'store'])->name('notifications.store')->middleware('permission:notifications.create');
+        Route::delete('notifications/{id}', [App\Http\Controllers\Admin\NotificationController::class, 'destroy'])->name('notifications.destroy')->middleware('permission:notifications.delete');
+        Route::get('notifications', [App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('notifications.index')->middleware('permission:notifications.view');
+        Route::get('notifications/create', [App\Http\Controllers\Admin\NotificationController::class, 'create'])->name('notifications.create')->middleware('permission:notifications.create');
+        Route::match(['PUT', 'PATCH'], 'notifications/{id}', [App\Http\Controllers\Admin\NotificationController::class, 'update'])->name('notifications.update')->middleware('permission:notifications.edit');
+        Route::get('notifications/{id}/edit', [App\Http\Controllers\Admin\NotificationController::class, 'edit'])->name('notifications.edit')->middleware('permission:notifications.edit');
 
         Route::get('categories/select', [App\Http\Controllers\Admin\CategoryController::class, 'select'])->name('categories.select');
         Route::delete('categories/bulk', [App\Http\Controllers\Admin\CategoryController::class, 'deleteBulk'])->name('categories.deleteBulk')->middleware('permission:categories.delete');
@@ -129,6 +127,7 @@ Route::middleware('throttle:60,1')->group(function () {
 
         Route::get('users/select', [App\Http\Controllers\Admin\UserController::class, 'select'])->name('users.select');
         Route::get('companies/select', [App\Http\Controllers\Admin\UserController::class, 'companiesSelect'])->name('companies.select');
+        Route::get('clients/select', [App\Http\Controllers\Admin\UserController::class, 'clientsSelect'])->name('clients.select');
         Route::get('users/list', [App\Http\Controllers\Admin\UserController::class, 'list'])->name('users.list')->middleware('permission:users.view');
         Route::post('users', [App\Http\Controllers\Admin\UserController::class, 'store'])->name('users.store')->middleware('permission:users.create');
         Route::post('restore/{id}', [App\Http\Controllers\Admin\UserController::class, 'restore'])->name('users.restore')->middleware('permission:users.create');

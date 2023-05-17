@@ -1,106 +1,52 @@
-@extends('teacher.layouts.master')
+@extends('company.layouts.master')
 @section('title')
     <title>{{ config('app.name') }} | {{ __('payments.plural') }}</title>
 @endsection
 @section('content')
-    <div class="content-header row">
-        <div class="content-header-left col-md-6 col-12 mb-2">
-            <div class="row breadcrumbs-top">
-                <div class="col-12">
-                    <h1 class="bold mb-0 mt-1 text-dark">
-                        <i data-feather="box" class="font-medium-2"></i>
-                        <span>{{ __('admin.payments') }}</span>
-                    </h1>
+    <form method='post' enctype="multipart/form-data"  id="jquery-val-form"
+          action="{{ route('company.payments.store') }}">
+        @csrf
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12 mb-1">
+                <div class="row breadcrumbs-top">
+                    <div class="col-12">
+                        <h1 class="bold mb-0 mt-1 text-dark">
+                            <i data-feather="box" class="font-medium-2"></i>
+                            <span>{{  __('admin.payments') }}</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+            <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
+                <div class="mb-1 breadcrumb-right">
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-primary me-1 waves-effect">
+                            <i data-feather="save"></i>
+                            <span class="active-sorting text-primary">{{ __('products.actions.save') }}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
-            <div class="mb-1 breadcrumb-right">
+        <div class="content-body">
+            <div class="card">
+                <div class="card-body">
+                     <div class="demo-inline-spacing">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=1 type="checkbox" {{ isset($item)? in_array(1,$item->payments)?'checked':'' :'' }} />
+                            <label class="form-check-label" for="inlineCheckbox1">{{ __('orders.payments.1') }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=2 type="checkbox" {{ isset($item)? in_array(2,$item->payments)?'checked':'':''  }} />
+                            <label class="form-check-label" for="inlineCheckbox2">{{ __('orders.payments.2') }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=3 type="checkbox" {{ isset($item)? in_array(3,$item->payments)?'checked':'':''  }} />
+                            <label class="form-check-label" for="inlineCheckbox3">{{ __('orders.payments.3') }}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="content-body">
-        <div class="card">
-            <div class="card-datatable">
-                <table class="dt-multilingual table datatables-ajax">
-                    <thead>
-                    <tr>
-                        <th>{{ __('admin.student') }}</th>
-                        <th>رقم الهاتف</th>
-                        <th>النوع</th>
-                        <th>العنوان</th>
-                        <th>{{ __('admin.amount') }}</th>
-                        <th>{{ __('admin.date') }}</th>
-                        <th width="15%" class="text-center">{{ __('notice.options') }}</th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-    </div>
+    </form>
 @stop
-
-@push('scripts')
-    <script>
-        var dt_ajax_table = $('.datatables-ajax');
-        var dt_ajax = dt_ajax_table.dataTable({
-            processing: true,
-            serverSide: true,
-            searching: true,
-            paging: true,
-            info: false,
-            lengthMenu: [[10, 50, 100,500, -1], [10, 50, 100,500, "All"]],
-            language: {
-                paginate: {
-                    // remove previous & next text from pagination
-                    previous: '&nbsp;',
-                    next: '&nbsp;'
-                }
-            },
-            ajax: {
-                url: "{{ route('teacher.payments.list') }}",
-                data: function (d) {
-                    d.name   = $('#filterForm #name').val();
-                }
-            },
-            drawCallback: function (settings) {
-                feather.replace();
-            },
-            columns: [
-                /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'fullname', name: 'fullname'},
-                {data: 'phone', name: 'phone'},
-                {data: 'model_type', name: 'model_type'},
-                {data: 'model_title', name: 'model_title',orderable: false,searchable: false},
-                {data: 'amount', name: 'amount'},
-                {data: 'created_at', name: 'created_at'},
-                {data: 'actions',name: 'actions',orderable: false,searchable: false},
-            ],
-            columnDefs: [{
-                "targets": -1,
-                "render": function (data, type, row) {
-                    var deleteUrl = '{{ route("teacher.payments.destroy", ":id") }}';
-                    deleteUrl = deleteUrl.replace(':id', row.id);
-
-                    return `
-                               <div class="dropdown">
-                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow waves-effect waves-float waves-light" data-bs-toggle="dropdown">
-                                            <i data-feather="more-vertical" class="font-medium-2"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item delete_item" data-url="`+deleteUrl+`" href="#">
-                                            <i data-feather="trash" class="font-medium-2"></i>
-                                             <span>{{ __('payments.actions.delete') }}</span>
-                                        </a>
-                                    </div>
-                               </div>
-                    `;
-                }
-            }],
-        });
-        $('.btn_filter').click(function (){
-            dt_ajax.DataTable().ajax.reload();
-        });
-    </script>
-@endpush
-

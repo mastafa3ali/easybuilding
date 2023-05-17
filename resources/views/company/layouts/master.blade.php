@@ -182,6 +182,7 @@
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper container-xxl p-0">
         @include('flash::message')
+        @include('admin.partials.errors')
         @yield('content')
     </div>
 </div>
