@@ -277,6 +277,14 @@ class PageController extends Controller
         if($request->filled('name')) {
             $companies=User::where('name', 'like', '%'.$request->name.'%')->get();
             $products=Product::where('name', 'like', '%'.$request->name.'%')->get();
+            $result = [];
+            foreach($products as $product){
+                if($product->type==Product::TYPE_RENT){
+                    $result[] = new ProductResource($product);
+                }else{
+                    $companies=User::where('id', $product->company_id)->get();
+                }
+            }
             $data['products'] = ProductResource::collection($products);
             $data['companies'] = CompanyResource::collection($companies);
             return apiResponse(true, $data, "", null, 200);
