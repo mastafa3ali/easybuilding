@@ -36,9 +36,9 @@ class OrderController extends Controller
             $request->attachment2->move(public_path('storage/orders'), $fileName);
             $attachment2 = $fileName;
         }
-        $product = CompanyProduct::where('product_id',$request->product_id)->where('company_id',$request->company_id)->first();
-        if($product==null){
-                return apiResponse(false, null, 'حدث خطأ ما الرجاء تحديث الصفحة', null, 200);
+        $product = CompanyProduct::where('product_id', $request->product_id)->where('company_id', $request->company_id)->first();
+        if($product==null) {
+            return apiResponse(false, null, 'حدث خطأ ما الرجاء تحديث الصفحة', null, 200);
 
         }
         $product_details[] = ['id' => $request->product_id, 'attribute_1' => $request->attribute_1, 'attribute_2' => $request->attribute_2, 'attribute_3' => $request->attribute_3,'price'=>$product->price];
@@ -85,7 +85,7 @@ class OrderController extends Controller
         }
         $json_details = [];
         $total = 0;
-        foreach($request->product_details as $product){
+        foreach($request->product_details as $product) {
             $item = Product::findOrFail($product['id']);
             $total = $total+ ((float)$item->price * (int)$product['qty']);
             $product['price'] = $item->price;
@@ -119,7 +119,7 @@ class OrderController extends Controller
     {
         $attachment1 = null;
         $attachment2 = null;
-       if ($request->hasFile('attachment1')) {
+        if ($request->hasFile('attachment1')) {
             $attachment1= $request->file('attachment1');
             $fileName = time() . rand(0, 999999999) . '.' . $attachment1->getClientOriginalExtension();
             $request->attachment1->move(public_path('storage/orders'), $fileName);
@@ -144,19 +144,19 @@ class OrderController extends Controller
     {
         $check_guarantee_amount = null;
         $check_guarantee = null;
-         if ($request->hasFile('check_guarantee_amount')) {
-                $check_guarantee_amount= $request->file('check_guarantee_amount');
-                $fileName = time() . rand(0, 999999999) . '.' . $check_guarantee_amount->getClientOriginalExtension();
-                $request->check_guarantee_amount->move(public_path('storage/orders'), $fileName);
-                $check_guarantee_amount = $fileName;
-            }
-         if ($request->hasFile('check_guarantee')) {
-                $check_guarantee= $request->file('check_guarantee');
-                $fileName = time() . rand(0, 999999999) . '.' . $check_guarantee->getClientOriginalExtension();
-                $request->check_guarantee->move(public_path('storage/orders'), $fileName);
-                $check_guarantee = $fileName;
-            }
-            $order= Order::find($request->order_id);
+        if ($request->hasFile('check_guarantee_amount')) {
+            $check_guarantee_amount= $request->file('check_guarantee_amount');
+            $fileName = time() . rand(0, 999999999) . '.' . $check_guarantee_amount->getClientOriginalExtension();
+            $request->check_guarantee_amount->move(public_path('storage/orders'), $fileName);
+            $check_guarantee_amount = $fileName;
+        }
+        if ($request->hasFile('check_guarantee')) {
+            $check_guarantee= $request->file('check_guarantee');
+            $fileName = time() . rand(0, 999999999) . '.' . $check_guarantee->getClientOriginalExtension();
+            $request->check_guarantee->move(public_path('storage/orders'), $fileName);
+            $check_guarantee = $fileName;
+        }
+        $order= Order::find($request->order_id);
         $data = [
             'status' => Order::STATUS_PENDDING,
             'code' => $order->id,
@@ -178,7 +178,7 @@ class OrderController extends Controller
                 'time'=>date('H:i'),
             ];
         ApiNotification::create($notifications);
-        Notification::send(null,new SendPushNotification($message,$fcmTokens));
+        Notification::send(null, new SendPushNotification($message, $fcmTokens));
 
         $fcmTokens2[] = $company?->fcm_token;
         $message = __('api.new_order_request');
@@ -190,7 +190,53 @@ class OrderController extends Controller
                 'time'=>date('H:i'),
             ];
         ApiNotification::create($notifications);
-        Notification::send(null,new SendPushNotification($message,$fcmTokens2));
+        Notification::send(null, new SendPushNotification($message, $fcmTokens2));
+        $to = $company->email;
+        $subject = "طلب جديد";
+        $headers  = "From: " . strip_tags($_POST['req-email']) . "\r\n";
+        $headers .= "Reply-To: " . strip_tags($_POST['req-email']) . "\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+        $html = '<table>';
+        if ($order->type==1) {
+            $html .=`
+             <tr>
+             <th>`.__('products.plural') .`</th>
+             <th>`.__('products.qty') .`</th>
+             <th>`.__('products.price') .`</th>
+             </tr>`;
+        } else {
+            $html .=`  <tr>
+                <th>`.__('products.plural') .`</th>
+                <th>`.__('products.attributes.1') .`</th>
+                <th>`.__('products.attributes.2') .`</th>
+                <th>`.__('products.attributes.3') .`</th>
+                <th>`.__('products.rent_price') .`</th>
+            </tr>`;
+        }
+        if ($order->type==1) {
+            foreach ($order->details as $product) {
+                $html .=`<tr>
+                    <td>`.$order->productDetails($product['id'])?->name .`</td>
+                    <td >`.$product['qty'] .`</td>
+                    <td >`.$product['price']??'' .`</td>
+                </tr>`;
+            }
+        } else {
+            foreach ($order->details as $product) {
+                $html .=` <tr>
+                    <td>`.$order->productDetails($product['id'])?->name .`</td>
+                    <td>`.$product['attribute_1'] .`</td>
+                    <td>`.$product['attribute_2'] .`</td>
+                    <td>`.$product['attribute_3'] .`</td>
+                    <td>`.$product['price']??'' .`</td>
+                </tr>
+            `;
+            }
+        }
+        $html .= '</table>';
+        $body = '<p><strong>طلب جديد</p>'.$html;
+        mail($to, $subject, $body);
         return apiResponse(false, $order, null, null, 200);
     }
     public function latestAppVersion()
@@ -220,23 +266,26 @@ class OrderController extends Controller
         return apiResponse(true, $data, null, null, 200);
     }
 
-    public function notifications(){
+    public function notifications()
+    {
         $data = [];
         $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->toArray();
-        foreach($dayes as $day){
-            $list = ApiNotification::where('user_id', auth()->id())->where('day',$day)->get();
+        foreach($dayes as $day) {
+            $list = ApiNotification::where('user_id', auth()->id())->where('day', $day)->get();
             $data[][$day] = $list;
         }
         return apiResponse(true, $data, null, null, 200);
     }
 
-    public function orders(){
+    public function orders()
+    {
         $data = [];
         $data = Order::with(['company','product'])->where('user_id', auth()->id())->get();
         return apiResponse(true, OrderResource::collection($data), null, null, 200);
     }
 
-    public function getOrder($id){
+    public function getOrder($id)
+    {
         $data = [];
         $data = Order::with(['company','product'])->findOrFail($id);
 
