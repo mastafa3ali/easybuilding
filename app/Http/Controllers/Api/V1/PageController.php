@@ -285,7 +285,7 @@ class PageController extends Controller
                     $companies=User::where('id', $product->company_id)->get();
                 }
             }
-            $data['products'] = ProductResource::collection($products);
+            $data['products'] = $result;
             $data['companies'] = CompanyResource::collection($companies);
             return apiResponse(true, $data, "", null, 200);
         }
