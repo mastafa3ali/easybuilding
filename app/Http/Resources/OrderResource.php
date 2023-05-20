@@ -17,6 +17,7 @@ class OrderResource extends JsonResource
         $data['company_photo']  = $this->company?->photo;
         $data['product_photo']  = $this->product?->photo;
         $data['total']          = $this->total;
+        $data['status']          = $this->status;
 
         return $data;
     }
