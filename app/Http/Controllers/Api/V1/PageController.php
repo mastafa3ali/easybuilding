@@ -207,7 +207,7 @@ class PageController extends Controller
     public function notifications()
     {
         $data = [];
-        $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->orderBy('id','DESC')->toArray();
+        $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->orderBy('id','DESC')->pluck('day')->toArray();
         foreach($dayes as $day) {
             $list = ApiNotification::where('user_id', auth()->id())->where('day', $day)->orderBy('id','DESC')->get();
             $data[]['day'] = $list;
@@ -278,15 +278,22 @@ class PageController extends Controller
             $companies=User::where('name', 'like', '%'.$request->name.'%')->get();
             $products=Product::where('name', 'like', '%'.$request->name.'%')->get();
             $result = [];
+            $allcompanies = [];
+            foreach($companies as $company){
+                $allcompanies[] = new CompanyResource($company);
+            }
             foreach($products as $product){
                 if($product->type==Product::TYPE_RENT){
                     $result[] = new ProductResource($product);
                 }else{
-                    $companies=User::where('id', $product->company_id)->get();
+                    $company=User::where('id', $product->company_id)->first();
+                    if($company){
+                        $allcompanies[] = new CompanyResource($company);
+                    }
                 }
             }
             $data['products'] = $result;
-            $data['companies'] = CompanyResource::collection($companies);
+            $data['companies'] = $allcompanies;
             return apiResponse(true, $data, "", null, 200);
         }
     }
