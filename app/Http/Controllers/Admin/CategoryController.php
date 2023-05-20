@@ -93,13 +93,13 @@ class CategoryController extends Controller
         $data= $request->except(['_token', '_method']);
 
         $item = $item->fill($data);
-        if ($item->save()) {
-
             if($request->filled('active')){
                 $item->active = 1;
             }else{
                 $item->active = 0;
             }
+        if ($item->save()) {
+
 
             if ($request->hasFile('image')) {
                 $image= $request->file('image');
