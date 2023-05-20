@@ -207,9 +207,9 @@ class PageController extends Controller
     public function notifications()
     {
         $data = [];
-        $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->toArray();
+        $dayes = ApiNotification::where('user_id', auth()->id())->groupBy('day')->pluck('day')->orderBy('id','DESC')->toArray();
         foreach($dayes as $day) {
-            $list = ApiNotification::where('user_id', auth()->id())->where('day', $day)->get();
+            $list = ApiNotification::where('user_id', auth()->id())->where('day', $day)->orderBy('id','DESC')->get();
             $data[]['day'] = $list;
         }
         return apiResponse(true, $data, null, null, 200);
