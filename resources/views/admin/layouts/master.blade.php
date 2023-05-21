@@ -199,7 +199,6 @@
     initFirebaseMessagingRegistration();
 
     messaging.onMessage(function({data:{body,title}}){
-        alert(title)
         new Notification(title, {body});
     });
 </script>
