@@ -212,6 +212,7 @@
                 height: 14
             });
         }
+        $('.select2-input').select2();
         $('.ajax_select2').select2({
             placeholder: "{{ __('admin.select') }}",
             ajax: {
@@ -228,6 +229,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
         $('body').on('click', '.delete_item', function (){
             var url= $(this).attr('data-url');
             $('#deleteForm').attr('action', url)
@@ -240,7 +242,14 @@
             $('#modalRestore').modal('show')
             return false;
         })
-    })
+
+    $('.btn_clear').click(function() {
+        $(this).parent().find('.ajax_select2,.select2').val(null).trigger("change")
+    });
+
+     })
+
+
 </script>
 @stack('scripts')
 </body>

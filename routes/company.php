@@ -16,6 +16,8 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::delete('products/bulk', [App\Http\Controllers\Company\ProductController::class, 'deleteBulk'])->name('products.deleteBulk');
     Route::get('products/list', [App\Http\Controllers\Company\ProductController::class, 'list'])->name('products.list');
     Route::resource('products', App\Http\Controllers\Company\ProductController::class);
+    Route::get('notifications', [App\Http\Controllers\Company\ProductController::class, 'notifications'])->name('notifications');
+    Route::get('notifications/list', [App\Http\Controllers\Company\ProductController::class, 'listnotifications'])->name('notifications.list');
 
 
     Route::get('product_ssale/select', [App\Http\Controllers\Company\ProductSaleController::class, 'select'])->name('product_ssale.select');

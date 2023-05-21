@@ -35,10 +35,13 @@
                     <div class="row">
                         <div class="mb-1 col-md-4  @error('company_id') is-invalid @enderror">
                             <label class="form-label" for="company_id">{{ __('notifications.companies') }}</label>
-                            <select name="user_id[]" id="company_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('admin.companies.select') }}"
-                                    data-ajax--cache="true" multiple>
 
+                            <select name="company_id[]" id="company_id" class="select2-input form-select select2-input-hidden-accessibl"
+                                   multiple>
+                                   <option value="all">الكل</option>
+                                   @foreach ($companies as $company)
+                                   <option value="{{ $company->id }}" >{{ $company->text }}</option>
+                                   @endforeach
                             </select>
                             @error('company_id')
                             <span class="error">{{ $message }}</span>
@@ -46,10 +49,12 @@
                         </div>
                         <div class="mb-1 col-md-4  @error('client_id') is-invalid @enderror">
                             <label class="form-label" for="client_id">{{ __('notifications.clientes') }}</label>
-                            <select name="user_id[]" id="client_id" class="form-control ajax_select2 extra_field"
-                                    data-ajax--url="{{ route('admin.clients.select') }}"
-                                    data-ajax--cache="true" multiple>
-                            </select>
+                            <select name="client_id[]" id="client_id" class="select2-input form-select select2-hidden-accessibl "
+                                    multiple>
+                                 <option value="all">الكل</option>
+                                   @foreach ($clients as $client)
+                                   <option value="{{ $client->id }}" >{{ $client->text }}</option>
+                                   @endforeach                            </select>
                             @error('client_id')
                             <span class="error">{{ $message }}</span>
                             @enderror
