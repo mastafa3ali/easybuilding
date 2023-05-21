@@ -16,7 +16,6 @@ class NotificationRequest extends FormRequest
     {
         return [
             'text' => 'required',
-            'user_id'=>'required'
         ];
 
     }

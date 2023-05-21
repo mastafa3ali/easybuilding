@@ -279,6 +279,7 @@ class PageController extends Controller
             $products=Product::where('name', 'like', '%'.$request->name.'%')->get();
             $result = [];
             $allcompanies = [];
+            $doublicate = [];
             foreach($companies as $company){
                 $allcompanies[] = new CompanyResource($company);
             }
@@ -288,7 +289,10 @@ class PageController extends Controller
                 }else{
                     $company=User::where('id', $product->company_id)->first();
                     if($company){
-                        $allcompanies[] = new CompanyResource($company);
+                        if(!in_array($company->id,$doublicate)){
+                            $doublicate[] = $company->id;
+                            $allcompanies[] = new CompanyResource($company);
+                        }
                     }
                 }
             }

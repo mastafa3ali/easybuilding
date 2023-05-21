@@ -27,6 +27,17 @@ class NotificationController extends Controller
 
     public function create(): View
     {
+         $clients = User::distinct()
+            ->where('type',User::TYPE_MERCHANT)
+            ->orWhere('type',User::TYPE_OWNER)
+            ->select('id', 'name AS text')
+            ->get();
+
+        $companies = User::distinct()
+           ->where('type', User::TYPE_COMPANY)
+           ->select('id', 'name AS text')
+           ->get();
+
         return view($this->viewEdit, get_defined_vars());
     }
 
@@ -63,19 +74,53 @@ class NotificationController extends Controller
 
     protected function processForm($request, $id = null)
     {
-        foreach($request->user_id as $user_id) {
-            $notifications = [
-                'user_id'=>$user_id,
-                'text'=>$request->text,
-                'model_id'=>null,
-                'day'=>date('Y-m-d'),
-                'time'=>date('H:i'),
-            ];
-            ApiNotification::create($notifications);
+        if ($request->company_id) {
+            if (in_array("all", $request->company_id)) {
+                $company_id = User::distinct()
+                    ->where('type', User::TYPE_COMPANY)
+                    ->pluck('id')
+                    ->toArray();
+            } else {
+                $company_id = $request->company_id;
+            }
+            foreach($company_id as $user_id) {
+                $notifications = [
+                    'user_id'=>$user_id,
+                    'text'=>$request->text,
+                    'model_id'=>null,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+                ApiNotification::create($notifications);
+            }
+            $fcmTokens = User::whereIn('id', $company_id)->pluck('fcm_token')->toArray();
+            Notification::send(null, new SendPushNotification($request->text, $fcmTokens));
         }
-        $fcmTokens = User::whereIn('id',$request->user_id)->pluck('fcm_token')->toArray();
 
-        Notification::send(null,new SendPushNotification($request->text,$fcmTokens));
+        if ($request->client_id) {
+            if(in_array("all", $request->client_id)) {
+                $client_id = User::distinct()
+                ->where('type', User::TYPE_MERCHANT)
+                ->orWhere('type', User::TYPE_OWNER)
+                ->pluck('id')
+                ->toArray();
+            } else {
+                $client_id = $request->client_id;
+            }
+            foreach($client_id as $user_id) {
+                $notifications = [
+                    'user_id'=>$user_id,
+                    'text'=>$request->text,
+                    'model_id'=>null,
+                    'day'=>date('Y-m-d'),
+                    'time'=>date('H:i'),
+                ];
+                ApiNotification::create($notifications);
+            }
+            $fcmTokens = User::whereIn('id', $client_id)->pluck('fcm_token')->toArray();
+            Notification::send(null, new SendPushNotification($request->text, $fcmTokens));
+        }
+
         return true;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApiNotification;
 use App\Models\Category;
 use App\Models\CompanyProduct;
 use App\Models\Product;
@@ -16,6 +17,7 @@ use Yajra\DataTables\Facades\DataTables;
 class ProductController extends Controller
 {
     private $viewIndex  = 'company.pages.products_rent.index';
+    private $notifications  = 'company.pages.products_rent.notifications';
     private $viewEdit   = 'company.pages.products_rent.create_edit';
     private $viewShow   = 'company.pages.products_rent.show';
     private $route      = 'company.products';
@@ -23,6 +25,10 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         return view($this->viewIndex, get_defined_vars());
+    }
+    public function notifications(Request $request): View
+    {
+        return view($this->notifications, get_defined_vars());
     }
     public function create(): View
     {
@@ -100,6 +106,15 @@ class ProductController extends Controller
             return $item;
         }
         return null;
+    }
+
+    public function listnotifications(Request $request): JsonResponse
+    {
+        $data = ApiNotification::where('user_id',auth()->id())->orderBy('id','DESC')->select('*');
+        return DataTables::of($data)
+        ->addIndexColumn()
+
+        ->make(true);
     }
 
     public function list(Request $request): JsonResponse
