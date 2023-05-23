@@ -193,9 +193,7 @@ class OrderController extends Controller
         Notification::send(null, new SendPushNotification($message, $fcmTokens2));
         $to = $company->email;
         $subject = "طلب جديد";
-        $headers  = "From: " . strip_tags($_POST['req-email']) . "\r\n";
-        $headers .= "Reply-To: " . strip_tags($_POST['req-email']) . "\r\n";
-        $headers .= "MIME-Version: 1.0\r\n";
+        $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
         $html = '<table>';
         if ($order->type==1) {
