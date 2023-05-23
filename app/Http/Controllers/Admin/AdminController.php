@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
@@ -17,51 +16,6 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         // $codesCounts = WalletCode::count();
-        $order = Order::first();
-$to = "mastafa3alie@gmail.com";
-$subject = "طلب جديد";
-
-$headers = "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-$html = '<html><head><title>طلب جديد</title></head><body><table border=1>';
-if ($order->type==1) {
-    $html .=`
-             <tr>
-             <th>`.__('products.plural') .`</th>
-             <th>`.__('products.qty') .`</th>
-             <th>`.__('products.price') .`</th>
-             </tr>`;
-} else {
-    $html .=`  <tr>
-                <th>`.__('products.plural') .`</th>
-                <th>`.__('products.attributes.1') .`</th>
-                <th>`.__('products.attributes.2') .`</th>
-                <th>`.__('products.attributes.3') .`</th>
-                <th>`.__('products.rent_price') .`</th>
-            </tr>`;
-}
-if ($order->type==1) {
-    foreach ($order->details as $product) {
-        $html .=`<tr>
-                    <td>`.$order->productDetails($product['id'])?->name .`</td>
-                    <td >`.$product['qty'] .`</td>
-                    <td >`.$product['price']??'' .`</td>
-                </tr>`;
-    }
-} else {
-    foreach ($order->details as $product) {
-        $html .=` <tr>
-                    <td>`.$order->productDetails($product['id'])?->name .`</td>
-                    <td>`.$product['attribute_1'] .`</td>
-                    <td>`.$product['attribute_2'] .`</td>
-                    <td>`.$product['attribute_3'] .`</td>
-                    <td>`.$product['price']??'' .`</td>
-                </tr>
-            `;
-    }
-}
-$html .= '</table></body></html>';
-mail($to, $subject, $html);
 
 
         return view($this->viewIndex, get_defined_vars());
