@@ -195,46 +195,62 @@ class OrderController extends Controller
         $subject = "طلب جديد";
         $headers = "MIME-Version: 1.0\r\n";
         $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
-        $html = '<table>';
-        if ($order->type==1) {
-            $html .=`
-             <tr>
-             <th>`.__('products.plural') .`</th>
-             <th>`.__('products.qty') .`</th>
-             <th>`.__('products.price') .`</th>
-             </tr>`;
-        } else {
-            $html .=`  <tr>
-                <th>`.__('products.plural') .`</th>
-                <th>`.__('products.attributes.1') .`</th>
-                <th>`.__('products.attributes.2') .`</th>
-                <th>`.__('products.attributes.3') .`</th>
-                <th>`.__('products.rent_price') .`</th>
-            </tr>`;
-        }
-        if ($order->type==1) {
-            foreach ($order->details as $product) {
-                $html .=`<tr>
-                    <td>`.$order->productDetails($product['id'])?->name .`</td>
-                    <td >`.$product['qty'] .`</td>
-                    <td >`.$product['price']??'' .`</td>
-                </tr>`;
+
+            $html = "
+                <html>
+                    <head>
+                        <title>طلب جديد</title>
+                    </head>
+
+                    <body style='direction:rtl'>
+                        <p>لديك طلب جديد</p>
+                        <table border=1>";
+            if ($order->type==1) {
+                $html .="
+                        <tr>
+                        <th>".__('products.plural') ."</th>
+                        <th>".__('products.qty') ."</th>
+                        <th>".__('products.price') ."</th>
+                        </tr>";
+            } else {
+                $html .="  <tr>
+                            <th>".__('products.plural') ."</th>
+                            <th>".__('products.attributes.1') ."</th>
+                            <th>".__('products.attributes.2') ."</th>
+                            <th>".__('products.attributes.3') ."</th>
+                            <th>".__('products.rent_price') ."</th>
+                        </tr>";
             }
-        } else {
-            foreach ($order->details as $product) {
-                $html .=` <tr>
-                    <td>`.$order->productDetails($product['id'])?->name .`</td>
-                    <td>`.$product['attribute_1'] .`</td>
-                    <td>`.$product['attribute_2'] .`</td>
-                    <td>`.$product['attribute_3'] .`</td>
-                    <td>`.$product['price']??'' .`</td>
-                </tr>
-            `;
+            if ($order->type==1) {
+                foreach ($order->details as $product) {
+                    $html .="<tr>
+                                <td>".$order->productDetails($product['id'])?->name ."</td>
+                                <td >".$product['qty'] ."</td>
+                                <td >".$product['price']??'' ."</td>
+                            </tr>";
+                }
+            } else {
+                foreach ($order->details as $product) {
+                    $html .=" <tr>
+                                <td>".$order->productDetails($product['id'])?->name ."</td>
+                                <td>".$product['attribute_1'] ."</td>
+                                <td>".$product['attribute_2'] ."</td>
+                                <td>".$product['attribute_3'] ."</td>
+                                <td>".$product['price']??'' ."</td>
+                            </tr>
+                        ";
+                }
             }
-        }
-        $html .= '</table>';
-        $body = '<p><strong>طلب جديد</p>'.$html;
-        mail($to, $subject, $body);
+            $html .= "</table>
+                    </body>
+                </html>
+                ";
+
+            $headers = "MIME-Version: 1.0" . "\r\n";
+            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\b";
+            $headers .= 'From: name' . "\r\n";
+            mail($to, $subject, $html, $headers);
+
         return apiResponse(false, $order, null, null, 200);
     }
     public function latestAppVersion()
