@@ -215,6 +215,18 @@ class AuthController extends Controller
         }
         return apiResponse(false, null, null, null, 400);
     }
+
+    public function deleteAccount()
+    {
+        $user = User::find(auth()->id());
+        if ($user->delete()) {
+            $user = request()->user();
+            $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+
+            return apiResponse(true, null, null, null, 200);
+        }
+        return apiResponse(false, null, null, null, 400);
+    }
     public function updateToken(Request $request){
         try{
             $request->user()->update(['fcm_token'=>$request->fcm_token]);

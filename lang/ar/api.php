@@ -25,7 +25,7 @@ return [
     'removed_from_saved_success'=>'تم حذف :item من المحفوظة',
 
     'notification_title'=>'scoffoling',
-    'order_confirmed'=>'الطلب رقم :code قيد المراجعة',
+    'order_confirmed'=>' تم تأكيد الطلب رقم :code ',
     'order_canceled'=>'تم رفض الطلب رقم :code',
     'order_progress'=>'تم تغير حالةالطلب رقم :code الى جارى المعالجة',
     'order_deliverd'=>'تم تسليم الطلب رقم :code',

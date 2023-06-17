@@ -72,4 +72,5 @@ return [
     'check_amount'=>'شيك بقيمة الطلب',
     'change_to_progress'=>'جارى المعالجة',
     'change_to_deliverd'=>'تم التسليم',
+    'reject_reason'=>'سبب الرفض',
 ];

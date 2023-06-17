@@ -121,7 +121,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_confirmed', ['code'=>$item->code]);
+            $message = __('api.order_progress', ['code'=>$item->code]);
             $notifications = [
                     'user_id'=>$item->user_id,
                     'text'=>$message,
@@ -167,7 +167,7 @@ class OrderController extends Controller
                'reason' => 'required',
             ]);
             $item = Order::findOrFail($request->order_id);
-            $item->update(['status' => Order::STATUS_REJECT]);
+            $item->update(['status' => Order::STATUS_REJECT,'reason'=>$request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
             $message = __('api.order_canceled', ['code'=>$item->code]).' والسبب '.$request->reason;
             $notifications = [
