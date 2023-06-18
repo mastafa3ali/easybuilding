@@ -113,7 +113,6 @@
             var id = $(this).attr('data-order_id');
             var status = $(this).attr('data-status');
             if(status==1){
-                console.log(status)
                 $('#reason').show();
             }else{
                 $('#reason').hide();

@@ -20,7 +20,7 @@ class AdminController extends Controller
 
         return view($this->viewIndex, get_defined_vars());
     }
-     public function updateToken(Request $request){
+    public function updateToken(Request $request){
         try{
             $request->user()->update(['fcm_token'=>$request->fcm_token]);
             return response()->json([

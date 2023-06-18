@@ -28,6 +28,12 @@
                             <label class="form-label">{{ __('orders.status') }}</label>
                             <input disabled class="form-control" type="text" value="{{ __('orders.statuses.' . $item->status) }}">
                         </div>
+                        @if($item->status== \App\Models\Order::STATUS_REJECTED)
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.reject_reason') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->reason }}">
+                        </div>
+                        @endif
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.address') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->address }}">

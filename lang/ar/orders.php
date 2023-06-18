@@ -17,8 +17,9 @@ return [
         '1' => 'معلقة',
         '2' => 'تم التأكيد',
         '3' => 'تم الرفض',
-        '5' => 'تم التوصيل',
         '4' => 'قيد المعالجة',
+        '5' => 'فى الطريق اليك',
+        '6' => 'تم التوصيل',
     ],
     'types' => [
         '1' => 'طلب بيع',
@@ -40,6 +41,7 @@ return [
     'status' => 'الحالة',
     'change_to_confirmed' => 'مؤكدة',
     'change_to_canceled' => 'ملغاة',
+    'change_to_on_way' => 'فى الطريق اليك',
     'order_type' => 'نوع المنتج',
     'order_description' => 'وصف المنتج',
     'purchase_date' => 'تاريخ الشراء ',
@@ -72,4 +74,5 @@ return [
     'check_amount'=>'شيك بقيمة الطلب',
     'change_to_progress'=>'جارى المعالجة',
     'change_to_deliverd'=>'تم التسليم',
+    'reject_reason'=>'سبب الرفض',
 ];
