@@ -132,10 +132,10 @@ class ProductController extends Controller
                     case Order::STATUS_PENDDING:
                         $class="primary";
                         break;
-                    case Order::STATUS_DONE:
+                    case Order::STATUS_CONFIRMED:
                         $class="success";
                         break;
-                    case Order::STATUS_REJECT:
+                    case Order::STATUS_REJECTED:
                         $class="danger";
                         break;
                     default:

@@ -9,25 +9,26 @@ use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
 class Order extends Model
 {
-
     use HasFactory;
     use SoftDeletes;
-    const STATUS_PENDDING_X = -1;
+    public const STATUS_PENDDING_X = -1;
 
-    const STATUS_PENDDING = 1;
+    public const STATUS_PENDDING = 1;
 
-    const STATUS_ONPROGRESS = 2;
+    public const STATUS_CONFIRMED = 2;
 
-    const STATUS_DONE = 3;
+    public const STATUS_REJECTED = 3;
 
-    const STATUS_ON_WAY= 4;
-
-    const STATUS_DELIVERD= 5;
+    public const STATUS_ONPROGRESS = 4;
 
 
-    const STATUS_REJECT = 3;
-    const TYPE_SALE = 1;
-    const TYPE_RENT = 2;
+    public const STATUS_ON_WAY= 5;
+
+    public const STATUS_DELIVERD= 6;
+
+
+    public const TYPE_SALE = 1;
+    public const TYPE_RENT = 2;
     protected $fillable = [
         'code',
         'address',
@@ -63,17 +64,21 @@ class Order extends Model
     protected $casts = [
         'details' => 'array'
     ];
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo(User::class, 'company_id');
     }
-    public function productDetails($product_id){
+    public function productDetails($product_id)
+    {
 
         return Product::find($product_id);
     }
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class, 'product_id');
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
     public function getAttachmentpayment1Attribute()

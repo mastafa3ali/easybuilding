@@ -26,6 +26,7 @@ return [
 
     'notification_title'=>'scoffoling',
     'order_confirmed'=>' تم تأكيد الطلب رقم :code ',
+    'order_onway'=>'  الطلب رقم :code فى الطريق اليك',
     'order_canceled'=>'تم رفض الطلب رقم :code',
     'order_progress'=>'تم تغير حالةالطلب رقم :code الى جارى المعالجة',
     'order_deliverd'=>'تم تسليم الطلب رقم :code',

@@ -28,7 +28,7 @@
                             <label class="form-label">{{ __('orders.status') }}</label>
                             <input disabled class="form-control" type="text" value="{{ __('orders.statuses.' . $item->status) }}">
                         </div>
-                        @if($item->status== \App\Models\Order::STATUS_REJECT)
+                        @if($item->status== \App\Models\Order::STATUS_REJECTED)
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.reject_reason') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->reason }}">
@@ -36,7 +36,11 @@
                         @endif
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.address') }}</label>
+                            @if($item->address)
                             <input disabled class="form-control" type="text" value="{{ $item->address }}">
+                            @else
+                            <a href="http://maps.google.com/?q={{ $item->lat }},{{ $item->long }}" class="btn btn-sm btn-outline-primary me-1 waves-effect form-control">الذهاب الى الموقع</a>
+                            @endif
                         </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.phone') }}</label>
@@ -75,12 +79,7 @@
                             <input disabled class="form-control" type="text" value="{{ $item->company?->name }}">
                         </div>
 
-                        <div class="mb-1 col-md-4">
-                            <label class="form-label">{{ __('orders.localtion') }}</label>
 
-
-                            <a href="http://maps.google.com/?q={{ $item->lat }},{{ $item->long }}" class="btn btn-sm btn-outline-primary me-1 waves-effect form-control">الذهاب الى الموقع</a>
-                        </div>
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.type') }}</label>
                             <input disabled class="form-control" type="text" value="{{ __('orders.types.' . $item->type) }}">
@@ -101,6 +100,7 @@
                              <th>{{ __('products.plural') }}</th>
                              <th >{{ __('products.qty') }}</th>
                              <th>{{ __('products.price') }}</th>
+                             <th>{{ __('orders.total') }}</th>
                             </tr>
                             @else
                             <tr>
@@ -117,6 +117,7 @@
                                 <td>{{ $item->productDetails($product['id'])?->name }}</td>
                                 <td >{{ $product['qty'] }}</td>
                                 <td >{{ $product['price']??'' }}</td>
+                                <td >{{ $product['qty']*$product['price'] }}</td>
                             </tr>
                             @endforeach
                             @else

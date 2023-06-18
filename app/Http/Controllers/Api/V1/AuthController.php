@@ -119,6 +119,7 @@ class AuthController extends Controller
 
         $user = new User();
         $user->name      = $request->name;
+        $user->phone_code     = $request->phone_code;
         $user->email     = $request->email;
         $user->password  = Hash::make($request->password);
         $user->type      = $request->type;
@@ -206,14 +207,6 @@ class AuthController extends Controller
             return 555;
         } catch (\Exception $e) {
         }
-    }
-    public function deleteAccount()
-    {
-        $user = User::find(auth()->id());
-        if ($user->delete()) {
-            return apiResponse(true, null, null, null, 200);
-        }
-        return apiResponse(false, null, null, null, 400);
     }
 
     public function deleteAccount()
