@@ -28,7 +28,7 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.not_authorized'), null, 401);
         }
         $user = Auth::user();
-        if(in_array($user->type,[User::TYPE_OWNER,User::TYPE_MERCHANT])){
+        if(in_array($user->type, [User::TYPE_OWNER,User::TYPE_MERCHANT])) {
 
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
             return apiResponse(true, new UserResource($user), __('success'), null, 200);
@@ -37,12 +37,18 @@ class AuthController extends Controller
         return apiResponse(false, null, __('api.not_authorized'), null, 401);
 
     }
-   public function updateProfile(Request $request)
+    public function updateProfile(Request $request)
     {
 
         $currentUser = User::findOrFail(auth()->user()->id);
 
-        $data = $currentUser->update(['name'=>$request->name,'address'=>$request->address,'phone'=>$request->phone,'email'=>$request->email]);
+        $data = $currentUser->update([
+            'name'=>$request->name,
+            'address'=>$request->address,
+            'phone'=>$request->phone,
+            'email'=>$request->email,
+            'phone_code'=>$request->phone_code
+        ]);
         if ($data) {
             return apiResponse(true, null, __('api.update_success'), null, 200);
         } else {
@@ -50,25 +56,25 @@ class AuthController extends Controller
         }
     }
 
-   public function updateimage(Request $request)
+    public function updateimage(Request $request)
     {
 
         $currentUser = User::findOrFail(auth()->user()->id);
         $image= $request->file('image');
-        if($image){
+        if($image) {
             $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
             $request->image->move(public_path('storage/users'), $fileName);
             $currentUser->image = $fileName;
         }
         //licence  passport
         $licence= $request->file('licence');
-        if($licence){
+        if($licence) {
             $fileName = time() . rand(0, 999999999) . '.' . $licence->getClientOriginalExtension();
             $request->licence->move(public_path('storage/users'), $fileName);
             $currentUser->licence = $fileName;
         }
         $passport= $request->file('passport');
-        if($passport){
+        if($passport) {
             $fileName = time() . rand(0, 999999999) . '.' . $passport->getClientOriginalExtension();
             $request->passport->move(public_path('storage/users'), $fileName);
             $currentUser->passport = $fileName;
@@ -79,7 +85,7 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.cant_update'), null, 401);
         }
     }
-    function sendSMS($userAccount, $passAccount, $numbers, $sender, $msg, $timeSend=0, $dateSend=0, $viewResult=1, $MsgID=0)
+    public function sendSMS($userAccount, $passAccount, $numbers, $sender, $msg, $timeSend=0, $dateSend=0, $viewResult=1, $MsgID=0)
     {
 
         global $arraySendMsg;
@@ -97,8 +103,9 @@ class AuthController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, $stringToPost);
         $result = curl_exec($ch);
 
-        if($viewResult)
+        if($viewResult) {
             $result = [trim($result) , $arraySendMsg];
+        }
         return $result;
     }
     public function register(Request $request)
@@ -110,6 +117,7 @@ class AuthController extends Controller
             'type' => 'required|in:4,3',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => 'required|max:255|unique:users',
+            'phone_code' => 'required',
             'password' => 'required|min:6|confirmed',
         );
         $validatedData = Validator::make($request->all(), $validate);
@@ -156,13 +164,13 @@ class AuthController extends Controller
         $password = "123456";
         $sender = "MERSAL";
         $numbers = $request->phone;
-        $MsgID = rand(1000,9999);
+        $MsgID = rand(1000, 9999);
         $msg = "reset code .".$MsgID;
         $timeSend = 0;
         $dateSend = 0;
         $resultType = 0;
         $user->update(['reset_code'=>$MsgID]);
-        $this->sendSMS($mobile, $password, $numbers, $sender, $msg, $timeSend, $dateSend, $resultType,$MsgID);
+        $this->sendSMS($mobile, $password, $numbers, $sender, $msg, $timeSend, $dateSend, $resultType, $MsgID);
         return apiResponse(true, [$MsgID], __('api.reset_link_will_send'), null, 200);
     }
     public function checkCode(Request $request)
@@ -179,7 +187,7 @@ class AuthController extends Controller
         if (!$user) {
             return apiResponse(false, null, __('api.not_found'), null, 404);
         }
-        if($user->reset_code == $request->code){
+        if($user->reset_code == $request->code) {
             return apiResponse(true, null, __('api.code_success'), null, 200);
         }
         return apiResponse(false, null, __('api.code_error'), null, 201);
@@ -220,17 +228,18 @@ class AuthController extends Controller
         }
         return apiResponse(false, null, null, null, 400);
     }
-    public function updateToken(Request $request){
-        try{
+    public function updateToken(Request $request)
+    {
+        try {
             $request->user()->update(['fcm_token'=>$request->fcm_token]);
             return response()->json([
                 'success'=>true
             ]);
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
             report($e);
             return response()->json([
                 'success'=>false
-            ],500);
+            ], 500);
         }
     }
 }
