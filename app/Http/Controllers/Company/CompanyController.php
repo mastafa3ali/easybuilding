@@ -21,7 +21,7 @@ class CompanyController extends Controller
         $products_count = Product::where('company_id',auth()->id())->count();
         $pendding_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_PENDDING)->count();
         $onprogress_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_ONPROGRESS)->count();
-        $compleated_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_DONE)->count();
+        $compleated_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_DELIVERD)->count();
         return view($this->viewIndex, get_defined_vars());
     }
     public function payments(Request $request)

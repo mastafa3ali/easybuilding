@@ -39,7 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::get('product/{id}', [App\Http\Controllers\Api\V1\ProductController::class, 'show']);
     Route::get('about', [App\Http\Controllers\Api\V1\SettingController::class, 'about']);
     Route::post('contact-us', [App\Http\Controllers\Api\V1\PageController::class, 'contactUs']);
-    Route::get('terms', [App\Http\Controllers\Api\V1\SettingController::class, 'terms']);
+    Route::get('terms/{company_id}', [App\Http\Controllers\Api\V1\SettingController::class, 'terms']);
     Route::get('privacy', [App\Http\Controllers\Api\V1\SettingController::class, 'privacy']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
