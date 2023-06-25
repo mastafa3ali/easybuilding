@@ -30,6 +30,8 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::get('categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectcategories'])->name('categories.select');
     Route::get('sub_categories/select', [App\Http\Controllers\Company\ProductController::class, 'selectSubCategory'])->name('sub_categories.select');
 
+    Route::get('term', [App\Http\Controllers\Company\TermController::class, 'index'])->name('terms');
+    Route::post('terms-save', [App\Http\Controllers\Company\TermController::class, 'store'])->name('terms.save');
     Route::get('orders', [App\Http\Controllers\Company\OrderController::class, 'index'])->name('orders');
     Route::get('list', [App\Http\Controllers\Company\OrderController::class, 'list'])->name('orders.list');
     Route::get('user/{id}', [App\Http\Controllers\Company\OrderController::class, 'user'])->name('orders.user');

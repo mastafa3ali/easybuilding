@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Models\Term;
 
 class SettingController extends Controller
 {
@@ -27,9 +28,9 @@ class SettingController extends Controller
         return apiResponse(true, $data, null, null, 200);
     }
 
-    public function terms()
+    public function terms($company_id)
     {
-        $data = Setting::where('key', 'LIKE', 'terms_%')->get();
+        $data = Term::where('company_id', $company_id)->first();
 
         return apiResponse(true, $data, null, null, 200);
     }
