@@ -135,12 +135,10 @@ class AuthController extends Controller
 
         if ($request->hasFile('passport')) {
             $user->passport = storeFile($request->file('passport'), 'users');
-            $user->save();
-        }
+         }
         if ($request->hasFile('licence')) {
             $user->licence = storeFile($request->file('licence'), 'users');
-            $user->save();
-        }
+         }
         if ($user->save()) {
 
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
