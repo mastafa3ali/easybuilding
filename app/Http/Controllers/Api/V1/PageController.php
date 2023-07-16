@@ -95,6 +95,7 @@ class PageController extends Controller
         $user = auth()->user();
         $data['profile'] = [
             'name' => $user->name,
+            'phone_code' => $user->phone_code,
             'phone' => $user->phone,
             'email' => $user->email,
             'image' => $user->photo,
