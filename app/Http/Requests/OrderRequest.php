@@ -31,7 +31,7 @@ class OrderRequest extends FormRequest
             'phone' => 'required',
             'delivery_phone' => 'required',
             'deliver_date' => 'required',
-            'area' => 'required',
+            // 'area' => 'required',
             'product_id' => 'required|exists:products,id',
             'attribute_1' => 'required',
             'attribute_2' => 'required',
