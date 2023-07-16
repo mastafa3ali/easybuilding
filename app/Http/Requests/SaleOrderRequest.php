@@ -31,7 +31,7 @@ class SaleOrderRequest extends FormRequest
             'phone' => 'required',
             'delivery_phone' => 'required',
             'deliver_date' => 'required',
-            'area' => 'required',
+            // 'area' => 'required',
             'company_id' => 'required',
             'product_details'=>'required|array'
         ];
