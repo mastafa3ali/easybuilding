@@ -9,7 +9,7 @@ class Payment extends Model
 {
     use HasFactory;
     protected $table="payments";
-    protected $fillable = ['company_id', 'payments'];
+    protected $fillable = ['company_id', 'payments','type'];
     protected $casts=[
         'payments'=>'array'
     ];

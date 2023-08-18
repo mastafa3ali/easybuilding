@@ -11,17 +11,18 @@ class SavedResource extends JsonResource
 {
     public function toArray($request)
     {
-        $data =[];
+        $data = [];
         $data['id']               = $this->id;
         $data['name']             = $this->name;
-        if($this->model_type==Saved::TYPE_COMPANY){
+        if($this->model_type == Saved::TYPE_COMPANY) {
             $data['saved']            = 1;
             $data['phone']            = $this->phone;
+            $data['rate']            = $this->rate;
             $data['price']            = "120";
             $data['description']      = $this->description;
             $data['image']            = $this->photo;
 
-        }else{
+        } else {
             $data['price'] = $this->price;
             $data['description'] = $this->description;
             $data['type']  = $this->type;
