@@ -26,7 +26,8 @@ class CompanyController extends Controller
     }
     public function payments(Request $request)
     {
-        $item = Payment::where('company_id',auth()->id())->first();
+        $item = Payment::where('company_id',auth()->id())->where('type',1)->first();
+        $item2 = Payment::where('company_id',auth()->id())->where('type',2)->first();
 
         return view('company.pages.payments.index', get_defined_vars());
     }
