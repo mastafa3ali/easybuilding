@@ -40,13 +40,13 @@ class CompanyController extends Controller
         if($payments){
             $payments->update(['payments'=>$request->payment]);
         }else{
-            Payment::create(['payments'=>$request->payment,'company_id'=>auth()->id()]);
+            Payment::create(['payments'=>$request->payment,'company_id'=>auth()->id(),'type'=>1]);
         }
         $payments2 = Payment::where('company_id',auth()->id())->where('type',2)->first();
         if($payments2){
             $payments2->update(['payments'=>$request->payment2]);
         }else{
-            Payment::create(['payments'=>$request->payment2,'company_id'=>auth()->id()]);
+            Payment::create(['payments'=>$request->payment2,'company_id'=>auth()->id(),'type'=>2]);
         }
         flash(__('orders.messages.updated'))->success();
 
