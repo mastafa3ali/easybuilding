@@ -41,12 +41,13 @@ class PageController extends Controller
     }
     public function productImages($product_id, $company_id)
     {
-        $images = [];
+        $data = [];
         $product = CompanyProduct::where('product_id', $product_id)->where('company_id', $company_id)->first();
         if($product) {
-            $images = $product->photos;
+            $data['images'] = $product->photos;
+            $data['description'] = $product->description;
         }
-        return apiResponse(true, $images, null, null, 200);
+        return apiResponse(true, $data, null, null, 200);
 
     }
     public function getSales($id)
