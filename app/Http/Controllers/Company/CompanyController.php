@@ -33,13 +33,20 @@ class CompanyController extends Controller
     public function savePayments(Request $request)
     {
          $this->validate($request, [
-               'payment' => 'required'
+               'payment' => 'required',
+               'payment2' => 'required',
             ]);
-        $payments = Payment::where('company_id',auth()->id())->first();
+        $payments = Payment::where('company_id',auth()->id())->where('type',1)->first();
         if($payments){
             $payments->update(['payments'=>$request->payment]);
         }else{
             Payment::create(['payments'=>$request->payment,'company_id'=>auth()->id()]);
+        }
+        $payments2 = Payment::where('company_id',auth()->id())->where('type',2)->first();
+        if($payments2){
+            $payments2->update(['payments'=>$request->payment2]);
+        }else{
+            Payment::create(['payments'=>$request->payment2,'company_id'=>auth()->id()]);
         }
         flash(__('orders.messages.updated'))->success();
 
