@@ -29,8 +29,9 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         if(in_array($user->type, [User::TYPE_OWNER,User::TYPE_MERCHANT])) {
-
-            $user['token'] = $user->createToken('auth_token')->plainTextToken;
+            if($user->verifaid==1){
+                $user['token'] = $user->createToken('auth_token')->plainTextToken;
+            }
             return apiResponse(true, new UserResource($user), __('success'), null, 200);
         }
 
