@@ -57,15 +57,15 @@
                     </div>
                      <div class="demo-inline-spacing">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="payment[]" value=4 type="checkbox" {{ isset($item)? in_array(4,$item->payments)?'checked':'' :'' }} />
+                            <input class="form-check-input" name="payment2[]" value=1 type="checkbox" {{ isset($item2)? in_array(1,$item2->payments)?'checked':'' :'' }} />
                             <label class="form-check-label" for="inlineCheckbox1">{{ __('orders.payments.1') }}</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="payment[]" value=5 type="checkbox" {{ isset($item)? in_array(5,$item->payments)?'checked':'':''  }} />
+                            <input class="form-check-input" name="payment2[]" value=2 type="checkbox" {{ isset($item2)? in_array(2,$item2->payments)?'checked':'':''  }} />
                             <label class="form-check-label" for="inlineCheckbox2">{{ __('orders.payments.2') }}</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" name="payment[]" value=6 type="checkbox" {{ isset($item)? in_array(6,$item->payments)?'checked':'':''  }} />
+                            <input class="form-check-input" name="payment2[]" value=3 type="checkbox" {{ isset($item2)? in_array(3,$item2->payments)?'checked':'':''  }} />
                             <label class="form-check-label" for="inlineCheckbox3">{{ __('orders.payments.3') }}</label>
                         </div>
                     </div>

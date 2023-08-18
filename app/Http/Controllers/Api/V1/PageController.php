@@ -360,10 +360,10 @@ class PageController extends Controller
         ]);
         return apiResponse(true, $data, "", null, 200);
     }
-    public function getCompanyPayment($id)
+    public function getCompanyPayment($id,$type=1)
     {
-
-        $data=Payment::where('company_id', $id)->get();
+        //sale=1, rent=2
+        $data=Payment::where('company_id', $id)->where('type',$type)->get();
         return apiResponse(true, $data, "", null, 200);
     }
 
