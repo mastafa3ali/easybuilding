@@ -29,8 +29,9 @@ class AuthController extends Controller
         }
         $user = Auth::user();
         if(in_array($user->type, [User::TYPE_OWNER,User::TYPE_MERCHANT])) {
-
-            $user['token'] = $user->createToken('auth_token')->plainTextToken;
+            if($user->verifaid==1){
+                $user['token'] = $user->createToken('auth_token')->plainTextToken;
+            }
             return apiResponse(true, new UserResource($user), __('success'), null, 200);
         }
 
@@ -186,6 +187,8 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.not_found'), null, 404);
         }
         if($user->reset_code == $request->code) {
+            $user->verifaid = 1;
+            $user->save();
             return apiResponse(true, null, __('api.code_success'), null, 200);
         }
         return apiResponse(false, null, __('api.code_error'), null, 201);
