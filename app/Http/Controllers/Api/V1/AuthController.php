@@ -187,6 +187,8 @@ class AuthController extends Controller
             return apiResponse(false, null, __('api.not_found'), null, 404);
         }
         if($user->reset_code == $request->code) {
+            $user->verifaid = 1;
+            $user->save();
             return apiResponse(true, null, __('api.code_success'), null, 200);
         }
         return apiResponse(false, null, __('api.code_error'), null, 201);
