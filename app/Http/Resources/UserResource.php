@@ -17,7 +17,7 @@ class UserResource extends JsonResource
         $data['created_at'] = $this->created_at;
         $data['updated_at'] = $this->updated_at;
         $data['image'] = $this->photo;
-        $data['token'] = $this->token;
+        $data['token'] = $this->token??null;
         $data['verifaid'] = $this->verifaid;
         return $data;
     }
