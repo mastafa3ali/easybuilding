@@ -101,6 +101,8 @@
                              <th>{{ __('products.plural') }}</th>
                              <th >{{ __('products.qty') }}</th>
                              <th>{{ __('products.price') }}</th>
+                            <th>{{ __('orders.total') }}</th>
+
                             </tr>
                             @else
                             <tr>
@@ -117,6 +119,7 @@
                                 <td>{{ $item->productDetails($product['id'])?->name }}</td>
                                 <td >{{ $product['qty'] }}</td>
                                 <td >{{ $product['price']??'' }}</td>
+                                <td >{{ $product['qty']*$product['price'] }}</td>
                             </tr>
                             @endforeach
                             @else
@@ -160,6 +163,8 @@
                                 </a>
                             @endif
                         </div>
+                        @if($item->payment!=1)
+
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
@@ -186,10 +191,13 @@
                             </a>
                             @endif
                         </div>
+                        @endif
+
                     </div>
                     @endif
                     @if($item->type==1)
                     <div class="row">
+                        @if($item->payment!=1)
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_amount') }}</label>
@@ -204,7 +212,7 @@
                                 </a>
                             @endif
                         </div>
-
+                        @endif
                     </div>
                     @endif
 

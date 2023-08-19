@@ -44,7 +44,7 @@
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
                             <label class="form-label" for="price">{{ __('products.price') }}</label>
                             <input type="number" name="price" id="price" class="form-control" placeholder=""
-                                   value="{{ $item->price ?? old('price') }}" />
+                                   value="{{ $item->price ?? old('price') }}" step=".5" />
                             @error('price')
                             <span class="error">{{ $message }}</span>
                             @enderror
