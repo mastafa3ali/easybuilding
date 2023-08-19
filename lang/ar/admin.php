@@ -113,5 +113,13 @@ return [
     'productsrent'=>'منتجات الايجار',
     'deleted_users' => 'المستخدمين المحزوفين',
     'payments'=>'طرق الدفع',
-    'notifications'=>'الاشعارات'
+    'notifications'=>'الاشعارات',
+    'pendding_orders'=>'الطلبات المعلقة',
+    'rejected_orders'=>'الطلبات المرفوضة',
+    'deliverd_orders'=>'الطلبات المسلمة',
+    'all_orders'=>'كل الطلبات',
+    'sall_products'=>'منتجات البيع',
+    'rent_products'=>'منتجات الايجار',
+    'companies'=>'الشركات',
+    'merchants'=>'التجار',
 ];
