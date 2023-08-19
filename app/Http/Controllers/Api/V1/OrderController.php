@@ -8,7 +8,6 @@ use App\Http\Requests\OrderSubmitRequest;
 use App\Http\Requests\SaleOrderRequest;
 use App\Http\Resources\OrderDetailsResource;
 use App\Http\Resources\OrderResource;
-use App\Http\Resources\SubCategoryResource;
 use App\Models\ApiNotification;
 use App\Models\Order;
 use App\Models\Product;
