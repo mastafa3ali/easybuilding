@@ -73,7 +73,7 @@
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
                             <label class="form-label" for="price">{{ __('products.main_price') }}</label>
                             <input type="number" name="price" id="price" class="form-control" placeholder=""
-                                   value="{{ $item->price ?? old('price') }}" />
+                                   value="{{ $item->price ?? old('price') }}" step=".5" />
                             @error('price')
                             <span class="error">{{ $message }}</span>
                             @enderror
@@ -120,7 +120,7 @@
                         <div class="mb-1 col-md-4  @error('price_2') is-invalid @enderror">
                             <label class="form-label" for="price_2">{{ __('products.price_2') }}</label>
                             <input type="number" name="price_2" id="price_2" class="form-control" placeholder=""
-                            value="{{ $item->price_2 ?? old('price_2') }}" />
+                            value="{{ $item->price_2 ?? old('price_2') }}" step=".5"/>
                             @error('price_2')
                             <span class="error">{{ $message }}</span>
                             @enderror
@@ -129,7 +129,7 @@
                         <div class="mb-1 col-md-4  @error('price_3') is-invalid @enderror">
                             <label class="form-label" for="price_3">{{ __('products.price_3') }}</label>
                             <input type="number" name="price_3" id="price_3" class="form-control" placeholder=""
-                            value="{{ $item->price_3 ?? old('price_3') }}" />
+                            value="{{ $item->price_3 ?? old('price_3') }}" step=".5" />
                             @error('price_3')
                             <span class="error">{{ $message }}</span>
                             @enderror
@@ -138,7 +138,7 @@
                         <div class="mb-1 col-md-4  @error('price_4') is-invalid @enderror">
                             <label class="form-label" for="price_4">{{ __('products.price_4') }}</label>
                             <input type="number" name="price_4" id="price_4" class="form-control" placeholder=""
-                            value="{{ $item->price_4 ?? old('price_4') }}" />
+                            value="{{ $item->price_4 ?? old('price_4') }}" step=".5" />
                             @error('price_4')
                             <span class="error">{{ $message }}</span>
                             @enderror
