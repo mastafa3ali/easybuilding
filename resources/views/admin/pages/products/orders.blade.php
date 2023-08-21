@@ -82,7 +82,7 @@
                 {data: 'phone', name: 'phone'},
                 {data: 'delivery_phone', name: 'delivery_phone'},
                 {data: 'total', name: 'total'},
-                {data: 'user', name: 'user'},
+                {data: 'user', name: 'user.name'},
                 {data: 'actions',name: 'actions',orderable: false,searchable: false}
             ]
             ,  columnDefs: [

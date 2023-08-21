@@ -73,7 +73,7 @@
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'name', name: 'name'},
-                {data: 'category', name: 'category'},
+                {data: 'category', name: 'category.name'},
                 {data: 'description', name: 'description'},
                 {data: 'price', name: 'price'},
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
