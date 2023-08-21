@@ -22,9 +22,9 @@ class Order extends Model
     public const STATUS_ONPROGRESS = 4;
 
 
-    public const STATUS_ON_WAY= 5;
+    public const STATUS_ON_WAY = 5;
 
-    public const STATUS_DELIVERD= 6;
+    public const STATUS_DELIVERD = 6;
 
 
     public const TYPE_SALE = 1;
@@ -53,7 +53,11 @@ class Order extends Model
         'product_id',
         'long',
         'lat',
-        'reason'
+        'reason',
+        'progress_date',
+        'reject_date',
+        'on_way_date',
+        'deliverd_date'
     ];
     protected $appends = [
         'checkamount',
