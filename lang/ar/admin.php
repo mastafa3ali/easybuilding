@@ -122,4 +122,6 @@ return [
     'rent_products'=>'منتجات الايجار',
     'companies'=>'الشركات',
     'merchants'=>'التجار',
+    'sallProductReport'=>'تقرير منتجات البيع',
+    'rentProductReport'=>'تقرير منتجات الايجار',
 ];

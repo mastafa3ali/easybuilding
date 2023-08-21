@@ -98,7 +98,7 @@
                              @if ($item->type==1)
                             <tr>
                              <th>{{ __('products.plural') }}</th>
-                             <th >{{ __('products.qty') }}</th>
+                             <th>{{ __('products.qty') }}</th>
                              <th>{{ __('products.price') }}</th>
                              <th>{{ __('orders.total') }}</th>
                             </tr>
@@ -114,10 +114,10 @@
                             @if ($item->type==1)
                             @foreach ($item->details as $product)
                             <tr>
-                                <td>{{ $item->productDetails($product['id'])?->name }}</td>
-                                <td >{{ $product['qty'] }}</td>
-                                <td >{{ $product['price']??'' }}</td>
-                                <td >{{ $product['qty']*$product['price'] }}</td>
+                                <td> {{ $item->productDetails($product['id'])?->name }} </td>
+                                <td> {{ $product['qty'] }} </td>
+                                <td> {{ $product['price']??'' }} </td>
+                                <td> {{ $product['qty']*$product['price'] }} </td>
                             </tr>
                             @endforeach
                             @else
