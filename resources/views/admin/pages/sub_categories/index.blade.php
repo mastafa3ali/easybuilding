@@ -16,14 +16,7 @@
         </div>
         <div class="content-header-right text-md-end col-md-6 col-12 d-md-block d-none">
             <div class="mb-1 breadcrumb-right">
-                @can('sub_categories.create')
-                    <div class="dropdown">
-                        <a class="btn btn-sm btn-outline-primary me-1 waves-effect" href="{{ route('admin.sub_categories.create') }}">
-                            <i data-feather="plus"></i>
-                            <span class="active-sorting text-primary">{{ __('sub_categories.actions.create') }}</span>
-                        </a>
-                    </div>
-                @endcan
+
             </div>
         </div>
     </div>
@@ -37,7 +30,6 @@
                         <th>{{ __('sub_categories.category') }}</th>
                         <th>{{ __('categories.sort') }}</th>
                         <th>{{ __('sub_categories.image') }}</th>
-                        @canany('sub_categories.edit','sub_categories.delete')
                             <th width="15%" class="text-center">{{ __('sub_categories.options') }}</th>
                         @endcanany
                     </tr>
@@ -80,17 +72,19 @@
                 {data: 'category', name: 'category'},
                 {data: 'sort', name: 'sort'},
                 {data: 'photo', name: 'photo'},
-                    @canany('sub_categories.edit','sub_categories.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
-                @endcanany
             ],
             columnDefs: [
 
-                @canany('sub_categories.edit','sub_categories.delete')
                 {
                     "targets": -1,
                     "render": function (data, type, row) {
-                        return '';
+                         var editUrl = '{{ route("admin.sub_categories.edit", ":id") }}';
+                         editUrl = editUrl.replace(':id', row.id);
+                           return `  <a class="dropdown-item" href="`+editUrl+`">
+                            <i data-feather="edit-2" class="font-medium-2"></i>
+                                <span>{{ __('sub_categories.actions.edit') }}</span>
+                            </a>`;
                         //  var editUrl = '{{ route("admin.sub_categories.edit", ":id") }}';
                         //  editUrl = editUrl.replace(':id', row.id);
 
@@ -120,7 +114,6 @@
                         //     `;
                     }
                 }
-                @endcanany
             ],
         });
         $('.btn_filter').click(function (){
