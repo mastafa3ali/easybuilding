@@ -29,6 +29,7 @@ class SavedResource extends JsonResource
             $data['guarantee_amount'] = $this->guarantee_amount;
             $data['properties'] = $this->properties;
             $data['saved'] = 1;
+            $data['image']      = $this->photo;
         }
         return $data;
     }
