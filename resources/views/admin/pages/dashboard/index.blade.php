@@ -11,13 +11,7 @@
                 <div class="card card-statistics">
                     <div class="card-header">
                     <h4 class="card-title" style="color: #345c76">{{ __('admin.statistics') }}</h4>
-                        {{-- <div class="d-flex align-items-center" style="width: 50%">
-                            <div class="card-text font-small-2 me-25 mb-0" style="width: 100%">
-                                 <div class="col-md-12 mb-1">
-                                    <input type="text" id="fp-range" style="font-size: 18px" class="form-control flatpickr-range" placeholder="YYYY-MM-DD to YYYY-MM-DD" />
-                                </div>
-                            </div>
-                        </div> --}}
+                  
                     </div>
                     <div class="card-body statistics-body">
                         <div class="row">

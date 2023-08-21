@@ -75,4 +75,8 @@ return [
     'change_to_progress'=>'جارى المعالجة',
     'change_to_deliverd'=>'تم التسليم',
     'reject_reason'=>'سبب الرفض',
+    'progress_date'=>'وقت تغير الحالة الى جارى المعالجة',
+    'reject_date'=>'وقت تغير الحالة الى الرفض ',
+    'on_way_date'=>'وقت تغير الحالة الى فى الطريق ',
+    'deliverd_date'=>'وقت تغير الحالة الى  تم التسليم',
 ];

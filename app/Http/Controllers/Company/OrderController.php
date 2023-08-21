@@ -93,6 +93,8 @@ class OrderController extends Controller
                     'day' => date('Y-m-d'),
                     'time' => date('H:i'),
                 ];
+            $item->progress_date = date('Y-m-d H:i');
+            $item->save();
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
@@ -115,6 +117,10 @@ class OrderController extends Controller
                     'day' => date('Y-m-d'),
                     'time' => date('H:i'),
                 ];
+
+            $item->on_way_date = date('Y-m-d H:i');
+            $item->save();
+
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
@@ -137,6 +143,10 @@ class OrderController extends Controller
                     'day' => date('Y-m-d'),
                     'time' => date('H:i'),
                 ];
+
+            $item->deliverd_date = date('Y-m-d H:i');
+            $item->save();
+
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
             flash(__('orders.messages.updated'))->success();
@@ -149,16 +159,20 @@ class OrderController extends Controller
     {
         try {
             $item = Order::findOrFail($request->order_id);
-            $item->update(['status' => Order::STATUS_REJECTED,'reason'=>$request->reason]);
+            $item->update(['status' => Order::STATUS_REJECTED,'reason' => $request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
             $message = __('api.order_canceled', ['code' => $item->code]);
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
-                    'model_id'=>$item->id,
+                    'model_id' => $item->id,
                     'day' => date('Y-m-d'),
                     'time' => date('H:i'),
                 ];
+
+            $item->reject_date = date('Y-m-d H:i');
+            $item->save();
+
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
 
