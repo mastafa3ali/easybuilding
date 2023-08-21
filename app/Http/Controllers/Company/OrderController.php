@@ -25,8 +25,6 @@ class OrderController extends Controller
         return view('company.pages.orders.index');
     }
 
-
-
     public function list(Request $request): object
     {
 
@@ -87,12 +85,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ONPROGRESS]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_confirmed', ['code'=>$item->code]);
+            $message = __('api.order_progress', ['code' => $item->code]);
             $notifications = [
-                    'user_id'=>$item->user_id,
-                    'text'=>$message,
-                    'day'=>date('Y-m-d'),
-                    'time'=>date('H:i'),
+                    'user_id' => $item->user_id,
+                    'text' => $message,
+                    'model_id' => $item->id,
+                    'day' => date('Y-m-d'),
+                    'time' => date('H:i'),
                 ];
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
@@ -108,12 +107,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_confirmed', ['code'=>$item->code]);
+            $message = __('api.order_on_the_way', ['code' => $item->code]);
             $notifications = [
-                    'user_id'=>$item->user_id,
-                    'text'=>$message,
-                    'day'=>date('Y-m-d'),
-                    'time'=>date('H:i'),
+                    'user_id' => $item->user_id,
+                    'text' => $message,
+                    'model_id' => $item->id,
+                    'day' => date('Y-m-d'),
+                    'time' => date('H:i'),
                 ];
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
@@ -129,12 +129,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_DELIVERD]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_deliverd', ['code'=>$item->code]);
+            $message = __('api.order_deliverd', ['code' => $item->code]);
             $notifications = [
-                    'user_id'=>$item->user_id,
-                    'text'=>$message,
-                    'day'=>date('Y-m-d'),
-                    'time'=>date('H:i'),
+                    'user_id' => $item->user_id,
+                    'text' => $message,
+                    'model_id' => $item->id,
+                    'day' => date('Y-m-d'),
+                    'time' => date('H:i'),
                 ];
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
@@ -150,13 +151,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_REJECTED,'reason'=>$request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_canceled', ['code'=>$item->code]);
-            $message .= ' '.$request->reason;
+            $message = __('api.order_canceled', ['code' => $item->code]);
             $notifications = [
-                    'user_id'=>$item->user_id,
-                    'text'=>$message,
-                    'day'=>date('Y-m-d'),
-                    'time'=>date('H:i'),
+                    'user_id' => $item->user_id,
+                    'text' => $message,
+                    'model_id'=>$item->id,
+                    'day' => date('Y-m-d'),
+                    'time' => date('H:i'),
                 ];
             ApiNotification::create($notifications);
             Notification::send(null, new SendPushNotification($message, $fcmTokens));
