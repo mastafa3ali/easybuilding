@@ -41,19 +41,21 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        @if(!isset($item))
                         <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
                             <label class="form-label" for="category_id">{{ __('products.category') }}</label>
                             <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"
                                     data-ajax--url="{{ route('admin.categories.select') }}"
-                                    data-ajax--cache="true">
+                                    data-ajax--cache="true" required>
                                 @isset($item->category)
-                                    <option value="{{ $item->category->id }}" selected>{{ $item->category->title }}</option>
+                                    <option value="{{ $item->category?->id }}" selected>{{ $item->category?->title }}</option>
                                 @endisset
                             </select>
                             @error('category_id')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        @endif
                         <div class="mb-1 col-md-6  @error('sort') is-invalid @enderror">
                             <label class="form-label" for="sort">{{ __('categories.sort') }}</label>
                             <input type="number" name="sort" id="sort" class="form-control" placeholder=""
@@ -62,6 +64,8 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                         @if(!isset($item))
+
                         <div class="mb-1 col-md-4  @error('properties') is-invalid @enderror" >
                             <label class="form-label" for="properties">{{ __('products.property') }}</label>
                             <select name="properties" id="properties" class="form-control  ">
@@ -73,6 +77,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                        @endif
                         <div class="mb-1 col-md-4 @error('image') is-invalid @enderror">
                             <label class="form-label" for="image">{{ __('sub_categories.file') }}</label>
                             <input type="file" class="form-control input" name="image" id="image">

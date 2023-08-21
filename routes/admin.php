@@ -156,5 +156,12 @@ Route::middleware('throttle:60,1')->group(function () {
 
         Route::get('profile', [App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile.index');
         Route::get('change-password', [App\Http\Controllers\Admin\ProfileController::class, 'changePassword'])->name('profile.change_password');
+
+        Route::get('sall-product-report', [App\Http\Controllers\Admin\ReportController::class, 'sallProductReport'])->name('sallProductReport')->middleware('permission:sallProductReport.view');
+        Route::post('sall-product-report-post', [App\Http\Controllers\Admin\ReportController::class, 'sallProductReport'])->name('sallProductReportPost')->middleware('permission:sallProductReport.view');
+
+        Route::get('rent-product-report', [App\Http\Controllers\Admin\ReportController::class, 'rentProductReport'])->name('rentProductReport')->middleware('permission:rentProductReport.view');
+        Route::post('rent-product-report-post', [App\Http\Controllers\Admin\ReportController::class, 'rentProductReport'])->name('rentProductReportPost')->middleware('permission:rentProductReport.view');
+
     });
 });

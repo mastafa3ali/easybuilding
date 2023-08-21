@@ -31,7 +31,6 @@
                         <th>{{ __('categories.sort') }}</th>
                         <th>{{ __('sub_categories.image') }}</th>
                             <th width="15%" class="text-center">{{ __('sub_categories.options') }}</th>
-                        @endcanany
                     </tr>
                     </thead>
                 </table>

@@ -32,7 +32,7 @@ class ContactController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Contact::select('*');
+        $data = Contact::orderBy('id', 'DESC')->select('*');
         return FacadesDataTables::of($data)
             ->addIndexColumn()
             ->make(true);
