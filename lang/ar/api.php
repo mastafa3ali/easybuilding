@@ -20,15 +20,16 @@ return [
     'cant_update' => 'لم يتم التعديل',
     'code_success' => 'الكود صحيح',
     'code_error' => 'الكود غير صحيح',
-    'new_payment_success'=>'تم اتمام عملية شراء بنجاح',
-    'add_to_saved'=>'تم اضافة :item الى المحفوظات',
-    'removed_from_saved_success'=>'تم حذف :item من المحفوظة',
+    'new_payment_success' => 'تم اتمام عملية طلب بنجاح',
+    'add_to_saved' => 'تم اضافة :item الى المحفوظات',
+    'removed_from_saved_success' => 'تم حذف :item من المحفوظات',
 
-    'notification_title'=>'scoffoling',
-    'order_confirmed'=>' تم تأكيد الطلب رقم :code ',
-    'order_onway'=>'  الطلب رقم :code فى الطريق اليك',
-    'order_canceled'=>'تم رفض الطلب رقم :code',
-    'order_progress'=>'تم تغير حالةالطلب رقم :code الى جارى المعالجة',
-    'order_deliverd'=>'تم تسليم الطلب رقم :code',
-    'new_order_request'=>'لديك طلب جديد'
+    'notification_title' => 'scoffoling',
+    'order_confirmed' => ' تم تأكيد الطلب رقم :code ',
+    'order_onway' => '  الطلب رقم :code فى الطريق اليك',
+    'order_canceled' => 'تم رفض الطلب رقم :code',
+    'order_progress' => 'تم تغير حالةالطلب رقم :code الى جارى المعالجة',
+    'order_deliverd' => 'تم تسليم الطلب رقم :code',
+    'order_on_the_way' => ' الطلب رقم :code فى الطريق اليك',
+    'new_order_request' => 'لديك طلب جديد'
 ];
