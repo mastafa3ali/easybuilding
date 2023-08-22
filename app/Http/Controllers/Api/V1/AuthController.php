@@ -176,7 +176,7 @@ class AuthController extends Controller
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\b";
         $headers .= 'From: name' . "\r\n";
-        mail($user->email, 'Reset Password', $msg, $headers);
+        mail($user->email, 'Check Code', $msg, $headers);
 
         // $this->sendSMS($mobile, $password, $numbers, $sender, $msg, $timeSend, $dateSend, $resultType, $MsgID);
         return apiResponse(true, [$MsgID], __('api.reset_link_will_send'), null, 200);

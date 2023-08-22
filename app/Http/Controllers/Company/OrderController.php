@@ -161,7 +161,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_REJECTED,'reason' => $request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_canceled', ['code' => $item->code]);
+            $message = __('api.order_canceled', ['code' => $item->code,'reason'=>$item->reason]);
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
