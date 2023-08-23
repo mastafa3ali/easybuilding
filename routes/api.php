@@ -41,6 +41,7 @@ Route::group(['prefix' => 'v1'], function () {
     Route::post('contact-us', [App\Http\Controllers\Api\V1\PageController::class, 'contactUs']);
     Route::get('terms/{company_id}', [App\Http\Controllers\Api\V1\SettingController::class, 'termCompany']);
     Route::get('privacy', [App\Http\Controllers\Api\V1\SettingController::class, 'privacy']);
+    Route::get('terms', [App\Http\Controllers\Api\V1\SettingController::class, 'terms']);
 
     Route::group(['middleware' => 'auth:sanctum'], function () {
 
@@ -73,7 +74,6 @@ Route::group(['prefix' => 'v1'], function () {
         Route::post('update-image', [App\Http\Controllers\Api\V1\AuthController::class, 'updateimage']);
 
 
-        Route::get('terms', [App\Http\Controllers\Api\V1\SettingController::class, 'terms']);
 
         Route::get('contact', [App\Http\Controllers\Api\V1\SettingController::class, 'contact']);
         Route::post('set-saved', [App\Http\Controllers\Api\V1\ProductController::class, 'setSaved']);
