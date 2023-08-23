@@ -28,10 +28,15 @@ class SettingController extends Controller
         return apiResponse(true, $data, null, null, 200);
     }
 
-    public function terms($company_id)
+    public function termCompany($company_id)
     {
         $data = Term::where('company_id', $company_id)->first();
 
+        return apiResponse(true, $data, null, null, 200);
+    }
+    public function terms()
+    {
+        $data = Setting::where('key', 'LIKE', 'terms_content')->value('value');
         return apiResponse(true, $data, null, null, 200);
     }
 

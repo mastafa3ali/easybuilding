@@ -119,14 +119,14 @@
                     </a>
                 </li>
             @endcan
-            {{-- @can('settings.terms')
+            @can('settings.terms')
                 <li>
                     <a class="d-flex align-items-center" href="{{ route('admin.settings.terms') }} ">
                         <i data-feather="circle"></i>
                         <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.terms') }}</span>
                     </a>
                 </li>
-            @endcan --}}
+            @endcan
             @can('users.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.users.index') }} ">
