@@ -121,11 +121,36 @@
 
                             </tr>
                             @else
+                            <?php
+                                $attribute_1=false;
+                                $attribute_2=false;
+                                $attribute_3=false;
+                            ?>
+                            @foreach ($item->details as $product)
+                            <?php
+                            if($product['attribute_1']){
+                                $attribute_1=true;
+                            }
+                            if($product['attribute_2']){
+                                $attribute_2=true;
+                            }
+                            if($product['attribute_3']){
+                                $attribute_3=true;
+                            }
+                            ?>
+
+                            @endforeach
                             <tr>
                              <th>{{ __('products.plural') }}</th>
+                             @if ($attribute_1)
                              <th>{{ __('products.attributes.1') }}</th>
+                             @endif
+                             @if ($attribute_2)
                              <th>{{ __('products.attributes.2') }}</th>
+                             @endif
+                             @if ($attribute_3)
                              <th>{{ __('products.attributes.3') }}</th>
+                             @endif
                              <th>{{ __('products.rent_price') }}</th>
                             </tr>
                             @endif
@@ -142,9 +167,15 @@
                             @foreach ($item->details as $product)
                             <tr>
                                 <td>{{ $item->productDetails($product['id'])?->name }}</td>
+                               @if ($attribute_1)
                                 <td>{{ $product['attribute_1'] }}</td>
+                               @endif
+                               @if ($attribute_2)
                                 <td>{{ $product['attribute_2'] }}</td>
+                               @endif
+                               @if ($attribute_3)
                                 <td>{{ $product['attribute_3'] }}</td>
+                               @endif
                                 <td>{{ $product['price']??'' }}</td>
                             </tr>
                             @endforeach
