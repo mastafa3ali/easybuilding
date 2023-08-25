@@ -71,22 +71,22 @@
                 </a>
             </li>
             @endcan
-            {{-- @can('sallProductReport.view')
+            @can('reports.saleOrders')
             <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.sallProductReport') }} ">
+                <a class="d-flex align-items-center" href="{{ route('admin.reports.saleOrders') }} ">
                     <i data-feather="book"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.sallProductReport') }}</span>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.sale_orders') }}</span>
                 </a>
             </li>
             @endcan
-            @can('rentProductReport.view')
+            @can('reports.rentOrders')
             <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.rentProductReport') }} ">
+                <a class="d-flex align-items-center" href="{{ route('admin.reports.rentOrders') }} ">
                     <i data-feather="book"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.rentProductReport') }}</span>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.rent_orders') }}</span>
                 </a>
             </li>
-            @endcan --}}
+            @endcan
             @can('contacts.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.contacts.index') }} ">

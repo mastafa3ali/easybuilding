@@ -7,15 +7,17 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::post('admin/login', [App\Http\Controllers\Admin\AuthController::class, 'postLogin'])->name('admin.postLogin');
     Route::post('admin/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('admin.logout');
 
-    Route::group(['middleware' => 'authenticate.admin', 'as' => 'admin.'], function () {
-        Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index']);
-    }
+    Route::group(
+        ['middleware' => 'authenticate.admin', 'as' => 'admin.'],
+        function () {
+            Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index']);
+        }
     );
     Route::group(['middleware' => 'authenticate.admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
         Route::get('/', [App\Http\Controllers\Admin\AdminController::class, 'index'])->name('home');
 
         Route::patch('/fcm-token', [App\Http\Controllers\Admin\AdminController::class, 'updateToken'])->name('fcmToken');
-        Route::post('/send-notification',[App\Http\Controllers\Admin\AdminController::class,'notification'])->name('notification');
+        Route::post('/send-notification', [App\Http\Controllers\Admin\AdminController::class,'notification'])->name('notification');
 
 
         Route::get('sliders/select', [App\Http\Controllers\Admin\SliderController::class, 'select'])->name('sliders.select');
@@ -162,6 +164,11 @@ Route::middleware('throttle:60,1')->group(function () {
 
         Route::get('rent-product-report', [App\Http\Controllers\Admin\ReportController::class, 'rentProductReport'])->name('rentProductReport')->middleware('permission:rentProductReport.view');
         Route::post('rent-product-report-post', [App\Http\Controllers\Admin\ReportController::class, 'rentProductReport'])->name('rentProductReportPost')->middleware('permission:rentProductReport.view');
+
+        Route::get('reports/sale-orders', [App\Http\Controllers\Admin\ReportController::class, 'saleOrders'])->name('reports.saleOrders')->middleware('permission:reports.saleOrders');
+        Route::get('reports/rent-orders', [App\Http\Controllers\Admin\ReportController::class, 'rentOrders'])->name('reports.rentOrders')->middleware('permission:reports.rentOrders');
+
+
 
     });
 });
