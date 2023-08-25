@@ -43,7 +43,7 @@
                         </div>
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
                             <label class="form-label" for="price">{{ __('products.price') }}</label>
-                            <input type="number" name="price" id="price" class="form-control" placeholder=""
+                            <input type="string" name="price" id="price" class="form-control" placeholder=""
                                    value="{{ $item->price ?? old('price') }}" step=".5" />
                             @error('price')
                             <span class="error">{{ $message }}</span>
@@ -95,7 +95,7 @@
                          <div class="row">
                             <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
                                 <label class="form-label" for="description">{{ __('products.description') }}</label>
-                                <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                                <textarea name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
                                 @error('description')
                                 <span class="error">{{ $message }}</span>
                                 @enderror
