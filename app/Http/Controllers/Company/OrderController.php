@@ -38,7 +38,7 @@ class OrderController extends Controller
                 $query->whereRaw('DATE(created_at) = ?', $request->date);
             }
         })->where('status', '!=', Order::STATUS_PENDDING_X)
-            ->OrderBy('id', 'DESC')->select('*');
+            ->select('*');
 
         return DataTables::of($data)
             ->addIndexColumn()
