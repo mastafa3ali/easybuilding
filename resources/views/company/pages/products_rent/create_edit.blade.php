@@ -37,7 +37,7 @@
                             <label class="form-label" for="product_id">{{ __('products.name') }}</label>
                             <select name="product_id" id="product_id" class="form-control ajax_select2 extra_field"
                                     data-ajax--url="{{ route('company.products.select') }}"
-                                    data-ajax--cache="true">
+                                    data-ajax--cache="true" required>
                                 @isset($item->product)
                                     <option value="{{ $item->product->id }}" selected>{{ $item->product->name }}</option>
                                 @endisset
@@ -48,7 +48,7 @@
                         </div>
                          <div class="mb-1 col-md-4  @error('rent_type') is-invalid @enderror">
                             <label class="form-label" for="rent_type">{{ __('products.rent_type') }}</label>
-                            <select name="rent_type" id="rent_type" class="form-control  extra_field">
+                            <select name="rent_type" id="rent_type" class="form-control  extra_field" required>
                                 <option value="1">{{ __('products.rent_types.1') }}</option>
                                 <option value="2">{{ __('products.rent_types.2') }}</option>
                                 <option value="3">{{ __('products.rent_types.3') }}</option>
@@ -63,8 +63,8 @@
                         <input type="hidden" name="type" value="2" />
                         <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section">
                             <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>
-                            <input type="number" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
-                                   value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" />
+                            <input type="text" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
+                                   value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" required />
                             @error('guarantee_amount')
                             <span class="error">{{ $message }}</span>
                             @enderror
@@ -72,8 +72,8 @@
 
                         <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
                             <label class="form-label" for="price">{{ __('products.main_price') }}</label>
-                            <input type="number" name="price" id="price" class="form-control" placeholder=""
-                                   value="{{ $item->price ?? old('price') }}" step=".5" />
+                            <input type="text" name="price" id="price" class="form-control" placeholder=""
+                                   value="{{ $item->price ?? old('price') }}" step=".5" required/>
                             @error('price')
                             <span class="error">{{ $message }}</span>
                             @enderror
@@ -109,7 +109,7 @@
                         <div class="row">
                             <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
                                 <label class="form-label" for="description">{{ __('products.description') }}</label>
-                                <textarea type="number" name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
+                                <textarea name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
                                 @error('description')
                                 <span class="error">{{ $message }}</span>
                                 @enderror
@@ -119,7 +119,7 @@
                         <h2>{{ __('products.other_price') }}</h2>
                         <div class="mb-1 col-md-4  @error('price_2') is-invalid @enderror">
                             <label class="form-label" for="price_2">{{ __('products.price_2') }}</label>
-                            <input type="number" name="price_2" id="price_2" class="form-control" placeholder=""
+                            <input type="text" name="price_2" id="price_2" class="form-control" placeholder=""
                             value="{{ $item->price_2 ?? old('price_2') }}" step=".5"/>
                             @error('price_2')
                             <span class="error">{{ $message }}</span>
@@ -128,7 +128,7 @@
 
                         <div class="mb-1 col-md-4  @error('price_3') is-invalid @enderror">
                             <label class="form-label" for="price_3">{{ __('products.price_3') }}</label>
-                            <input type="number" name="price_3" id="price_3" class="form-control" placeholder=""
+                            <input type="text" name="price_3" id="price_3" class="form-control" placeholder=""
                             value="{{ $item->price_3 ?? old('price_3') }}" step=".5" />
                             @error('price_3')
                             <span class="error">{{ $message }}</span>
@@ -137,7 +137,7 @@
 
                         <div class="mb-1 col-md-4  @error('price_4') is-invalid @enderror">
                             <label class="form-label" for="price_4">{{ __('products.price_4') }}</label>
-                            <input type="number" name="price_4" id="price_4" class="form-control" placeholder=""
+                            <input type="text" name="price_4" id="price_4" class="form-control" placeholder=""
                             value="{{ $item->price_4 ?? old('price_4') }}" step=".5" />
                             @error('price_4')
                             <span class="error">{{ $message }}</span>
