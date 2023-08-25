@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="my-auto">
                                     <h4 class="fw-bolder mb-0">{{ $onprogress_orders }}</h4>
-                                    <p class="card-text font-small-3 mb-0">{{ __('admin.orders_done') }}</p>
+                                    <p class="card-text font-small-3 mb-0">{{ __('admin.onprogress_orders') }}</p>
                                 </div>
                             </div>
                         </div>
