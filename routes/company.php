@@ -46,6 +46,11 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
     Route::post('orders/change-to-progress', [App\Http\Controllers\Company\OrderController::class, 'changeTopRrogress'])->name('orders.changeTopRrogress');
     Route::post('orders/change-to-deliverd', [App\Http\Controllers\Company\OrderController::class, 'changeToDeliverd'])->name('orders.changeToDeliverd');
 
+    Route::get('reports/sale-orders', [App\Http\Controllers\Company\ReportController::class, 'saleOrders'])->name('reports.saleOrders');
+    Route::get('reports/rent-orders', [App\Http\Controllers\Company\ReportController::class, 'rentOrders'])->name('reports.rentOrders');
+    Route::post('reports/saleorders', [App\Http\Controllers\Company\ReportController::class, 'saleOrders'])->name('reports.postSaleOrders');
+    Route::post('reports/rentorders', [App\Http\Controllers\Company\ReportController::class, 'rentOrders'])->name('reports.postRentOrders');
+
     Route::get('profile', [App\Http\Controllers\Company\ProfileController::class, 'index'])->name('profile.index');
     Route::get('change-password', [App\Http\Controllers\Company\ProfileController::class, 'changePassword'])->name('profile.change_password');
 });

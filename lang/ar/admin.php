@@ -122,7 +122,9 @@ return [
     'rent_products' => 'منتجات الايجار',
     'companies' => 'الشركات',
     'merchants' => 'التجار',
-    'sallProductReport' => 'تقرير منتجات البيع',
     'onprogress_orders' => 'الطلبات قيد المراجعه',
+    'sallProductReport' => 'تقرير منتجات البيع',
     'rentProductReport' => 'تقرير منتجات الايجار',
+    'sale_orders' => 'تقرير طلبات البيع',
+    'rent_orders' => 'تقرير طلبات الايجار',
 ];

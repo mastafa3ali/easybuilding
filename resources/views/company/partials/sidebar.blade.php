@@ -57,20 +57,24 @@ $route = \Route::currentRouteName();
                             <span data-i18n="List">{{ __('admin.terms') }}</span>
                         </a>
                     </li>
-                      {{-- <li class="dropdown nav-item {{ request()->routeIs('company.reports*') ? 'active' : '' }}" data-menu="dropdown">
+                      <li class="dropdown nav-item {{ request()->routeIs('company.reports*') ? 'active' : '' }}" data-menu="dropdown">
                     <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                         <i data-feather="package"></i>
                         <span data-i18n="Apps">{{ __('admin.reports') }}</span>
                     </a>
                     <ul class="dropdown-menu" data-bs-popper="none">
                         <li data-menu="">
-                            <a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="" data-i18n="">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('company.reports.saleOrders') }}" data-bs-toggle="" data-i18n="">
                                 <i data-feather="mail"></i>
-                                <span data-i18n="">#</span>
+                                <span data-i18n="">{{ __('admin.sale_orders') }}</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('company.reports.rentOrders') }}" data-bs-toggle="" data-i18n="">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="">{{ __('admin.rent_orders') }}</span>
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
             </ul>
         </div>
     </div>
