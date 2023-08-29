@@ -11,6 +11,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -122,9 +123,11 @@ class ProductController extends Controller
         $data = CompanyProduct::leftJoin('products', 'products.id', 'company_products.product_id')
         ->where('products.type', Product::TYPE_RENT)
         ->where('company_products.company_id', auth()->id())->select([
-            'products.name',
             'products.type',
-            'company_products.description',
+            'company_products.description_en',
+            'company_products.description_ar',
+            'company_products.name_en',
+            'company_products.name_ar',
             'company_products.price',
             'company_products.id',
             'company_products.guarantee_amount'
@@ -134,6 +137,20 @@ class ProductController extends Controller
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })
+              ->filterColumn('name', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('name_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('name_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
+            ->filterColumn('description', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('description_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('description_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
             ->rawColumns(['type'])
         ->make(true);
     }
@@ -142,14 +159,15 @@ class ProductController extends Controller
     {
         $data = Product::whereNull('company_id')->distinct()
              ->where('products.type', Product::TYPE_RENT)
-             ->where(function ($query) use ($request) {
-                 if ($request->filled('q')) {
-                     $query->where('name', 'LIKE', '%' . $request->q . '%');
-                 }
-             })
-             ->select('id', 'name AS text', 'category_id')
-             ->take(20)
-             ->get();
+                ->where(function ($query) use ($request) {
+                if ($request->filled('q')) {
+                    if(App::isLocale('en')) {
+                        return $query->where('name_en', 'like', '%'.$request->q.'%');
+                    } else {
+                        return $query->where('name_ar', 'like', '%'.$request->q.'%');
+                    }
+                }
+                })->select('id', 'name_en', 'name_ar','category_id')->get();
         return response()->json($data);
     }
 

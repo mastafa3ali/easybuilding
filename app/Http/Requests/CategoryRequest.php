@@ -16,11 +16,13 @@ class CategoryRequest extends FormRequest
     {
         if ($this->method() == 'PUT') {
             return [
-                'title' => 'required'
+                'title_ar' => 'required',
+                'title_en' => 'required',
             ];
         }else{
             return [
-                'title' => 'required',
+                'title_ar' => 'required',
+                'title_en' => 'required',
                 'image' => 'required',
             ];
         }

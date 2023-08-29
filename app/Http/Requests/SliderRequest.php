@@ -16,11 +16,13 @@ class SliderRequest extends FormRequest
     {
         if ($this->method() == 'PUT') {
             return [
-                'title' => 'required'
+                'title_en' => 'required',
+                'title_ar' => 'required'
             ];
         }else{
             return [
-                'title' => 'required',
+                'title_en' => 'required',
+                'title_ar' => 'required',
                 'image' => 'required',
             ];
         }

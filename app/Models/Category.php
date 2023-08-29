@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 
 class Category extends Model
 {
     use SoftDeletes;
     protected $table = 'categories';
-    protected $fillable = ['title', 'image','sort','active'];
-    protected $appends = ['photo'];
+    protected $fillable = ['title_en','title_ar', 'image','sort','active'];
+    protected $appends = ['photo','title','text'];
 
     protected static $orderByColumn = 'sort';
     protected static $orderByColumnDirection = 'ASC';
@@ -28,16 +29,33 @@ class Category extends Model
         return $this->hasMany(SubCategory::class);
     }
 
-//  protected static function boot()
-//  {
-//      parent::boot();
+    public function getTextAttribute()
+    {
+        if(App::isLocale('en')) {
+            return $this->attributes['title_en'] ?? $this->attributes['title_ar'];
+        } else {
+            return $this->attributes['title_ar'] ?? $this->attributes['title_en'];
+        }
+    }
 
-//         // static::creating(function ($query) {
-//         //     $query->created_by = auth()->id();
-//         // });
-//          static::retrieved(function ($query) {
-//             $query->orderBy('sort','DESC');
-//         });
+    public function getTitleAttribute()
+    {
+        if(App::isLocale('en')) {
+            return $this->attributes['title_en'] ?? $this->attributes['title_ar'];
+        } else {
+            return $this->attributes['title_ar'] ?? $this->attributes['title_en'];
+        }
+    }
+    //  protected static function boot()
+    //  {
+    //      parent::boot();
 
-// }
+    //         // static::creating(function ($query) {
+    //         //     $query->created_by = auth()->id();
+    //         // });
+    //          static::retrieved(function ($query) {
+    //             $query->orderBy('sort','DESC');
+    //         });
+
+    // }
 }

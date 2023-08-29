@@ -9,6 +9,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 class ProductSaleController extends Controller
@@ -29,7 +30,7 @@ class ProductSaleController extends Controller
     public function edit($id): View
     {
         $item = Product::findOrFail($id);
-        
+
         return view($this->viewEdit, get_defined_vars());
     }
     public function show($id): View
@@ -100,6 +101,20 @@ class ProductSaleController extends Controller
            ->editColumn('category', function ($item) {
                 return $item->category?->title;
             })
+             ->filterColumn('name', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('name_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('name_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
+            ->filterColumn('description', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('description_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('description_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
             ->rawColumns(['category'])
         ->make(true);
     }

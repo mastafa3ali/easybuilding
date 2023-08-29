@@ -75,10 +75,10 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'title', name: 'title'},
+                {data: 'title', name: 'title',orderable: false},
                 {data: 'url', name: 'url'},
                 {data: 'photo', name: 'photo'},
-                    @canany('sliders.edit','sliders.delete')
+                @canany('sliders.edit','sliders.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany
             ],

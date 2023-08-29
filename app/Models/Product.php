@@ -6,13 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\App;
 
 class Product extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $fillable = ['name', 'description', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images','rate'];
-    protected $appends = ['photo','photos'];
+    protected $fillable = ['name_en','name_ar', 'description_en','description_ar', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images','rate'];
+    protected $appends = ['photo','photos','name','description'];
     protected $casts = [
         'images'=>'array'
     ];
@@ -56,6 +57,25 @@ class Product extends Model
                 $images[] = asset('storage/products/' . $image);
         }
         return $images;
-
     }
+
+
+    public function getNameAttribute()
+    {
+        if(App::isLocale('en')) {
+            return $this->attributes['name_en'] ?? $this->attributes['name_ar'];
+        } else {
+            return $this->attributes['name_ar'] ?? $this->attributes['name_en'];
+        }
+    }
+
+    public function getDescriptionAttribute()
+    {
+        if(App::isLocale('en')) {
+            return $this->attributes['description_en'] ?? $this->attributes['description_ar'];
+        } else {
+            return $this->attributes['description_ar'] ?? $this->attributes['description_en'];
+        }
+    }
+
 }

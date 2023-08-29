@@ -8,6 +8,7 @@ use App\Models\SubCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
@@ -117,6 +118,13 @@ class SubCategoryController extends Controller
         })
         ->addColumn('category', function ($item) {
                 return $item->category?->title;
+        })
+        ->filterColumn('name', function ($query, $keyword) {
+            if(App::isLocale('en')) {
+                return $query->where('name_en', 'like', '%'.$keyword.'%');
+            } else {
+                return $query->where('name_ar', 'like', '%'.$keyword.'%');
+            }
         })
         ->rawColumns(['photo','category'])
         ->make(true);

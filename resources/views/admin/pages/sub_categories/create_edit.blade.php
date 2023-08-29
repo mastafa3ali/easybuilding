@@ -33,11 +33,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-4  @error('name') is-invalid @enderror">
-                            <label class="form-label" for="name">{{ __('sub_categories.default.name') }}</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder=""
-                                   value="{{ $item->name ?? old('name') }}" required/>
-                            @error('name')
+                        <div class="mb-1 col-md-4  @error('name_en') is-invalid @enderror">
+                            <label class="form-label" for="name_en">{{ __('admin.title_en') }}</label>
+                            <input type="text" name="name_en" id="name_en" class="form-control" placeholder=""
+                                   value="{{ $item->name_en ?? old('name_en') }}" required/>
+                            @error('name_en')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-1 col-md-4  @error('name_ar') is-invalid @enderror">
+                            <label class="form-label" for="name_ar">{{ __('admin.title_ar') }}</label>
+                            <input type="text" name="name_ar" id="name_ar" class="form-control" placeholder=""
+                                   value="{{ $item->name_ar ?? old('name_ar') }}" required/>
+                            @error('name_ar')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>

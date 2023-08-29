@@ -56,12 +56,12 @@ class OrderController extends Controller
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';
                 if ($item->status == Order::STATUS_PENDDING) {
-                    $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '" data-status="0"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_confirmed") . '</span></a>';
+                    $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToConfirmed') . '" data-order_id="' . $item->id . '" data-status="0"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
 
                     $statusBtn .= '<a class="dropdown-item  update_status" data-url="' . route('company.orders.changeToCanceled') . '"  data-order_id="' . $item->id . '" data-status="1"><i data-feather="x" class="x"></i><span>' . __("orders.change_to_canceled") . '</span></a>';
                 }
                 if ($item->status == Order::STATUS_ONPROGRESS) {
-                    $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '" data-status="0"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_progress") . '</span></a>';
+                    $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeTopRrogress') . '" data-order_id="' . $item->id . '" data-status="0"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_on_way") . '</span></a>';
                 }
                 if ($item->status == Order::STATUS_ON_WAY) {
                     $statusBtn .= ' <a class="dropdown-item update_status" data-url="' . route('company.orders.changeToDeliverd') . '" data-order_id="' . $item->id . '" data-status="0"><i data-feather="check" class="font-medium-2"></i><span>' . __("orders.change_to_deliverd") . '</span></a>';

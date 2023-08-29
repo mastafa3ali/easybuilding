@@ -75,8 +75,8 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'name', name: 'name'},
-                {data: 'description', name: 'description'},
+                {data: 'name', name: 'name',orderable: false},
+                {data: 'description', name: 'description',orderable: false},
                 {data: 'type', name: 'type'},
                     @canany('products.edit','products.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
