@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
 class ProductController extends Controller
@@ -107,6 +108,20 @@ class ProductController extends Controller
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })
+            ->filterColumn('name', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('name_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('name_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
+            ->filterColumn('description', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('description_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('description_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
             ->rawColumns(['type'])
         ->make(true);
     }

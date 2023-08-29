@@ -33,11 +33,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-4  @error('name') is-invalid @enderror">
-                            <label class="form-label" for="name">{{ __('products.name') }}</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder=""
-                                   value="{{ $item->name ?? old('name') }}" />
-                            @error('name')
+                        <div class="mb-1 col-md-4  @error('name_en') is-invalid @enderror">
+                            <label class="form-label" for="name_en">{{ __('admin.title_en') }}</label>
+                            <input type="text" name="name_en" id="name_en" class="form-control" placeholder=""
+                                   value="{{ $item->name_en ?? old('name_en') }}" required/>
+                            @error('name_en')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-1 col-md-4  @error('name_ar') is-invalid @enderror">
+                            <label class="form-label" for="name_ar">{{ __('admin.title_ar') }}</label>
+                            <input type="text" name="name_ar" id="name_ar" class="form-control" placeholder=""
+                                   value="{{ $item->name_ar ?? old('name_ar') }}" required/>
+                            @error('name_ar')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
@@ -92,15 +100,24 @@
                             </div>
                         </div>
 
-                         <div class="row">
-                            <div class="mb-1 col-md-12  @error('description') is-invalid @enderror">
-                                <label class="form-label" for="description">{{ __('products.description') }}</label>
-                                <textarea name="description" id="description" class="form-control" placeholder="">{{ $item->description ?? old('description') }}</textarea>
-                                @error('description')
-                                <span class="error">{{ $message }}</span>
-                                @enderror
-                            </div>
+                          <div class="row">
+
+                        <div class="mb-1 col-md-6  @error('description_en') is-invalid @enderror">
+                            <label class="form-label" for="description_en">{{ __('admin.description_en') }}</label>
+                            <textarea name="description_en" id="description_en" class="form-control" placeholder="">{{ $item->description_en ?? old('description_en') }}</textarea>
+                            @error('description_en')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
                         </div>
+                        <div class="mb-1 col-md-6  @error('description_ar') is-invalid @enderror">
+                            <label class="form-label" for="description_ar">{{ __('admin.description_ar') }}</label>
+                            <textarea name="description_ar" id="description_ar" class="form-control" placeholder="">{{ $item->description_ar ?? old('description_ar') }}</textarea>
+                            @error('description_ar')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                    </div>
 
                 </div>
             </div>

@@ -73,15 +73,15 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'name', name: 'name'},
-                {data: 'description', name: 'description'},
+                {data: 'name', name: 'name',orderable: false},
+                {data: 'description', name: 'description',orderable: false},
                 {data: 'type', name: 'type'},
                 {data: 'guarantee_amount', name: 'guarantee_amount'},
                 {data: 'price', name: 'price'},
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
             ],
             columnDefs: [
-              
+
                 {
                     "targets": -1,
                     "render": function (data, type, row) {

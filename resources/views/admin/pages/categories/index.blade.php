@@ -76,11 +76,11 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'title', name: 'title'},
+                {data: 'title', name: 'title',orderable: false},
                 {data: 'sort', name: 'sort'},
                 {data: 'active', name: 'active'},
                 {data: 'photo', name: 'photo'},
-                    @canany('categories.edit','categories.delete')
+                @canany('categories.edit','categories.delete')
                 {data: 'actions',name: 'actions',orderable: false,searchable: false},
                 @endcanany
             ],

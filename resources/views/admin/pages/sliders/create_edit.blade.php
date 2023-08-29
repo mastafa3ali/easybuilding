@@ -33,11 +33,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-4  @error('title') is-invalid @enderror">
-                            <label class="form-label" for="title">{{ __('sliders.default.name') }}</label>
-                            <input type="text" name="title" id="title" class="form-control" placeholder=""
-                                   value="{{ $item->title ?? old('title') }}" required/>
-                            @error('title')
+                        <div class="mb-1 col-md-4  @error('title_en') is-invalid @enderror">
+                            <label class="form-label" for="title_en">{{ __('admin.name_en') }}</label>
+                            <input type="text" name="title_en" id="title_en" class="form-control" placeholder=""
+                                   value="{{ $item->title_en ?? old('title_en') }}" required/>
+                            @error('title_en')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-1 col-md-4  @error('title_ar') is-invalid @enderror">
+                            <label class="form-label" for="title_ar">{{ __('admin.name_ar') }}</label>
+                            <input type="text" name="title_ar" id="title_ar" class="form-control" placeholder=""
+                                   value="{{ $item->title_ar ?? old('title_ar') }}" required/>
+                            @error('title_ar')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>

@@ -8,6 +8,7 @@ use App\Models\Category;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
@@ -124,6 +125,13 @@ class CategoryController extends Controller
         ->editColumn('active', function ($item) {
             return $item->active==1 ? '<button class="btn btn-sm btn-outline-success me-1 waves-effect"><i data-feather="check" ></i></button>':'<button class="btn btn-sm btn-outline-danger me-1 waves-effect"><i data-feather="x" ></i></button>';
         })
+        ->filterColumn('title', function ($query, $keyword) {
+                 if(App::isLocale('en')) {
+                     return $query->where('title_en', 'like', '%'.$keyword.'%');
+                 } else {
+                     return $query->where('title_ar', 'like', '%'.$keyword.'%');
+                 }
+             })
         ->rawColumns(['photo','active'])
         ->make(true);
     }
