@@ -14,7 +14,7 @@ class SubCategory extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'sub_categories';
     protected $fillable = ['name_en','name_ar', 'image','category_id','properties','sort'];
-    protected $appends = ['photo','name'];
+    protected $appends = ['photo','name','text'];
 
     public function category():?BelongsTo
     {
@@ -28,6 +28,14 @@ class SubCategory extends Model
     {
         return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/sub_categories/' . $this->attributes['image']) : null) : null;
 
+    }
+        public function getTextAttribute()
+    {
+        if(App::isLocale('en')) {
+            return $this->attributes['name_en'] ?? $this->attributes['name_ar'];
+        } else {
+            return $this->attributes['name_ar'] ?? $this->attributes['name_en'];
+        }
     }
     public function getNameAttribute()
     {

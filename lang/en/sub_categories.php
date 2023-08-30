@@ -11,9 +11,9 @@ return [
     'filter' => 'Search for a subcategory',
     'actions' => [
         'list' => 'view all',
-        'show' => 'an offer',
-        'create' => 'Add a subcategory',
-        'edit' => 'amendment',
+        'show' => 'Show',
+        'create' => 'Add New',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',

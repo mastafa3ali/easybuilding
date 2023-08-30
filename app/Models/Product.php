@@ -13,7 +13,7 @@ class Product extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = ['name_en','name_ar', 'description_en','description_ar', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images','rate'];
-    protected $appends = ['photo','photos','name','description'];
+    protected $appends = ['photo','photos','name','description','text'];
     protected $casts = [
         'images'=>'array'
     ];
@@ -75,6 +75,14 @@ class Product extends Model
             return $this->attributes['description_en'] ?? $this->attributes['description_ar'];
         } else {
             return $this->attributes['description_ar'] ?? $this->attributes['description_en'];
+        }
+    }
+        public function getTextAttribute()
+    {
+        if(App::isLocale('en')) {
+            return $this->attributes['name_en'] ?? $this->attributes['name_ar'];
+        } else {
+            return $this->attributes['name_ar'] ?? $this->attributes['name_en'];
         }
     }
 

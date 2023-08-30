@@ -15,33 +15,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/vendors-rtl.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/charts/apexcharts.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/extensions/toastr.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/components.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/bordered-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/semi-dark-layout.css">
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/core/menu/menu-types/horizontal-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/pages/dashboard-ecommerce.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/charts/chart-apex.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/extensions/ext-component-toastr.css">
+    @if (app()->getLocale()=='ar')
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/components.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/bordered-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/semi-dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/core/menu/menu-types/horizontal-menu.css">
+    @else
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/bootstrap-extended.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/colors.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/components.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/bordered-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/semi-dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/core/menu/menu-types/horizontal-menu.css">
+    @endif
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/forms/select/select2.min.css">
 
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/custom.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/custom-rtl.css">
     <!-- END: Custom CSS-->
     @stack('styles')
     <!-- END: Custom CSS-->
@@ -75,7 +79,7 @@
                     <span class="avatar"><img class="round" src="{{ $assetsPath }}/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40">
                         <span class="avatar-status-online"></span>
                     </span>
-                </a>    
+                </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
                     <a class="dropdown-item" href="{{ route('company.profile.index') }}">
                         <i class="me-50" data-feather="user"></i> {{ __('admin.profile') }}

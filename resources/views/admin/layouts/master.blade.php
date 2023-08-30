@@ -1,6 +1,6 @@
 <?php $assetsPath = asset('assets/admin') ?>
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="rtl">
+<html class="loading" lang="en" data-textdirection="ltr">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,23 +12,25 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ $assetsPath }}/images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/vendors-rtl.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/charts/apexcharts.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/extensions/toastr.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/components.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/bordered-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/semi-dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/pages/dashboard-ecommerce.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/charts/chart-apex.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/extensions/ext-component-toastr.css">
+    @if (app()->getLocale()=='ar')
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/components.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/extensions/ext-component-toastr.css">
+    @else
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/bootstrap-extended.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/colors.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/components.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/dark-layout.css">
+        <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/plugins/extensions/ext-component-toastr.css">
+    @endif
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/forms/select/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/custom-rtl.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/custom.css">
     @stack('styles')
 </head>
@@ -49,7 +51,6 @@
                 <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="user-nav d-sm-flex d-none">
                         <span class="user-name fw-bolder">{{ auth()->user()->name }}</span>
-                        <span class="user-status">{{ __('admin.staff') }}</span>
                     </div>
                     <span class="avatar">
                         <img class="round" src="{{ $assetsPath }}/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40">
