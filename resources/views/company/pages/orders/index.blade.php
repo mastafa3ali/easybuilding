@@ -53,7 +53,7 @@
             searching: true,
             paging: true,
             info: false,
-            order: [[0, 'desc']],
+            // order: [[0, 'desc']],
             language: {
                 paginate: {
                     previous: '&nbsp;',
