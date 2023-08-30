@@ -25,7 +25,7 @@ class HomeController extends Controller
     {
         return view('home');
     }
-       public function language()
+    public function language()
     {
 
         if(Session::get('lang')=='en'){
