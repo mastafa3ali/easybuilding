@@ -162,7 +162,7 @@ class ProductController extends Controller
                         return $query->where('name_ar', 'like', '%'.$request->q.'%');
                     }
                 }
-                })->select('id', 'name_en', 'name_ar','category_id')->get();
+                })->select('id', 'name_en', 'name_ar','category_id','description_en','description_ar')->get();
         return response()->json($data);
     }
 
@@ -178,29 +178,35 @@ class ProductController extends Controller
     public function selectcategories(Request $request): JsonResponse|string
     {
         $data = Category::distinct()
-             ->where(function ($query) use ($request) {
-                 if ($request->filled('q')) {
-                     $query->where('title', 'LIKE', '%' . $request->q . '%');
+         ->where(function ($query) use ($request) {
+             if ($request->filled('q')) {
+                 if(App::isLocale('en')) {
+                     return $query->where('title_en', 'like', '%'.$request->q.'%');
+                 } else {
+                     return $query->where('title_ar', 'like', '%'.$request->q.'%');
                  }
-             })
-             ->select('id', 'title AS text')
-             ->take(10)
-             ->get();
+             }
+         })->select('id', 'title_en', 'title_ar')->get();
+
         return response()->json($data);
     }
     public function selectSubCategory(Request $request): JsonResponse|string
     {
-        $data = SubCategory::distinct()
-             ->where(function ($query) use ($request) {
-                 if ($request->filled('q')) {
-                     $query->where('name', 'LIKE', '%' . $request->q . '%');
+
+       $data = Category::distinct()
+                ->where(function ($query) use ($request) {
+                    if ($request->filled('category_id')) {
+                        $query->where('category_id', $request->category_id);
+                    }
+            if ($request->filled('q')) {
+                 if(App::isLocale('en')) {
+                     return $query->where('name_en', 'like', '%'.$request->q.'%');
+                 } else {
+                     return $query->where('name_ar', 'like', '%'.$request->q.'%');
                  }
-                 if ($request->filled('category_id')) {
-                     $query->where('category_id', $request->category_id);
-                 }
-             })
-             ->select('id', 'name AS text')
-             ->get();
+             }
+         })->select('id', 'name_en', 'name_ar')->get();
+
         if ($request->filled('pure_select')) {
             $html = '<option value="">'. __('categories.select') .'</option>';
             foreach ($data as $row) {

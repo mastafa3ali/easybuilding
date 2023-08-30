@@ -60,14 +60,16 @@ class CategoryController extends Controller
     public function select(Request $request): JsonResponse|string
     {
        $data = Category::distinct()
-            ->where(function ($query) use ($request) {
+                ->where(function ($query) use ($request) {
                 if ($request->filled('q')) {
-                    $query->where('title', 'LIKE', '%' . $request->q . '%');
+                    if(App::isLocale('en')) {
+                        return $query->where('title_en', 'like', '%'.$request->q.'%');
+                    } else {
+                        return $query->where('title_ar', 'like', '%'.$request->q.'%');
+                    }
                 }
-            })
-            ->select('id', 'title AS text')
-            ->take(10)
-            ->get();
+                })->select('id', 'title_en', 'title_ar')->get();
+
         if ($request->filled('pure_select')) {
             $html = '<option value="">'. __('category.select') .'</option>';
             foreach ($data as $row) {
