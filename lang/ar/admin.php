@@ -133,4 +133,5 @@ return [
     'title_en'=>'الاسم بالانجليزية',
     'description_ar'=>'الوصف بالعربية',
     'description_en'=>'الوصف بالانجليزية',
+    'language'=>'الانجليزية'
 ];

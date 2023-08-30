@@ -6,9 +6,9 @@ Route::get('company/login', [App\Http\Controllers\Company\AuthController::class,
 Route::post('company/login', [App\Http\Controllers\Company\AuthController::class, 'postLogin'])->name('company.postLogin');
 Route::post('company/logout', [App\Http\Controllers\Company\AuthController::class, 'logout'])->name('company.logout');
 
+Route::group(['middleware' => ['language']], function () {
 Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.'], function () {
         Route::patch('/fcm-token', [App\Http\Controllers\Company\CompanyController::class, 'updateToken'])->name('fcmToken');
-
     Route::get('/', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('home');
 
     Route::get('products/select', [App\Http\Controllers\Company\ProductController::class, 'select'])->name('products.select');
@@ -53,4 +53,5 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
 
     Route::get('profile', [App\Http\Controllers\Company\ProfileController::class, 'index'])->name('profile.index');
     Route::get('change-password', [App\Http\Controllers\Company\ProfileController::class, 'changePassword'])->name('profile.change_password');
+});
 });

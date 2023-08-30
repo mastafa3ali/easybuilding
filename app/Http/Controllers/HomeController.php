@@ -1,13 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\User;
-use Illuminate\Http\Request;
-use Kutia\Larafirebase\Facades\Larafirebase;
-use Notification;
-use App\Notifications\SendPushNotification;
-use Illuminate\Support\Facades\Notification as FacadesNotification;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -30,5 +25,18 @@ class HomeController extends Controller
     {
         return view('home');
     }
-   
+       public function language()
+    {
+
+        if(Session::get('lang')=='en'){
+            Session::put('lang', 'ar');
+            App::setLocale('ar');
+        }else{
+            Session::put('lang', 'en');
+            App::setLocale('en');
+        }
+        return back();
+
+    }
+
 }

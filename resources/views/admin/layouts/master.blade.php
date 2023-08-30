@@ -60,6 +60,9 @@
                     <a class="dropdown-item" href="{{ route('admin.profile.index') }}">
                         <i class="me-50" data-feather="user"></i> {{ __('admin.profile') }}
                     </a>
+                    <a class="dropdown-item" href="{{ route('language') }}">
+                        <i class="me-50" data-feather="flag"></i> {{ __('admin.language') }}
+                    </a>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();" class="dropdown-item">
                         <i class="me-50" data-feather="power"></i> {{ __('admin.logout') }}

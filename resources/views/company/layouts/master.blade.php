@@ -75,10 +75,13 @@
                     <span class="avatar"><img class="round" src="{{ $assetsPath }}/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40">
                         <span class="avatar-status-online"></span>
                     </span>
-                </a>
+                </a>    
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
                     <a class="dropdown-item" href="{{ route('company.profile.index') }}">
                         <i class="me-50" data-feather="user"></i> {{ __('admin.profile') }}
+                    </a>
+                    <a class="dropdown-item" href="{{ route('language') }}">
+                        <i class="me-50" data-feather="flag"></i> {{ __('admin.language') }}
                     </a>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();" class="dropdown-item">

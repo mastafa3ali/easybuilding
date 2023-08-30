@@ -18,6 +18,7 @@ class CompanyController extends Controller
 
     public function index(Request $request)
     {
+        // dd(app()->getLocale());
         $products_count = Product::where('company_id',auth()->id())->count();
         $pendding_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_PENDDING)->count();
         $onprogress_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_ONPROGRESS)->count();

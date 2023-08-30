@@ -26,11 +26,12 @@ class Language
                 App::setLocale('en');
             }
 
-        // if(Session::get('lang')=='ar'){
-        //     App::setLocale('ar');
-        // }else{
-        //     App::setLocale('en');
-        // }
+
+        if(Session::get('lang')=='ar'){
+            App::setLocale('ar');
+        }else{
+            App::setLocale('en');
+        }
 
         return $next($request);
     }

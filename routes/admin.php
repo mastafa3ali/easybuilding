@@ -6,6 +6,7 @@ Route::middleware('throttle:60,1')->group(function () {
     Route::get('admin/login', [App\Http\Controllers\Admin\AuthController::class, 'login'])->name('admin.login');
     Route::post('admin/login', [App\Http\Controllers\Admin\AuthController::class, 'postLogin'])->name('admin.postLogin');
     Route::post('admin/logout', [App\Http\Controllers\Admin\AuthController::class, 'logout'])->name('admin.logout');
+Route::group(['middleware' => ['language']], function () {
 
     Route::group(
         ['middleware' => 'authenticate.admin', 'as' => 'admin.'],
@@ -168,7 +169,6 @@ Route::middleware('throttle:60,1')->group(function () {
         Route::get('reports/sale-orders', [App\Http\Controllers\Admin\ReportController::class, 'saleOrders'])->name('reports.saleOrders')->middleware('permission:reports.saleOrders');
         Route::get('reports/rent-orders', [App\Http\Controllers\Admin\ReportController::class, 'rentOrders'])->name('reports.rentOrders')->middleware('permission:reports.rentOrders');
 
-
-
+    });
     });
 });

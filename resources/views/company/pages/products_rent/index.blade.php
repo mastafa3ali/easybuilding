@@ -65,7 +65,6 @@
             ajax: {
                 url: "{{ route('company.products.list') }}",
                 data: function (d) {
-                    d.name   = $('#filterForm #name').val();
                 }
             },
             drawCallback: function (settings) {
@@ -73,8 +72,8 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'name', name: 'name',orderable: false},
-                {data: 'description', name: 'description',orderable: false},
+                {data: 'name', name: 'name'},
+                {data: 'description', name: 'description'},
                 {data: 'type', name: 'type'},
                 {data: 'guarantee_amount', name: 'guarantee_amount'},
                 {data: 'price', name: 'price'},

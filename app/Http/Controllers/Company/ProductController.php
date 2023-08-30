@@ -17,7 +17,6 @@ use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
-    private $viewIndex  = 'company.pages.products_rent.index';
     private $notifications  = 'company.pages.products_rent.notifications';
     private $viewEdit   = 'company.pages.products_rent.create_edit';
     private $viewShow   = 'company.pages.products_rent.show';
@@ -25,7 +24,7 @@ class ProductController extends Controller
 
     public function index(Request $request): View
     {
-        return view($this->viewIndex, get_defined_vars());
+        return view('company.pages.products_rent.index', get_defined_vars());
     }
     public function notifications(Request $request): View
     {
@@ -120,14 +119,15 @@ class ProductController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = CompanyProduct::leftJoin('products', 'products.id', 'company_products.product_id')
+        $data = CompanyProduct::with('product')->leftJoin('products', 'products.id', 'company_products.product_id')
         ->where('products.type', Product::TYPE_RENT)
         ->where('company_products.company_id', auth()->id())->select([
             'products.type',
+            'company_products.product_id',
             'company_products.description_en',
             'company_products.description_ar',
-            'company_products.name_en',
-            'company_products.name_ar',
+            'products.name_en',
+            'products.name_ar',
             'company_products.price',
             'company_products.id',
             'company_products.guarantee_amount'
@@ -137,20 +137,15 @@ class ProductController extends Controller
             ->editColumn('type', function ($item) {
                 return __('products.types.'.$item->type);
             })
-              ->filterColumn('name', function ($query, $keyword) {
-                 if(App::isLocale('en')) {
-                     return $query->where('name_en', 'like', '%'.$keyword.'%');
-                 } else {
-                     return $query->where('name_ar', 'like', '%'.$keyword.'%');
-                 }
-             })
+
             ->filterColumn('description', function ($query, $keyword) {
                  if(App::isLocale('en')) {
-                     return $query->where('description_en', 'like', '%'.$keyword.'%');
+                     return $query->where('company_products.description_en', 'like', '%'.$keyword.'%');
                  } else {
-                     return $query->where('description_ar', 'like', '%'.$keyword.'%');
+                     return $query->where('company_products.description_ar', 'like', '%'.$keyword.'%');
                  }
              })
+
             ->rawColumns(['type'])
         ->make(true);
     }
