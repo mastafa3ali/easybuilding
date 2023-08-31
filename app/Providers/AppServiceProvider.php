@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
-        Model::shouldBeStrict(true);
+        // Model::shouldBeStrict(true);
 
         JsonResource::withoutWrapping();
 
