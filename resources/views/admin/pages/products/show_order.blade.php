@@ -103,36 +103,28 @@
                              <th>{{ __('orders.total') }}</th>
                             </tr>
                             @else
-                            <?php
-                                $attribute_1=false;
-                                $attribute_2=false;
-                                $attribute_3=false;
-                            ?>
-                            @foreach ($item->details as $product)
-                            <?php
-                            if($product['attribute_1']){
-                                $attribute_1=true;
-                            }
-                            if($product['attribute_2']){
-                                $attribute_2=true;
-                            }
-                            if($product['attribute_3']){
-                                $attribute_3=true;
-                            }
-                            ?>
-                            @endforeach
                             <tr>
-                             <th>{{ __('products.plural') }}</th>
-                             @if ($attribute_1)
-                             <th>{{ __('products.attributes.1') }}</th>
-                             @endif
-                             @if ($attribute_2)
-                             <th>{{ __('products.attributes.2') }}</th>
-                             @endif
-                             @if ($attribute_3)
-                             <th>{{ __('products.attributes.3') }}</th>
-                             @endif
-                             <th>{{ __('products.rent_price') }}</th>
+                                <th>{{ __('products.plural') }}</th>
+                                @if ($item->product?->sub_category_id==1)
+                                <td>{{ __('orders.net_height') }}</td>
+                                <td>{{ __('orders.slab_thickness') }}</td>
+                                <td>{{ __('orders.space') }}</td>
+                                @endif
+                                @if ($item->product?->sub_category_id==2)
+                                <td>{{ __('orders.total_length') }}</td>
+                                <td>{{ __('orders.height') }}</td>
+                                @endif
+                                @if ($item->product?->sub_category_id==3)
+                                <td>{{ __('orders.total_length') }}</td>
+                                <td>{{ __('orders.height') }}</td>
+                                <td>{{ __('orders.space') }}</td>
+                                @endif
+                                @if ($item->product?->sub_category_id==4)
+                                <td>{{ __('orders.total_length') }}</td>
+                                <td>{{ __('orders.height') }}</td>
+                                @endif
+                                <th>{{ __('products.mitrprice') }}</th>
+                                <th>{{ __('orders.total') }}</th>
                             </tr>
                             @endif
                             @if ($item->type==1)
@@ -145,19 +137,31 @@
                             </tr>
                             @endforeach
                             @else
-                            @foreach ($item->details as $product)
+                             @foreach ($item->details as $product)
                             <tr>
                                 <td>{{ $item->productDetails($product['id'])?->name }}</td>
-                               @if ($attribute_1)
-                                <td>{{ $product['attribute_1'] }}</td>
-                               @endif
-                               @if ($attribute_2)
-                                <td>{{ $product['attribute_2'] }}</td>
-                               @endif
-                               @if ($attribute_3)
-                                <td>{{ $product['attribute_3'] }}</td>
-                               @endif
+
+                                @if ($item->product?->sub_category_id==1)
+                                    <td>{{ $product['attribute_1'] }}</td>
+                                    <td>{{ $product['attribute_2'] }}</td>
+                                    <td>{{ $product['attribute_3'] }}</td>
+                                @endif
+                                @if ($item->product?->sub_category_id==2)
+                                    <td>{{ $product['attribute_1'] }}</td>
+                                    <td>{{ $product['attribute_2'] }}</td>
+                                @endif
+                                @if ($item->product?->sub_category_id==3)
+                                    <td>{{ $product['attribute_1'] }}</td>
+                                    <td>{{ $product['attribute_2'] }}</td>
+                                    <td>{{ $product['attribute_3'] }}</td>
+                                @endif
+                                @if ($item->product?->sub_category_id==4)
+                                    <td>{{ $product['attribute_1'] }}</td>
+                                    <td>{{ $product['attribute_2'] }}</td>
+                                @endif
+
                                 <td>{{ $product['price']??'' }}</td>
+                                <td>{{ $item->total }}</td>
                             </tr>
                             @endforeach
                             @endif

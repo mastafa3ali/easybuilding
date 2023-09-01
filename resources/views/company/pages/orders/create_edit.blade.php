@@ -141,7 +141,8 @@
                                 <td>{{ __('orders.total_length') }}</td>
                                 <td>{{ __('orders.height') }}</td>
                                 @endif
-                                <th>{{ __('products.price') }}</th>
+                                <th>{{ __('products.mitrprice') }}</th>
+                                <th>{{ __('orders.total') }}</th>
                             </tr>
                             @endif
 
@@ -179,6 +180,8 @@
                                 @endif
 
                                 <td>{{ $product['price']??'' }}</td>
+                                <td>{{ $item->total }}</td>
+
                             </tr>
                             @endforeach
                             @endif

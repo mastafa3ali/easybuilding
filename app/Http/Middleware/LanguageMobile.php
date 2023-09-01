@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
-class Language
+class LanguageMobile
 {
     /**
      * Handle an incoming request.
@@ -19,12 +19,12 @@ class Language
     public function handle(Request $request, Closure $next)
     {
 
-        if(Session::get('lang') == 'en') {
-            App::setLocale('en');
-        } else {
+        $lang = $request->header('language');
+        if($lang == "ar") {
             App::setLocale('ar');
+        } else {
+            App::setLocale('en');
         }
-        // dd(Session::get('lang'));
 
         return $next($request);
     }
