@@ -30,10 +30,8 @@ class HomeController extends Controller
 
         if(Session::get('lang')=='en'){
             Session::put('lang', 'ar');
-            App::setLocale('ar');
         }else{
             Session::put('lang', 'en');
-            App::setLocale('en');
         }
         return back();
 

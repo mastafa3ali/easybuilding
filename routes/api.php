@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::group(['middleware' => ['language']], function () {
+    Route::group(['middleware' => ['languageMobile']], function () {
 
         Route::post('login', [App\Http\Controllers\Api\V1\AuthController::class, 'login']);
         Route::post('reset-password', [App\Http\Controllers\Api\V1\AuthController::class, 'resetPassword']);
