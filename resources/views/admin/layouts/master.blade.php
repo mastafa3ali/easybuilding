@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/charts/apexcharts.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/extensions/toastr.min.css">
-    @if (app()->getLocale()=='ar')
+    {{-- @if (app()->getLocale()=='ar')
         <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
         <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
@@ -28,7 +28,38 @@
         <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/components.css">
         <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/dark-layout.css">
         <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/plugins/extensions/ext-component-toastr.css">
-    @endif
+    @endif --}}
+        @if (app()->getLocale()=='ar')
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/colors.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/components.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/pages/dashboard-ecommerce.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/charts/chart-apex.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css-rtl/plugins/extensions/ext-component-toastr.css">
+    @else
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/components.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/bordered-layout.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/themes/semi-dark-layout.css">
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/pages/dashboard-ecommerce.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/plugins/charts/chart-apex.css">
+    <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/plugins/extensions/ext-component-toastr.css">
+@endif
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="{{ $assetsPath }}/css/custom.css">
