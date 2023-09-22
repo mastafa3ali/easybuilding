@@ -14,9 +14,11 @@ class TermController extends Controller
     public function index(Request $request): View
     {
         $item = Term::where('company_id',auth()->user()->id)->first();
-        $termsContent = '';
+        $termsContent_en = '';
+        $termsContent_ar = '';
         if($item){
-            $termsContent = $item->text;
+            $termsContent_en = $item->text_en;
+            $termsContent_ar = $item->text_ar;
         }
         return view('company.pages.terms.index', get_defined_vars());
     }
@@ -65,6 +67,8 @@ class TermController extends Controller
             $item = new Term();
         }
         $item->company_id = auth()->user()->id;
+        $item->text_en = $request->term_en;
+        $item->text_ar = $request->term_ar;
         $item->text = $request->terms_content;
         if ($item->save()) {
 

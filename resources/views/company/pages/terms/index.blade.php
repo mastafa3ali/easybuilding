@@ -33,9 +33,20 @@
                     <div class="row">
                         <div class="mb-1 col-md-12 @error('terms_content') is-invalid @enderror">
                             <label class="form-label" for="terms_content">
-                                <span class="required">{{ __('settings.content') }}</span>
+                                <span class="required">{{ __('settings.content_en') }}</span>
                             </label>
-                            <textarea type="text" class="form-control form-control-solid editor" name="terms_content" id="terms_content">{!! $termsContent !!}</textarea>
+                            <textarea type="text" class="form-control form-control-solid editor" name="term_en" id="terms_content">{!! $termsContent_en !!}</textarea>
+                            @error('terms_content')
+                            <span class="text-danger error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-12 @error('terms_content') is-invalid @enderror">
+                            <label class="form-label" for="terms_content">
+                                <span class="required">{{ __('settings.content_ar') }}</span>
+                            </label>
+                            <textarea type="text" class="form-control form-control-solid editor" name="term_ar" id="terms_content">{!! $termsContent_ar !!}</textarea>
                             @error('terms_content')
                             <span class="text-danger error">{{ $message }}</span>
                             @enderror
