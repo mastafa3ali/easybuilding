@@ -36,5 +36,15 @@ class HomeController extends Controller
         return back();
 
     }
+    public function privacy()
+    {
+
+        if(App::isLocale('en')) {
+            return view('privacy_en');
+        }else{
+            return view('privacy_ar');
+        }
+
+    }
 
 }

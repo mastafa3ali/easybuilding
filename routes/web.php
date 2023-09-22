@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
+Route::get('/privacy', [HomeController::class, 'privacy']);
 Route::get('/language', [HomeController::class, 'language'])->name('language');
 Auth::routes();
 Route::get('/storage-link', function () {

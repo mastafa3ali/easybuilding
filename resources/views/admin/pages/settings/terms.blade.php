@@ -33,13 +33,25 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-12 @error('terms_content') is-invalid @enderror">
-                            <label class="form-label" for="terms_content">
-                                <span class="required">{{ __('settings.content') }}</span>
+                        <div class="mb-1 col-md-12 @error('terms_content_en') is-invalid @enderror">
+                            <label class="form-label" for="terms_content_en">
+                                <span class="required">{{ __('settings.content_en') }}</span>
                             </label>
-                            <?php $termsContent = $items->where('key', 'terms_content')->first()->value ?? old('terms_content'); ?>
-                            <textarea type="text" class="form-control form-control-solid editor" name="terms_content" id="terms_content">{!! $termsContent !!}</textarea>
-                            @error('terms_content')
+                            <?php $termsContent_en = $items->where('key', 'terms_content_en')->first()->value ?? old('terms_content_en'); ?>
+                            <textarea type="text" class="form-control form-control-solid editor" name="terms_content_en" id="terms_content_en">{!! $termsContent_en !!}</textarea>
+                            @error('terms_content_en')
+                            <span class="text-danger error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-12 @error('terms_content_ar') is-invalid @enderror">
+                            <label class="form-label" for="terms_content_ar">
+                                <span class="required">{{ __('settings.content_ar') }}</span>
+                            </label>
+                            <?php $termsContent_ar = $items->where('key', 'terms_content_ar')->first()->value ?? old('terms_content_ar'); ?>
+                            <textarea type="text" class="form-control form-control-solid editor" name="terms_content_ar" id="terms_content_ar">{!! $termsContent_ar !!}</textarea>
+                            @error('terms_content_ar')
                             <span class="text-danger error">{{ $message }}</span>
                             @enderror
                         </div>

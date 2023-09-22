@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
+
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use App\Models\Term;
+use Illuminate\Support\Facades\App;
 
 class SettingController extends Controller
 {
@@ -36,13 +38,22 @@ class SettingController extends Controller
     }
     public function terms()
     {
-        $data = Setting::where('key', 'LIKE', 'terms_content')->value('value');
+        if(App::isLocale('en')) {
+            $data = Setting::where('key', 'LIKE', 'terms_content_en')->value('value');
+        } else {
+            $data = Setting::where('key', 'LIKE', 'terms_content_ar')->value('value');
+        }
         return apiResponse(true, $data, null, null, 200);
     }
 
     public function privacy()
     {
-        $data = Setting::where('key', 'LIKE', 'privacy_')->get();
+
+        if(App::isLocale('en')) {
+            $data = Setting::where('key', 'LIKE', 'privacy_content_en')->value('value');
+        } else {
+                $data = Setting::where('key', 'LIKE', 'privacy_content_ar')->value('value');
+            }
 
         return apiResponse(true, $data, null, null, 200);
     }
