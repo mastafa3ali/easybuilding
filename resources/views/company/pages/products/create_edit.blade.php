@@ -49,7 +49,7 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-1 col-md-4  @error('price') is-invalid @enderror">
+                        <div class="mb-1 col-md-2  @error('price') is-invalid @enderror">
                             <label class="form-label" for="price">{{ __('products.price') }}</label>
                             <input type="string" name="price" id="price" class="form-control" placeholder=""
                                    value="{{ $item->price ?? old('price') }}" step=".5" />
@@ -57,6 +57,19 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                         <div class="mb-1 col-md-2  @error('available') is-invalid @enderror">
+                            <br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="available"
+                                        value="1" id="available"
+                                    @checked($item->available ?? false )/>
+                                <label class="form-check-label" for="available">{{ __('categories.available') }}</label>
+                            </div>
+                            @error('available')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="mb-1 col-md-4  @error('category_id') is-invalid @enderror">
                             <label class="form-label" for="category_id">{{ __('products.category') }}</label>
                             <select name="category_id" id="category_id" class="form-control ajax_select2 extra_field"

@@ -39,7 +39,7 @@ class ProductController extends Controller
     {
         $item = CompanyProduct::with('product')->findOrFail($id);
         $display = "";
-        if($item->product?->type==1) {
+        if($item->product?->type == 1) {
             $display = "display:none";
         }
         return view($this->viewEdit, get_defined_vars());
@@ -77,28 +77,35 @@ class ProductController extends Controller
     {
         $item = null;
         if($id == null) {
-            $item=CompanyProduct::where('company_id', auth()->id())->where('product_id', $request->product_id)->first();
+            $item = CompanyProduct::where('company_id', auth()->id())->where('product_id', $request->product_id)->first();
         }
-        if($item==null) {
+        if($item == null) {
             $item = $id == null ? new CompanyProduct() : CompanyProduct::find($id);
         }
-        $data= $request->except(['_token', '_method','type']);
+        $data = $request->except(['_token', '_method','type']);
         $item = $item->fill($data);
-        $item->company_id=auth()->id();
+        $item->company_id = auth()->id();
+
+        if($request->filled('available')) {
+            $item->available = 1;
+        } else {
+            $item->available = 0;
+        }
+
         if ($item->save()) {
             if ($request->hasFile('image')) {
-                $image= $request->file('image');
+                $image = $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('storage/products'), $fileName);
                 $item->image = $fileName;
                 $item->save();
             }
             $images = [];
-            if($files=$request->file('images')) {
+            if($files = $request->file('images')) {
                 foreach($files as $file) {
-                    $name=$file->getClientOriginalName();
+                    $name = $file->getClientOriginalName();
                     $file->move(public_path('storage/products'), $name);
-                    $images[]=$name;
+                    $images[] = $name;
                 }
                 $item->images = $images;
                 $item->save();
@@ -110,7 +117,7 @@ class ProductController extends Controller
 
     public function listnotifications(Request $request): JsonResponse
     {
-        $data = ApiNotification::where('user_id',auth()->id())->orderBy('id','DESC')->select('*');
+        $data = ApiNotification::where('user_id', auth()->id())->orderBy('id', 'DESC')->select('*');
         return DataTables::of($data)
         ->addIndexColumn()
 
@@ -139,12 +146,12 @@ class ProductController extends Controller
             })
 
             ->filterColumn('description', function ($query, $keyword) {
-                 if(App::isLocale('en')) {
-                     return $query->where('company_products.description_en', 'like', '%'.$keyword.'%');
-                 } else {
-                     return $query->where('company_products.description_ar', 'like', '%'.$keyword.'%');
-                 }
-             })
+                if(App::isLocale('en')) {
+                    return $query->where('company_products.description_en', 'like', '%'.$keyword.'%');
+                } else {
+                    return $query->where('company_products.description_ar', 'like', '%'.$keyword.'%');
+                }
+            })
 
             ->rawColumns(['type'])
         ->make(true);
@@ -155,21 +162,21 @@ class ProductController extends Controller
         $data = Product::whereNull('company_id')->distinct()
              ->where('products.type', Product::TYPE_RENT)
                 ->where(function ($query) use ($request) {
-                if ($request->filled('q')) {
-                    if(App::isLocale('en')) {
-                        return $query->where('name_en', 'like', '%'.$request->q.'%');
-                    } else {
-                        return $query->where('name_ar', 'like', '%'.$request->q.'%');
+                    if ($request->filled('q')) {
+                        if(App::isLocale('en')) {
+                            return $query->where('name_en', 'like', '%'.$request->q.'%');
+                        } else {
+                            return $query->where('name_ar', 'like', '%'.$request->q.'%');
+                        }
                     }
-                }
-                })->select('id', 'name_en', 'name_ar','category_id','description_en','description_ar')->get();
+                })->select('id', 'name_en', 'name_ar', 'category_id', 'description_en', 'description_ar')->get();
         return response()->json($data);
     }
 
     public function check(Request $request)
     {
-        $product=Product::findOrFail($request->product_id);
-        if($product->sub_category_id==1) {
+        $product = Product::findOrFail($request->product_id);
+        if($product->sub_category_id == 1) {
             return 1;
         }
         return 0;
@@ -193,19 +200,19 @@ class ProductController extends Controller
     public function selectSubCategory(Request $request): JsonResponse|string
     {
 
-       $data = Category::distinct()
-                ->where(function ($query) use ($request) {
-                    if ($request->filled('category_id')) {
-                        $query->where('category_id', $request->category_id);
-                    }
-            if ($request->filled('q')) {
-                 if(App::isLocale('en')) {
-                     return $query->where('name_en', 'like', '%'.$request->q.'%');
-                 } else {
-                     return $query->where('name_ar', 'like', '%'.$request->q.'%');
-                 }
-             }
-         })->select('id', 'name_en', 'name_ar')->get();
+        $data = Category::distinct()
+                 ->where(function ($query) use ($request) {
+                     if ($request->filled('category_id')) {
+                         $query->where('category_id', $request->category_id);
+                     }
+                     if ($request->filled('q')) {
+                         if(App::isLocale('en')) {
+                             return $query->where('name_en', 'like', '%'.$request->q.'%');
+                         } else {
+                             return $query->where('name_ar', 'like', '%'.$request->q.'%');
+                         }
+                     }
+                 })->select('id', 'name_en', 'name_ar')->get();
 
         if ($request->filled('pure_select')) {
             $html = '<option value="">'. __('categories.select') .'</option>';

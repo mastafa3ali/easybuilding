@@ -22,7 +22,8 @@ class SubCategory extends Model
     }
     public function products():?HasMany
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class)->where('available',1)
+        ;
     }
     public function getPhotoAttribute():?string
     {

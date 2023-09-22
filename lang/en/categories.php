@@ -63,4 +63,6 @@ return [
     'image' => 'Image',
     'sort' => 'arrangement',
     'active' => 'active',
+    'available' => 'Available',
+
 ];

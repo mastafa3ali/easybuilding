@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\View\View;
 use Yajra\DataTables\Facades\DataTables;
+
 class ProductSaleController extends Controller
 {
     private $viewIndex  = 'company.pages.products.index';
@@ -65,24 +66,31 @@ class ProductSaleController extends Controller
     protected function processForm($request, $id = null): Product|null
     {
         $item = $id == null ? new Product() : Product::find($id);
-        $data= $request->except(['_token', '_method']);
+        $data = $request->except(['_token', '_method']);
 
         $item = $item->fill($data);
-        $item->company_id=auth()->id();
+        $item->company_id = auth()->id();
+
+        if($request->filled('available')) {
+            $item->available = 1;
+        } else {
+            $item->available = 0;
+        }
+
         if ($item->save()) {
-             if ($request->hasFile('image')) {
-                $image= $request->file('image');
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('storage/products'), $fileName);
                 $item->image = $fileName;
                 $item->save();
             }
             $images = [];
-            if($files=$request->file('images')){
-                foreach($files as $file){
-                    $name=$file->getClientOriginalName();
+            if($files = $request->file('images')) {
+                foreach($files as $file) {
+                    $name = $file->getClientOriginalName();
                     $file->move(public_path('storage/products'), $name);
-                    $images[]=$name;
+                    $images[] = $name;
                 }
                 $item->images = $images;
                 $item->save();
@@ -94,13 +102,13 @@ class ProductSaleController extends Controller
 
     public function list(Request $request): JsonResponse
     {
-        $data = Product::with('category')->where('company_id',auth()->id())
+        $data = Product::with('category')->where('company_id', auth()->id())
         ->select('*');
         return DataTables::of($data)
         ->addIndexColumn()
            ->editColumn('category', function ($item) {
-                return $item->category?->title;
-            })
+               return $item->category?->title;
+           })
              ->filterColumn('name', function ($query, $keyword) {
                  if(App::isLocale('en')) {
                      return $query->where('name_en', 'like', '%'.$keyword.'%');
@@ -109,54 +117,54 @@ class ProductSaleController extends Controller
                  }
              })
             ->filterColumn('description', function ($query, $keyword) {
-                 if(App::isLocale('en')) {
-                     return $query->where('description_en', 'like', '%'.$keyword.'%');
-                 } else {
-                     return $query->where('description_ar', 'like', '%'.$keyword.'%');
-                 }
-             })
+                if(App::isLocale('en')) {
+                    return $query->where('description_en', 'like', '%'.$keyword.'%');
+                } else {
+                    return $query->where('description_ar', 'like', '%'.$keyword.'%');
+                }
+            })
             ->rawColumns(['category'])
         ->make(true);
     }
     public function select(Request $request): JsonResponse|string
     {
-       $data = Product::whereNull('company_id')->distinct()
-            ->where(function ($query) use ($request) {
-                if ($request->filled('q')) {
-                    $query->where('name', 'LIKE', '%' . $request->q . '%');
-                }
-            })
-            ->select('id', 'name AS text')
-            ->take(20)
-            ->get();
+        $data = Product::whereNull('company_id')->distinct()
+             ->where(function ($query) use ($request) {
+                 if ($request->filled('q')) {
+                     $query->where('name', 'LIKE', '%' . $request->q . '%');
+                 }
+             })
+             ->select('id', 'name AS text')
+             ->take(20)
+             ->get();
         return response()->json($data);
     }
     public function selectcategories(Request $request): JsonResponse|string
     {
-       $data = Category::distinct()
-            ->where(function ($query) use ($request) {
-                if ($request->filled('q')) {
-                    $query->where('title', 'LIKE', '%' . $request->q . '%');
-                }
-            })
-            ->select('id', 'title AS text')
-            ->take(10)
-            ->get();
+        $data = Category::distinct()
+             ->where(function ($query) use ($request) {
+                 if ($request->filled('q')) {
+                     $query->where('title', 'LIKE', '%' . $request->q . '%');
+                 }
+             })
+             ->select('id', 'title AS text')
+             ->take(10)
+             ->get();
         return response()->json($data);
     }
     public function selectSubCategory(Request $request): JsonResponse|string
     {
-       $data = SubCategory::distinct()
-            ->where(function ($query) use ($request) {
-                if ($request->filled('q')) {
-                    $query->where('name', 'LIKE', '%' . $request->q . '%');
-                }
-                if ($request->filled('category_id')) {
-                    $query->where('category_id',$request->category_id);
-                }
-            })
-            ->select('id', 'name AS text')
-            ->get();
+        $data = SubCategory::distinct()
+             ->where(function ($query) use ($request) {
+                 if ($request->filled('q')) {
+                     $query->where('name', 'LIKE', '%' . $request->q . '%');
+                 }
+                 if ($request->filled('category_id')) {
+                     $query->where('category_id', $request->category_id);
+                 }
+             })
+             ->select('id', 'name AS text')
+             ->get();
         if ($request->filled('pure_select')) {
             $html = '<option value="">'. __('categories.select') .'</option>';
             foreach ($data as $row) {
