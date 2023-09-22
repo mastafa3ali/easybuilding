@@ -61,8 +61,8 @@ return [
     'delete_selected' => 'Clear selected',
     'restore_trashed' => 'Return the selected one',
     'description' => 'the description',
-    'reason' => 'the reason',
-    'problem' => 'the problem',
+    'reason' => 'Subject',
+    'problem' => 'Message',
     'no_orders' => 'No results',
 
 ];

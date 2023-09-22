@@ -61,8 +61,8 @@ return [
     'delete_selected' => 'مسح المحدد',
     'restore_trashed' => 'ارجاع المختار',
     'description' => 'الوصف',
-    'reason' => 'السبب',
-    'problem' => 'المشكلة',
+    'reason' => 'الموضوع',
+    'problem' => 'الرسالة',
     'no_orders' => 'لا توجد نتائج',
 
 ];
