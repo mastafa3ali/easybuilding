@@ -119,6 +119,14 @@
                     </a>
                 </li>
             @endcan
+            @can('settings.privacy')
+                <li>
+                    <a class="d-flex align-items-center" href="{{ route('admin.settings.privacy') }} ">
+                        <i data-feather="circle"></i>
+                        <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.privacy') }}</span>
+                    </a>
+                </li>
+            @endcan
             @can('settings.terms')
                 <li>
                     <a class="d-flex align-items-center" href="{{ route('admin.settings.terms') }} ">

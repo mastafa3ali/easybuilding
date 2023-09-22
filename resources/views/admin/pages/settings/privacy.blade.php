@@ -33,13 +33,25 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="mb-1 col-md-12 @error('privacy_content') is-invalid @enderror">
-                            <label class="form-label" for="privacy_content">
-                                <span class="required">{{ __('settings.content') }}</span>
+                        <div class="mb-1 col-md-12 @error('privacy_content_en') is-invalid @enderror">
+                            <label class="form-label" for="privacy_content_en">
+                                <span class="required">{{ __('settings.content_en') }}</span>
                             </label>
-                            <?php $privacyContent = $items->where('key', 'privacy_content')->first()->value ?? old('privacy_content'); ?>
-                            <textarea type="text" class="form-control form-control-solid editor" name="privacy_content" id="privacy_content">{!! $privacyContent !!}</textarea>
-                            @error('privacy_content')
+                            <?php $privacyContent_en = $items->where('key', 'privacy_content_en')->first()->value ?? old('privacy_content_en'); ?>
+                            <textarea type="text" class="form-control form-control-solid editor" name="privacy_content_en" id="privacy_content_en">{!! $privacyContent_en !!}</textarea>
+                            @error('privacy_content_en')
+                            <span class="text-danger error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-1 col-md-12 @error('privacy_content_ar') is-invalid @enderror">
+                            <label class="form-label" for="privacy_content_ar">
+                                <span class="required">{{ __('settings.content_ar') }}</span>
+                            </label>
+                            <?php $privacyContent = $items->where('key', 'privacy_content_ar')->first()->value ?? old('privacy_content_ar'); ?>
+                            <textarea type="text" class="form-control form-control-solid editor" name="privacy_content_ar" id="privacy_content_ar">{!! $privacyContent !!}</textarea>
+                            @error('privacy_content_ar')
                             <span class="text-danger error">{{ $message }}</span>
                             @enderror
                         </div>
