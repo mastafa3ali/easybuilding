@@ -10,7 +10,6 @@ return [
         'restored' => 'The request has been restored successfully.',
         'deleted_bulk' => 'The selected books have been successfully deleted.',
         'updated' => 'Update completed successfully',
-
     ],
     'statuses' => [
         '0' =>  '',
