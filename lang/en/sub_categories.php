@@ -17,7 +17,7 @@ return [
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'back' => 'Go back',
     ],
     'messages' => [
@@ -61,5 +61,5 @@ return [
     'attachments' => 'attachments',
     'file' => 'file',
     'image' => 'Image',
-    'category'=>'الفئة'
+    'category' => 'الفئة'
 ];

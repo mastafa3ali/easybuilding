@@ -17,13 +17,13 @@ return [
     'filter' => 'Find a team',
     'actions' => [
         'list' => 'view all',
-        'show' => 'an offer',
+        'show' => 'Show',
         'create' => 'Add a team',
-        'edit' => 'amendment',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'back' => 'Go back',
     ],
     'messages' => [

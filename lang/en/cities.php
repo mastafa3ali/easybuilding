@@ -11,13 +11,13 @@ return [
     'filter' => 'Find a city',
     'actions' => [
         'list' => 'view all',
-        'show' => 'an offer',
+        'show' => 'Show',
         'create' => 'Add a city',
-        'edit' => 'amendment',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'back' => 'Go back',
     ],
     'messages' => [

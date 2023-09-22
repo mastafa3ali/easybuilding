@@ -19,6 +19,7 @@ class AdminController extends Controller
     {
         // $codesCounts = WalletCode::count();
 
+        $users=User::where('type',User::TYPE_OWNER)->count();
         $companies=User::where('type',User::TYPE_COMPANY)->count();
         $merchants=User::where('type',User::TYPE_MERCHANT)->count();
         $sall_products=Product::where('type',Product::TYPE_SALE)->count();

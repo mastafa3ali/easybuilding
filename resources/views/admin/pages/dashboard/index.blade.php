@@ -11,7 +11,7 @@
                 <div class="card card-statistics">
                     <div class="card-header">
                     <h4 class="card-title" style="color: #345c76">{{ __('admin.statistics') }}</h4>
-                  
+
                     </div>
                     <div class="card-body statistics-body">
                         <div class="row">
@@ -60,6 +60,21 @@
                                 </div>
                                 <div class="my-auto">
                                     <p class="card-text font-small-3 mb-0">{{ __('admin.companies') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-info me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="users" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">{{ $users }}</h4>
+                                    </div>
+                                </div>
+                                <div class="my-auto">
+                                    <p class="card-text font-small-3 mb-0">{{ __('admin.users') }}</p>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">

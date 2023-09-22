@@ -7,13 +7,13 @@ return [
     'perPage' => 'Number of results per page',
     'actions' => [
         'list' => 'view all',
-        'show' => 'an offer',
+        'show' => 'Show',
         'create' => 'addition',
-        'edit' => 'amendment',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'back' => 'Go back',
     ],
     'messages' => [

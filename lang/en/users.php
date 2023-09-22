@@ -11,15 +11,15 @@ return [
     'filter' => 'Search for a question',
     'actions' => [
         'list' => 'view all',
-        'show' => 'an offer',
+        'show' => 'Show',
         'create' => 'addition',
-        'edit' => 'amendment',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'back' => 'Go back',
-        'show_hidden'=>'Show deleted'
+        'show_hidden' => 'Show deleted'
     ],
     'messages' => [
         'created' => 'User added successfully.',
