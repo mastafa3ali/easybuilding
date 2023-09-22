@@ -9,6 +9,8 @@ return [
     'general_settings' => 'General settings',
     'about' => 'About the site',
     'content' => 'Content',
+    'content_en' => 'Content English',
+    'content_ar' => 'Content Arabic',
     'privacy' => 'privacy policy',
     'terms' => 'Terms and Conditions',
     'email' => 'E-mail',
