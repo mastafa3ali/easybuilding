@@ -61,11 +61,23 @@
                             @enderror
                         </div>
                         <input type="hidden" name="type" value="2" />
-                        <div class="mb-1 col-md-4  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section">
+                        <div class="mb-1 col-md-2  @error('guarantee_amount') is-invalid @enderror" id="guarantee_amount_section">
                             <label class="form-label" for="guarantee_amount">{{ __('products.guarantee_amount') }}</label>
                             <input type="text" name="guarantee_amount" id="guarantee_amount" class="form-control" placeholder=""
                                    value="{{ $item->guarantee_amount ?? old('guarantee_amount') }}" required />
                             @error('guarantee_amount')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                         <div class="mb-1 col-md-2  @error('available') is-invalid @enderror">
+                            <br>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="available"
+                                        value="1" id="available"
+                                    @checked($item->available ?? false )/>
+                                <label class="form-check-label" for="available">{{ __('categories.available') }}</label>
+                            </div>
+                            @error('available')
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>

@@ -13,7 +13,8 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $items = Product::where(function ($query) use ($request) {
+        $items = Product::where('available',1)
+        ->where(function ($query) use ($request) {
             if ($request->filled('name')) {
                 $query->where('name', 'LIKE', '%' . $request->name . '%');
             }

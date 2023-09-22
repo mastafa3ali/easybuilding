@@ -63,6 +63,7 @@ class PageController extends Controller
         $data = User::where('users.type', User::TYPE_COMPANY)
            ->join('products', 'products.company_id', 'users.id')
            ->where('products.type', Product::TYPE_SALE)
+           ->where('products.available', 1)
            ->where('products.category_id', $id)
            ->groupBy('users.id')
            ->select([
@@ -126,6 +127,7 @@ class PageController extends Controller
             ->leftJoin('company_products', 'company_products.company_id', 'users.id')
             ->leftJoin('products', 'products.id', 'company_products.product_id')
                ->where('products.type', Product::TYPE_RENT)
+               ->where('products.available', 1)
                ->where('products.id', $id)
             ->select([
                 'company_products.price as price',
@@ -198,9 +200,11 @@ class PageController extends Controller
         }
 
         if(request()->sort_type==2) {
-            $products = Product::with('subcategory')->where('category_id', $category_id)->where('company_id', $id)->orderBy('rate', 'DESC')->get();
+            $products = Product::where('available',1)
+        ->with('subcategory')->where('category_id', $category_id)->where('company_id', $id)->orderBy('rate', 'DESC')->get();
         } else {
-            $products = Product::with('subcategory')->where('category_id', $category_id)->where('company_id', $id)->orderBy('price', $sort)->get();
+            $products = Product::where('available',1)
+        ->with('subcategory')->where('category_id', $category_id)->where('company_id', $id)->orderBy('price', $sort)->get();
         }
 
         $data = ProductResource::collection($products);
@@ -278,7 +282,8 @@ class PageController extends Controller
         $data=['companies'=>[],'products'=>[]];
         if($request->filled('name')) {
             $companies=User::where('name', 'like', '%'.$request->name.'%')->get();
-            $products=Product::where('name', 'like', '%'.$request->name.'%')->get();
+            $products=Product::where('available',1)
+        ->where('name', 'like', '%'.$request->name.'%')->get();
             $result = [];
             $allcompanies = [];
             $doublicate = [];
@@ -357,6 +362,8 @@ class PageController extends Controller
         $data=Contact::create([
             'name'=>$request->name,
             'reason'=>$request->reason,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
             'problem'=>$request->message,
         ]);
         return apiResponse(true, $data, "", null, 200);
