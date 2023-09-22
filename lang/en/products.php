@@ -12,13 +12,13 @@ return [
     'perPage' => 'Number of results per page',
     'filter' => 'Find a product',
     'actions' => [
-        'show' => 'an offer',
+        'show' => 'Show',
         'create' => 'Add a product',
-        'edit' => 'amendment',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'cancel' => 'cancellation',
     ],
     'messages' => [
@@ -81,5 +81,5 @@ return [
     'price_3' => 'Price per meter in case of thickness > 25 cm',
     'price_4' => 'The price per meter in the case of length > 5 meters and thickness > 25',
     'main_price' => 'Standard meter price',
-    'mitrprice'=>'Meter price'
+    'mitrprice' => 'Meter price'
 ];

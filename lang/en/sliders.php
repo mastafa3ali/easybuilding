@@ -1,38 +1,38 @@
 <?php
 
 return [
-    'plural' => 'Advertising',
-    'singular' => 'advertisement',
-    'singular2' => 'advertisement',
-    'empty' => 'There is no advertisement',
+    'plural' => 'Slider',
+    'singular' => 'Slider',
+    'singular2' => 'Slider',
+    'empty' => 'There is no Slider',
     'select' => 'Choose',
     'select-type' => 'everyone',
     'perPage' => 'Number of results per page',
-    'filter' => 'Search for an advertisement',
+    'filter' => 'Search for an Slider',
     'actions' => [
         'list' => 'view all',
-        'show' => 'an offer',
-        'create' => 'Add an advertisement',
-        'edit' => 'amendment',
+        'show' => 'Show',
+        'create' => 'Add an Slider',
+        'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
         'save' => 'save',
-        'filter' => 'research',
+        'filter' => 'Search',
         'back' => 'Go back',
     ],
     'messages' => [
-        'created' => 'Ad added successfully.',
-        'updated' => 'The ad has been modified successfully.',
-        'deleted' => 'The ad has been successfully deleted.',
-        'restored' => 'The ad has been restored successfully.',
-        'deleted_bulk' => 'The selected ad has been deleted successfully.',
+        'created' => 'Slider added successfully.',
+        'updated' => 'The Slider has been modified successfully.',
+        'deleted' => 'The Slider has been successfully deleted.',
+        'restored' => 'The Slider has been restored successfully.',
+        'deleted_bulk' => 'The selected Slider has been deleted successfully.',
     ],
     'attributes' => [
-        'name' => 'Ad name',
-        '%name%' => 'Ad name',
+        'name' => 'Slider name',
+        '%name%' => 'Slider name',
     ],
     'default' => [
-        'name' => 'Ad name',
+        'name' => 'Slider name',
     ],
     'dialogs' => [
         'delete' => [
@@ -61,5 +61,5 @@ return [
     'attachments' => 'attachments',
     'file' => 'file',
     'photo' => 'Image',
-    'url'=>'رابط',
+    'url' => 'Link',
 ];

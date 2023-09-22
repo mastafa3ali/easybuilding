@@ -89,6 +89,22 @@
                             <label class="form-label">{{ __('orders.created_at') }}</label>
                             <input disabled class="form-control" type="text" value="{{ $item->created_at }}">
                         </div>
+                          <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.progress_date') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->progress_date }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.on_way_date') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->on_way_date }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.deliverd_date') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->deliverd_date }}">
+                        </div>
+                        <div class="mb-1 col-md-4">
+                            <label class="form-label">{{ __('orders.reject_date') }}</label>
+                            <input disabled class="form-control" type="text" value="{{ $item->reject_date }}">
+                        </div>
                     </div>
                     <div class="row">
                         <br>
