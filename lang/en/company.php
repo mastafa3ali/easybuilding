@@ -8,7 +8,7 @@ return [
     'actions' => [
         'list' => 'view all',
         'show' => 'Show',
-        'create' => 'addition',
+        'create' => 'Create',
         'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',

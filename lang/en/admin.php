@@ -18,7 +18,7 @@ return [
         'charged' => 'Shipped successfully',
     ],
     'actions' => [
-        'create' => 'addition',
+        'create' => 'Create',
         'edit' => 'Edit',
         'delete' => 'delete',
         'save' => 'Save',
@@ -121,7 +121,7 @@ return [
     'sall_products' => 'Selling products',
     'rent_products' => 'Rent products',
     'companies' => 'Companies',
-    'merchants' => 'merchants',
+    'Suppliers' => 'Suppliers',
     'onprogress_orders' => 'Orders are under review',
     'sallProductReport' => 'Sales products report',
     'rentProductReport' => 'Rental Products Report',
