@@ -12,7 +12,7 @@ return [
     'actions' => [
         'list' => 'view all',
         'show' => 'Show',
-        'create' => 'addition',
+        'create' => 'Create',
         'edit' => 'Edit',
         'delete' => 'delete',
         'restore' => 'Recovery',
@@ -93,8 +93,8 @@ return [
     'types' => [
         '1' => 'responsible',
         '4' => 'a company',
-        '2' => 'merchant',
-        '3' => 'Malik Rض'
+        '2' => 'Supplier',
+        '3' => 'Individual'
     ],
     'licence' => 'Commercial license',
     'passport' => 'Identity or passport',

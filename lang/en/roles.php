@@ -12,7 +12,7 @@ return [
     'actions' => [
         'list' => 'view all',
         'show' => 'Show',
-        'create' => 'addition',
+        'create' => 'Create',
         'edit' => 'Edit',
         'delete' => 'delete',
         'save' => 'save',
@@ -45,7 +45,7 @@ return [
     'save' => 'save',
     'users' => 'users',
     'view' => 'Show',
-    'create' => 'addition',
+    'create' => 'Create',
     'edit' => 'Edit',
     'delete' => 'delete',
     'branches' => 'branches',
