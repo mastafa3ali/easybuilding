@@ -127,7 +127,7 @@ class PageController extends Controller
             ->leftJoin('company_products', 'company_products.company_id', 'users.id')
             ->leftJoin('products', 'products.id', 'company_products.product_id')
                ->where('products.type', Product::TYPE_RENT)
-               ->where('products.available', 1)
+               ->where('company_products.available', 1)
                ->where('products.id', $id)
             ->select([
                 'company_products.price as price',
