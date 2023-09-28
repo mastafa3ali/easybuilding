@@ -202,45 +202,8 @@ class OrderController extends Controller
                     </head>
 
                     <body style='direction:rtl'>
-                        <p>لديك طلب جديد</p>
-                        <table border=1>";
-            if ($order->type==1) {
-                $html .="
-                        <tr>
-                        <th>".__('products.plural') ."</th>
-                        <th>".__('products.qty') ."</th>
-                        <th>".__('products.price') ."</th>
-                        </tr>";
-            } else {
-                $html .="  <tr>
-                            <th>".__('products.plural') ."</th>
-                            <th>".__('products.attributes.1') ."</th>
-                            <th>".__('products.attributes.2') ."</th>
-                            <th>".__('products.attributes.3') ."</th>
-                            <th>".__('products.rent_price') ."</th>
-                        </tr>";
-            }
-            if ($order->type==1) {
-                foreach ($order->details as $product) {
-                    $html .="<tr>
-                                <td>".$order->productDetails($product['id'])?->name ."</td>
-                                <td >".$product['qty'] ."</td>
-                                <td >".$product['price']??'' ."</td>
-                            </tr>";
-                }
-            } else {
-                foreach ($order->details as $product) {
-                    $html .=" <tr>
-                                <td>".$order->productDetails($product['id'])?->name ."</td>
-                                <td>".$product['attribute_1'] ."</td>
-                                <td>".$product['attribute_2'] ."</td>
-                                <td>".$product['attribute_3'] ."</td>
-                                <td>".$product['price']??'' ."</td>
-                            </tr>
-                        ";
-                }
-            }
-            $html .= "</table>
+                        <p> لديك طلب جديد رقم ".$order->code." يرجى مراجعة التطبيق</p>
+                        
                     </body>
                 </html>
                 ";

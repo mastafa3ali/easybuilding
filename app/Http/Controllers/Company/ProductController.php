@@ -131,6 +131,7 @@ class ProductController extends Controller
         ->where('company_products.company_id', auth()->id())->select([
             'products.type',
             'company_products.product_id',
+            'company_products.rate',
             'company_products.description_en',
             'company_products.description_ar',
             'products.name_en',

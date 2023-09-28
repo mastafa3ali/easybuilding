@@ -32,6 +32,7 @@
                     <thead>
                     <tr>
                         <th>{{ __('products.name') }}</th>
+                        <th>{{ __('admin.rate') }}</th>
                         <th>{{ __('products.description') }}</th>
                         <th>{{ __('products.type') }}</th>
                         <th>{{ __('products.guarantee_amount') }}</th>
@@ -73,6 +74,7 @@
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
                 {data: 'name', name: 'name'},
+                {data: 'rate', name: 'rate'},
                 {data: 'description', name: 'description'},
                 {data: 'type', name: 'type'},
                 {data: 'guarantee_amount', name: 'guarantee_amount'},

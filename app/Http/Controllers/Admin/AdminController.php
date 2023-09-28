@@ -19,33 +19,35 @@ class AdminController extends Controller
     {
         // $codesCounts = WalletCode::count();
 
-        $agency=User::where('type',User::TYPE_MERCHANT)->count();
-        $indivedual=User::where('type',User::TYPE_OWNER)->count();
-        $companies=User::where('type',User::TYPE_COMPANY)->count();
-        
-        $merchants=User::where('type',User::TYPE_MERCHANT)->count();
-        $sall_products=Product::where('type',Product::TYPE_SALE)->count();
-        $rent_products=Product::where('type',Product::TYPE_RENT)->count();
-        $all_orders=Order::where('status','!=',Order::STATUS_PENDDING_X)->count();
-        $pendding_orders=Order::where('status',Order::STATUS_PENDDING)->count();
-        $rejected_orders=Order::where('status',Order::STATUS_REJECTED)->count();
-        $deliverd_orders=Order::where('status',Order::STATUS_DELIVERD)->count();
+        $agency = User::where('type', User::TYPE_MERCHANT)->count();
+        $indivedual = User::where('type', User::TYPE_OWNER)->count();
+        $companies = User::where('type', User::TYPE_COMPANY)->count();
+
+        $merchants = User::where('type', User::TYPE_MERCHANT)->count();
+        $sall_products = Product::where('type', Product::TYPE_SALE)->count();
+        $rent_products = Product::where('type', Product::TYPE_RENT)->count();
+        $all_orders = Order::where('status', '!=', Order::STATUS_PENDDING_X)->count();
+        $pendding_orders = Order::where('status', Order::STATUS_PENDDING)->count();
+        $rejected_orders = Order::where('status', Order::STATUS_REJECTED)->count();
+        $deliverd_orders = Order::where('status', Order::STATUS_DELIVERD)->count();
+        $onprogress_orders = Order::where('status', Order::STATUS_ONPROGRESS)->count();
+        $on_way_orders = Order::where('status', Order::STATUS_ON_WAY)->count();
+
         return view($this->viewIndex, get_defined_vars());
     }
-    public function updateToken(Request $request){
-        try{
-            $request->user()->update(['fcm_token'=>$request->fcm_token]);
+    public function updateToken(Request $request)
+    {
+        try {
+            $request->user()->update(['fcm_token' => $request->fcm_token]);
             return response()->json([
-                'success'=>true
+                'success' => true
             ]);
-        }catch(\Exception $e){
+        } catch(\Exception $e) {
             report($e);
             return response()->json([
-                'success'=>false
-            ],500);
+                'success' => false
+            ], 500);
         }
     }
-    public function notification(Request $request){
-
-    }
+    public function notification(Request $request) {}
 }

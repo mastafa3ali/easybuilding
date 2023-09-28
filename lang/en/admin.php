@@ -133,5 +133,12 @@ return [
     'title_en' => 'Name in English',
     'description_ar' => 'Description in Arabic',
     'description_en' => 'Description in English',
-    'language' => 'Arabic'
+    'language' => 'Arabic',
+    'agency'=>'Institution',
+    'indivedual'=>'Individual',
+    'sale_products_count'=>'Sale Products',
+    'rent_products_count'=>'Rent Products',
+    'on_way_orders'=>'On Way Orders',
+    'rate'=>'Rate',
+
 ];

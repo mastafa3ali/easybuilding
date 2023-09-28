@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use App\Models\CompanyProduct;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
@@ -19,10 +20,14 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         // dd(app()->getLocale());
-        $products_count = Product::where('company_id',auth()->id())->count();
+        $sale_products_count = Product::where('company_id',auth()->id())->count();
+        $rent_products_count = CompanyProduct::where('company_id',auth()->id())->count();
         $pendding_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_PENDDING)->count();
         $onprogress_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_ONPROGRESS)->count();
         $compleated_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_DELIVERD)->count();
+        $on_way_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_ON_WAY)->count();
+        $rejected_orders = Order::where('company_id', auth()->id())->where('status', Order::STATUS_REJECTED)->count();
+
         return view($this->viewIndex, get_defined_vars());
     }
     public function payments(Request $request)
