@@ -29,7 +29,7 @@ class RateRequest extends FormRequest
         return [
             'value' => 'required',
             'model_id' => 'required',
-            'type' => 'required|in:1,2'
+            'type' => 'required|in:1,2,3'
         ];
     }
 
