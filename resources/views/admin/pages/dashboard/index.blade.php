@@ -77,6 +77,8 @@
                                     <p class="card-text font-small-3 mb-0">{{ __('admin.agency') }}</p>
                                 </div>
                             </div>
+                            <br><br><br>
+                            <br><br><br>
                             <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
                                 <div class="d-flex flex-row">
                                     <div class="avatar bg-light-info me-2">
@@ -107,6 +109,8 @@
                                     <p class="card-text font-small-3 mb-0">{{ __('admin.merchants') }}</p>
                                 </div>
                             </div>
+                            <br>
+                            <br>
                             <br>
                             <br>
                             <br>
@@ -173,6 +177,38 @@
                                 </div>
                                 <div class="my-auto">
                                     <p class="card-text font-small-3 mb-0">{{ __('admin.deliverd_orders') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="credit-card" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">{{ $on_way_orders }}</h4>
+                                    </div>
+
+                                </div>
+                                <div class="my-auto">
+                                    <p class="card-text font-small-3 mb-0">{{ __('admin.on_way_orders') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                                <div class="d-flex flex-row">
+                                    <div class="avatar bg-light-danger me-2">
+                                        <div class="avatar-content">
+                                            <i data-feather="credit-card" class="avatar-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="my-auto">
+                                        <h4 class="fw-bolder mb-0">{{ $onprogress_orders }}</h4>
+                                    </div>
+
+                                </div>
+                                <div class="my-auto">
+                                    <p class="card-text font-small-3 mb-0">{{ __('admin.onprogress_orders') }}</p>
                                 </div>
                             </div>
 

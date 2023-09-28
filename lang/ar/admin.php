@@ -138,5 +138,8 @@ return [
     'indivedual'=>'الافراد',
     'sale_products_count'=>'منتجات البيع',
     'rent_products_count'=>'منتجات الايجار',
+    'on_way_orders'=>'الطلبات فى الطريق',
+    'rate'=>'التقيم',
+
 
 ];
