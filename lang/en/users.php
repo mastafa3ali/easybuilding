@@ -91,8 +91,8 @@ return [
     'image' => 'Image',
     'type' => 'Type',
     'types' => [
-        '1' => 'responsible',
-        '4' => 'a company',
+        '1' => 'Responsible',
+        '4' => 'Institution',
         '2' => 'Supplier',
         '3' => 'Individual'
     ],

@@ -102,7 +102,7 @@ return [
     'general' => 'عام',
     'products_count' => 'عدد المنتجات',
     'orders_pendding' => 'الطلبات المعلقة',
-    'orders_done' => 'الطلبات المنتهية',
+    'orders_done' => 'الطلبات المكتملة',
     'company2' => 'شركة',
     'staff' => 'ادمن',
     'welcome' => 'مرحبا',
@@ -120,7 +120,7 @@ return [
     'all_orders' => 'كل الطلبات',
     'sall_products' => 'منتجات البيع',
     'rent_products' => 'منتجات الايجار',
-    'companies' => 'الشركات',
+    'companies' => 'الموردين',
     'merchants' => 'التجار',
     'onprogress_orders' => 'الطلبات قيد المراجعه',
     'sallProductReport' => 'تقرير منتجات البيع',
@@ -133,5 +133,10 @@ return [
     'title_en'=>'الاسم بالانجليزية',
     'description_ar'=>'الوصف بالعربية',
     'description_en'=>'الوصف بالانجليزية',
-    'language'=>'الانجليزية'
+    'language'=>'الانجليزية',
+    'agency'=>'المؤسسات',
+    'indivedual'=>'الافراد',
+    'sale_products_count'=>'منتجات البيع',
+    'rent_products_count'=>'منتجات الايجار',
+
 ];

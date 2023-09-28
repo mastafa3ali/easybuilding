@@ -293,7 +293,7 @@ class OrderController extends Controller
     public function orders()
     {
         $data = [];
-        $data = Order::with(['company','product'])->where('user_id', auth()->id())->orderBy('id','DESC')->get();
+        $data = Order::with(['company','product'])->where('status','!=',-1)->where('user_id', auth()->id())->orderBy('id','DESC')->get();
         return apiResponse(true, OrderResource::collection($data), null, null, 200);
     }
 

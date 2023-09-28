@@ -52,8 +52,8 @@ class SettingController extends Controller
         if(App::isLocale('en')) {
             $data = Setting::where('key', 'LIKE', 'privacy_content_en')->value('value');
         } else {
-                $data = Setting::where('key', 'LIKE', 'privacy_content_ar')->value('value');
-            }
+            $data = Setting::where('key', 'LIKE', 'privacy_content_ar')->value('value');
+        }
 
         return apiResponse(true, $data, null, null, 200);
     }
