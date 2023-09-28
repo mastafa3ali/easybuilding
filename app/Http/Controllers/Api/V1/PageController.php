@@ -328,6 +328,11 @@ class PageController extends Controller
                 $item->save();
             }
             if ($request->type == 2) {
+                $item = Product::findOrFail($request->model_id);
+                $item->rate = $rate / $count;
+                $item->save();
+            }
+            if ($request->type == 3) {
                 $item = User::findOrFail($request->model_id);
                 $item->rate = $rate / $count;
                 $item->save();
