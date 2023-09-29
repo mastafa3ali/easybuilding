@@ -63,6 +63,16 @@
                 </a>
             </li>
             @endcan
+            
+            @can('rates.view')
+            <li>
+                <a class="d-flex align-items-center" href="{{ route('admin.rates.index') }} ">
+                    <i data-feather="briefcase"></i>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.rates') }}</span>
+                </a>
+            </li>
+            @endcan
+
             @can('products.view')
             <li>
                 <a class="d-flex align-items-center" href="{{ route('admin.products.orders') }} ">
