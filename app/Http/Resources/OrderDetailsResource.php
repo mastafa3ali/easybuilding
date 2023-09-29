@@ -13,7 +13,7 @@ class OrderDetailsResource extends JsonResource
         $products = [];
         if ($this->type == 1) {
             foreach ($this->details as $product) {
-                $item['id'] = $product['id']; //company_product_id
+                $item['id'] = (string)$product['id']; //company_product_id
                 $item['name'] = $this->productDetails($product['id'])?->name ;
                 $item['image'] = $this->productDetails($product['id'])?->photo;
                 $item['qty'] = $product['qty'] ;
@@ -28,7 +28,7 @@ class OrderDetailsResource extends JsonResource
             foreach ($this->details as $product) {
 
                 $company_product_id = CompanyProduct::where('company_id', $this->company_id)->where('product_id', $product['id'])->first();
-                $item['id'] = $company_product_id?->id;
+                $item['id'] = (string)$company_product_id?->id;
                 //company_product_id
                 $item['name'] = $this->productDetails($product['id'])?->name ;
                 $item['image'] = $this->productDetails($product['id'])?->photo ;
