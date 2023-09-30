@@ -20,8 +20,11 @@ Route::group(['middleware' => ['language']], function () {
         Route::patch('/fcm-token', [App\Http\Controllers\Admin\AdminController::class, 'updateToken'])->name('fcmToken');
         Route::post('/send-notification', [App\Http\Controllers\Admin\AdminController::class,'notification'])->name('notification');
 
-        Route::get('rates', [App\Http\Controllers\Admin\RateController::class, 'index'])->name('rates.index')->middleware('permission:rates.view');
-        Route::get('rates/list', [App\Http\Controllers\Admin\RateController::class, 'list'])->name('rates.list')->middleware('permission:rates.view');
+        Route::get('products-rates', [App\Http\Controllers\Admin\RateController::class, 'product'])->name('rates.products')->middleware('permission:rates.products');
+        Route::get('productrates/list', [App\Http\Controllers\Admin\RateController::class, 'listProducts'])->name('rates.listProducts')->middleware('permission:rates.products');
+
+        Route::get('company-rates', [App\Http\Controllers\Admin\RateController::class, 'company'])->name('rates.companies')->middleware('permission:rates.companies');
+        Route::get('companyrates/list', [App\Http\Controllers\Admin\RateController::class, 'listCompanies'])->name('rates.listCompanies')->middleware('permission:rates.companies');
 
         Route::get('sliders/select', [App\Http\Controllers\Admin\SliderController::class, 'select'])->name('sliders.select');
         Route::delete('sliders/bulk', [App\Http\Controllers\Admin\SliderController::class, 'deleteBulk'])->name('sliders.deleteBulk')->middleware('permission:sliders.delete');

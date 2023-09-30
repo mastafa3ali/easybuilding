@@ -7,7 +7,9 @@ use App\Models\CompanyProduct;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Rate;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class CompanyController extends Controller
 {
@@ -71,6 +73,38 @@ class CompanyController extends Controller
                 'success'=>false
             ],500);
         }
+    }
+
+      public function rate(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Rate::with('user')
+            ->leftJoin('users','users.id','rates.user_id')
+            ->leftJoin('products','products.id','rates.model_id')
+            ->where('products.company_id', auth()->user()->id)
+            ->where('rates.type', 2)
+             ->select(['products.name','rates.value','rates.message','users.name as username']);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.pages.reports.rates');
+    }
+      public function listRent(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Rate::with('user')
+            ->leftJoin('users','users.id','rates.user_id')
+            ->leftJoin('company_products','company_products.id','rates.model_id')
+            ->leftJoin('products','products.id','company_products.product_id')
+            ->where('company_products.company_id', auth()->user()->id)
+            ->where('rates.type', 1)
+             ->select(['products.name','rates.value','rates.message','users.name as username']);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.pages.reports.listRent');
     }
 
 }

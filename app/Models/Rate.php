@@ -21,6 +21,15 @@ class Rate extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function companyProduct(){
+        return $this->belongsTo(CompanyProduct::class,'model_id');
+    }
+    public function product(){
+        return $this->belongsTo(Product::class,'model_id');
+    }
+    public function company(){
+        return $this->belongsTo(User::class,'model_id');
+    }
 
 
 }
