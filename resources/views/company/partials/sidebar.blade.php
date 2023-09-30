@@ -57,6 +57,25 @@ $route = \Route::currentRouteName();
                             <span data-i18n="List">{{ __('admin.terms') }}</span>
                         </a>
                     </li>
+                   
+                      <li class="dropdown nav-item {{ request()->routeIs('company.rates.list')||request()->routeIs('company.rates.listRent') ? 'active' : '' }}" data-menu="dropdown">
+                    <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+                        <i data-feather="package"></i>
+                        <span data-i18n="Apps">{{ __('admin.rate') }}</span>
+                    </a>
+                    <ul class="dropdown-menu" data-bs-popper="none">
+                        <li data-menu="">
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('company.rates.listRent') }}" data-bs-toggle="" data-i18n="">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="">{{ __('rates.rent_products') }}</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('company.rates.list') }}" data-bs-toggle="" data-i18n="">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="">{{ __('rates.sale_products') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                       <li class="dropdown nav-item {{ request()->routeIs('company.reports*') ? 'active' : '' }}" data-menu="dropdown">
                     <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                         <i data-feather="package"></i>

@@ -63,12 +63,21 @@
                 </a>
             </li>
             @endcan
-            
-            @can('rates.view')
+
+            @can('rates.products')
             <li>
-                <a class="d-flex align-items-center" href="{{ route('admin.rates.index') }} ">
+                <a class="d-flex align-items-center" href="{{ route('admin.rates.products') }} ">
                     <i data-feather="briefcase"></i>
-                    <span class="menu-item text-truncate" data-i18n="List">{{ __('admin.rates') }}</span>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('rates.products') }}</span>
+                </a>
+            </li>
+            @endcan
+
+            @can('rates.companies')
+            <li>
+                <a class="d-flex align-items-center" href="{{ route('admin.rates.companies') }} ">
+                    <i data-feather="briefcase"></i>
+                    <span class="menu-item text-truncate" data-i18n="List">{{ __('rates.companies') }}</span>
                 </a>
             </li>
             @endcan

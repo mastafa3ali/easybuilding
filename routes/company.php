@@ -11,6 +11,9 @@ Route::group([ 'prefix' => 'company','middleware' => 'company','as' => 'company.
         Route::patch('/fcm-token', [App\Http\Controllers\Company\CompanyController::class, 'updateToken'])->name('fcmToken');
     Route::get('/', [App\Http\Controllers\Company\CompanyController::class, 'index'])->name('home');
 
+    Route::get('rates/list', [App\Http\Controllers\Company\CompanyController::class, 'rate'])->name('rates.list');
+    Route::get('rates-rent', [App\Http\Controllers\Company\CompanyController::class, 'listRent'])->name('rates.listRent');
+
     Route::get('products/select', [App\Http\Controllers\Company\ProductController::class, 'select'])->name('products.select');
     Route::get('products/check', [App\Http\Controllers\Company\ProductController::class, 'check'])->name('products.check');
     Route::delete('products/bulk', [App\Http\Controllers\Company\ProductController::class, 'deleteBulk'])->name('products.deleteBulk');

@@ -1,6 +1,6 @@
 @extends('admin.layouts.master')
 @section('title')
-    <title>{{ config('app.name') }} | {{ __('rates.plural') }}</title>
+    <title>{{ config('app.name') }} | {{ __('rates.companies') }}</title>
 @endsection
 @section('content')
     <div class="content-header row">
@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <h1 class="bold mb-0 mt-1 text-dark">
                         <i data-feather="box" class="font-medium-2"></i>
-                        <span>{{ __('rates.plural') }}</span>
+                        <span>{{ __('rates.companies') }}</span>
                     </h1>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <table class="dt-multilingual table datatables-ajax">
                     <thead>
                     <tr>
-                        <th>{{ __('rates.name') }}</th>
+                        <th>{{ __('rates.company') }}</th>
                         <th>{{ __('admin.rate') }}</th>
                         <th>{{ __('rates.user') }}</th>
                         <th>{{ __('rates.comment') }}</th>
@@ -56,9 +56,8 @@
                 }
             },
             ajax: {
-                url: "{{ route('admin.rates.list') }}",
+                url: "{{ route('admin.rates.listCompanies') }}",
                 data: function (d) {
-                    d.name   = $('#filterForm #name').val();
                 }
             },
             drawCallback: function (settings) {
@@ -66,10 +65,10 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'name', name: 'name',orderable: false},
-                {data: 'rate', name: 'rate'},
-                {data: 'user', name: 'user'},
-                {data: 'comment', name: 'comment'},
+                {data: 'company', name: 'company.name'},
+                {data: 'value', name: 'value'},
+                {data: 'user', name: 'user.name'},
+                {data: 'message', name: 'message'},
             ],
             columnDefs: [
             ],
