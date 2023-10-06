@@ -61,8 +61,8 @@ return [
     'attachments' => 'attachments',
     'file' => 'file',
     'photo' => 'Image',
-    'text' => 'نص الاشعار',
-    'companies' => 'الشركات',
-    'clientes' => 'العملاء',
-    'user' => 'المرسل اليه',
+    'text' => 'Text',
+    'companies' => 'Suppliers',
+    'clientes' => 'Clients',
+    'user' => 'Receiver',
 ];

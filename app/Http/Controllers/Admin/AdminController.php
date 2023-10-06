@@ -23,7 +23,6 @@ class AdminController extends Controller
         $indivedual = User::where('type', User::TYPE_OWNER)->count();
         $companies = User::where('type', User::TYPE_COMPANY)->count();
 
-        $merchants = User::where('type', User::TYPE_MERCHANT)->count();
         $sall_products = Product::where('type', Product::TYPE_SALE)->count();
         $rent_products = Product::where('type', Product::TYPE_RENT)->count();
         $all_orders = Order::where('status', '!=', Order::STATUS_PENDDING_X)->count();

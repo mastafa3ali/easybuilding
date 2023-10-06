@@ -62,6 +62,4 @@ return [
     'classroom' => 'the line',
     'numeric_name' => 'City number',
     'floor' => 'floor',
-    'teacher' => 'Responsible teacher',
-    'seats_no' => 'Number of seats',
 ];
