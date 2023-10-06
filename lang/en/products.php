@@ -77,9 +77,9 @@ return [
     'images' => 'photo',
     'rent_price' => 'The amount of rent',
     'other_price' => 'Other prices in the case of the product category (ceilings)',
-    'price_2' => 'Price per meter in case of length > 5 meters',
+    'price_2' => 'Price per meter in case of clear height > 5 meters',
     'price_3' => 'Price per meter in case of thickness > 25 cm',
-    'price_4' => 'The price per meter in the case of length > 5 meters and thickness > 25',
+    'price_4' => 'The price per meter in the case of clear height > 5 meters and thickness > 25',
     'main_price' => 'Standard meter price',
     'mitrprice' => 'Meter price'
 ];

@@ -134,7 +134,7 @@ return [
     'description_ar' => 'Description in Arabic',
     'description_en' => 'Description in English',
     'language' => 'Arabic',
-    'agency'=>'Institution',
+    'agency'=>'Establishment',
     'indivedual'=>'Individual',
     'sale_products_count'=>'Sale Products',
     'rent_products_count'=>'Rent Products',

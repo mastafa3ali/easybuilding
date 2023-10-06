@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'plural' => 'الاشعار',
+    'plural' => 'الاشعارات',
     'singular' => 'اشعار',
     'singular2' => 'اشعار',
     'empty' => 'لا يوجد اشعار',
@@ -62,7 +62,7 @@ return [
     'file' => 'الملف',
     'photo' => 'الصورة',
     'text'=>'نص الاشعار',
-    'companies'=>'الشركات',
+    'companies'=>'الموردين',
     'clientes'=>'العملاء',
     'user'=>'المرسل اليه',
 ];

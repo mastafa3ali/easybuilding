@@ -134,7 +134,7 @@ return [
     'description_ar'=>'الوصف بالعربية',
     'description_en'=>'الوصف بالانجليزية',
     'language'=>'الانجليزية',
-    'agency'=>'المؤسسات',
+    'agency'=>'المنشآت',
     'indivedual'=>'الافراد',
     'sale_products_count'=>'منتجات البيع',
     'rent_products_count'=>'منتجات الايجار',
