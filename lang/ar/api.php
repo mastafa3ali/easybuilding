@@ -31,5 +31,6 @@ return [
     'order_progress' => 'الطلب رقم :code  قيد المعالجة',
     'order_deliverd' => 'تم تسليم الطلب رقم :code',
     'order_on_the_way' => ' الطلب رقم :code فى الطريق اليك',
-    'new_order_request' => 'لديك طلب جديد'
+    'new_order_request' => 'لديك طلب جديد',
+    'doublicate_rate'=>'لقد قمت بالتقيم مسبقا'
 ];

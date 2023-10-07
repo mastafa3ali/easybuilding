@@ -162,7 +162,7 @@ class ProductController extends Controller
                 return '<button type="button" class="btn btn-sm btn-outline-success round waves-effect active border-0">' . strval(__('orders.types.' . $item->type)) . '</button>';
             })
             ->editColumn('user', function ($item) {
-                return $item->user?->name;
+                return '<a href="'.route('admin.users.show',['id'=>$item->user_id]).'"> '.$item->user?->name.'</a>';
             })
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';

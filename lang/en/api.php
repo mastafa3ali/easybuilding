@@ -31,5 +31,7 @@ return [
     'order_progress' => 'Request number :code is being processed',
     'order_deliverd' => 'Order number :code has been delivered',
     'order_on_the_way' => '  Order number :code is on the way to you',
-    'new_order_request' => 'You have a new request'
+    'new_order_request' => 'You have a new request',
+    'doublicate_rate'=>' You Maked Rate Laterly'
+
 ];

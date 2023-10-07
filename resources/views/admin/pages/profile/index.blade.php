@@ -25,7 +25,8 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="{{ route('admin.profile.update') }}" method="POST">
+                        @csrf
                         <div class="form-group row @error('name') is-invalid @enderror">
                             <label for="name" class="col-sm-2 col-form-label">{{ __('profile.name') }}</label>
                             <div class="col-sm-10">
@@ -39,14 +40,14 @@
                         <div class="form-group row">
                             <label for="email" class="col-sm-2 col-form-label">{{ __('profile.email') }}</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" id="email" value="{{ auth()->user()->email }}">
+                                <input type="email" class="form-control" name="email" id="email" value="{{ auth()->user()->email }}">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row">
                             <label for="phone" class="col-sm-2 col-form-label">{{ __('profile.phone') }}</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="phone" value="{{ auth()->user()->phone }}">
+                                <input type="number" class="form-control" name="phone" id="phone" value="{{ auth()->user()->phone }}">
                             </div>
                         </div>
                         <br>

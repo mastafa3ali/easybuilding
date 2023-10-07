@@ -140,5 +140,7 @@ return [
     'rent_products_count'=>'Rent Products',
     'on_way_orders'=>'On Way Orders',
     'rate'=>'Rate',
+    'company_rate'=>'Company Rates',
+
 
 ];

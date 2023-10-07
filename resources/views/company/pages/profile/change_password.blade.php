@@ -22,10 +22,11 @@
             </div>
         </div>
         <!-- /.col -->
-        <div class="col-md-9">
+         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" method="POST" action="{{ route('company.profile.update_password') }}">
+                        @csrf
                         <div class="form-group row @error('password') is-invalid @enderror">
                             <label for="password" class="col-sm-2 col-form-label">{{ __('profile.password') }}</label>
                             <div class="col-sm-10">
