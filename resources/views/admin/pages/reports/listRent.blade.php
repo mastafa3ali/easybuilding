@@ -30,6 +30,7 @@
                         <th>{{ __('admin.rate') }}</th>
                         <th>{{ __('rates.user') }}</th>
                         <th>{{ __('rates.comment') }}</th>
+                        <th>{{ __('admin.created_at') }}</th>
                     </tr>
                     </thead>
                 </table>
@@ -69,6 +70,8 @@
                 {data: 'value', name: 'value'},
                 {data: 'username', name: 'username'},
                 {data: 'message', name: 'message'},
+                {data: 'created_at', name: 'created_at'},
+
             ],
             columnDefs: [
             ],

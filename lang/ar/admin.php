@@ -140,6 +140,7 @@ return [
     'rent_products_count'=>'منتجات الايجار',
     'on_way_orders'=>'الطلبات فى الطريق',
     'rate'=>'التقيم',
+    'company_rate'=>'تقيمات الشركة',
 
 
 ];

@@ -83,7 +83,7 @@ class CompanyController extends Controller
             ->leftJoin('products','products.id','rates.model_id')
             ->where('products.company_id', auth()->user()->id)
             ->where('rates.type', 2)
-             ->select(['products.name','rates.value','rates.message','users.name as username']);
+             ->select(['products.name','rates.value','rates.message','users.name as username','rates.created_at']);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
@@ -99,12 +99,25 @@ class CompanyController extends Controller
             ->leftJoin('products','products.id','company_products.product_id')
             ->where('company_products.company_id', auth()->user()->id)
             ->where('rates.type', 1)
-             ->select(['products.name','rates.value','rates.message','users.name as username']);
+             ->select(['products.name','rates.value','rates.message','users.name as username','rates.created_at']);
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->make(true);
         }
         return view('admin.pages.reports.listRent');
+    }
+      public function listCompanyRate(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = Rate::with('user')
+            ->leftJoin('users','users.id','rates.user_id')
+            ->where('rates.type', 3)
+             ->select(['rates.value','rates.message','users.name as username','rates.created_at']);
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.pages.reports.listCompany');
     }
 
 }

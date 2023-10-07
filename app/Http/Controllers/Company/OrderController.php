@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Company;
 use App\Http\Controllers\Controller;
 use App\Models\ApiNotification;
 use App\Models\Order;
+use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -23,6 +24,12 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         return view('company.pages.orders.index');
+    }
+    public function user($id)
+    {
+
+        $item = User::findOrFail($id);
+        return view('company.pages.orders.user', compact('item'));
     }
 
     public function list(Request $request): object
@@ -52,7 +59,8 @@ class OrderController extends Controller
                 return '<button type="button" class="btn btn-sm btn-outline-success round waves-effect active border-0">' . strval(__('orders.types.' . $item->type)) . '</button>';
             })
             ->editColumn('user', function ($item) {
-                return $item->user?->name;
+                return '<a href="' . route('company.orders.user', ['id' => $item->user_id]) . '"> ' . $item->user?->name . '</a>';
+
             })
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';

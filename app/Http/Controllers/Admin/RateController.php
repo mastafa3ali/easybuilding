@@ -23,16 +23,19 @@ class RateController extends Controller
 
     public function listProducts(Request $request): JsonResponse
     {
-        $data = Rate::with(['product','user','companyProduct'])->whereIn('rates.type', [1,2])->select('*');
+        $data = Rate::with(['product','user','companyProduct','company'])->whereIn('rates.type', [1,2])->select('*');
         return FacadesDataTables::of($data)
             ->addIndexColumn()
             ->addColumn('product', function ($item) {
                 return $item->type == 1 ? $item->companyProduct?->product?->name : $item->product?->name;
             })
+            ->addColumn('company', function ($item) {
+                return $item->type == 1 ? $item->companyProduct?->company?->name : $item->company?->name;
+            })
             ->addColumn('user', function ($item) {
                 return  $item->user?->name;
             })
-            ->rawColumns(['product','user'])
+            ->rawColumns(['product','user','company'])
             ->make(true);
     }
     public function listCompanies(Request $request): JsonResponse

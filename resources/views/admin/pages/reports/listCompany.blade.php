@@ -1,6 +1,6 @@
-@extends('admin.layouts.master')
+@extends('company.layouts.master')
 @section('title')
-    <title>{{ config('app.name') }} | {{ __('rates.products') }}</title>
+    <title>{{ config('app.name') }} | {{ __('rates.rent_products') }}</title>
 @endsection
 @section('content')
     <div class="content-header row">
@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <h1 class="bold mb-0 mt-1 text-dark">
                         <i data-feather="box" class="font-medium-2"></i>
-                        <span>{{ __('rates.products') }}</span>
+                        <span>{{ __('rates.rent_products') }}</span>
                     </h1>
                 </div>
             </div>
@@ -26,11 +26,10 @@
                 <table class="dt-multilingual table datatables-ajax">
                     <thead>
                     <tr>
-                        <th>{{ __('rates.product') }}</th>
                         <th>{{ __('admin.rate') }}</th>
-                        <th>{{ __('admin.company2') }}</th>
                         <th>{{ __('rates.user') }}</th>
                         <th>{{ __('rates.comment') }}</th>
+                        <th>{{ __('admin.created_at') }}</th>
                     </tr>
                     </thead>
                 </table>
@@ -57,7 +56,7 @@
                 }
             },
             ajax: {
-                url: "{{ route('admin.rates.listProducts') }}",
+                url: "{{ route('company.rates.listCompanyRate') }}",
                 data: function (d) {
                 }
             },
@@ -66,11 +65,10 @@
             },
             columns: [
                 /*{data: 'DT_RowIndex', name: 'DT_RowIndex'},*/
-                {data: 'product', name: 'product.name'},
                 {data: 'value', name: 'value'},
-                {data: 'company', name: 'company.name'},
-                {data: 'user', name: 'user.name'},
+                {data: 'username', name: 'username'},
                 {data: 'message', name: 'message'},
+                {data: 'created_at', name: 'created_at'},
             ],
             columnDefs: [
             ],

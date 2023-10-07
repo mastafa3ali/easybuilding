@@ -57,7 +57,7 @@ $route = \Route::currentRouteName();
                             <span data-i18n="List">{{ __('admin.terms') }}</span>
                         </a>
                     </li>
-                   
+
                       <li class="dropdown nav-item {{ request()->routeIs('company.rates.list')||request()->routeIs('company.rates.listRent') ? 'active' : '' }}" data-menu="dropdown">
                     <a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                         <i data-feather="package"></i>
@@ -72,6 +72,10 @@ $route = \Route::currentRouteName();
                             <a class="dropdown-item d-flex align-items-center" href="{{ route('company.rates.list') }}" data-bs-toggle="" data-i18n="">
                                 <i data-feather="mail"></i>
                                 <span data-i18n="">{{ __('rates.sale_products') }}</span>
+                            </a>
+                            <a class="dropdown-item d-flex align-items-center" href="{{ route('company.rates.listCompanyRate') }}" data-bs-toggle="" data-i18n="">
+                                <i data-feather="mail"></i>
+                                <span data-i18n="">{{ __('admin.company_rate') }}</span>
                             </a>
                         </li>
                     </ul>
