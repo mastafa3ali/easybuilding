@@ -321,9 +321,10 @@ class PageController extends Controller
         ];
         $rate = Rate::where('type', $request->type)->where('model_id', $request->model_id)->where('user_id', auth()->user()->id)->first();
         if($rate) {
-            return apiResponse(false, $rate, __('api.doublicate_rate'), null, 201);
+            $rate->update($input);
+        }else{
+            $data = Rate::create($input);
         }
-        $data = Rate::create($input);
         if ($data) {
             $rate = Rate::where('type', $request->type)->where('model_id', $request->model_id)->sum('value');
             $count = Rate::where('type', $request->type)->where('model_id', $request->model_id)->count();
