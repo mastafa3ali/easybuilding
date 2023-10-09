@@ -32,7 +32,7 @@
                                         <th>{{ __('orders.type') }}</th>
                                         <th>{{ __('orders.status') }}</th>
                                         <th>{{ __('orders.address') }}</th>
-                                        <th>{{ __('orders.phone') }}</th>
+                                        <th>{{ __('orders.company') }}</th>
                                         <th>{{ __('orders.delivery_phone') }}</th>
                                         <th>{{ __('orders.total') }}</th>
                                         <th>{{ __('orders.user') }}</th>
@@ -79,7 +79,7 @@
                 {data: 'type', name: 'type'},
                 {data: 'status', name: 'status'},
                 {data: 'address', name: 'address'},
-                {data: 'phone', name: 'phone'},
+                {data: 'company', name: 'company'},
                 {data: 'delivery_phone', name: 'delivery_phone'},
                 {data: 'total', name: 'total'},
                 {data: 'user', name: 'user.name'},

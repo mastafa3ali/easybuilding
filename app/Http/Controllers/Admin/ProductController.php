@@ -128,7 +128,7 @@ class ProductController extends Controller
      public function orderlist(Request $request): object
     {
 
-        $data = Order::with('user')->whereHas('product', function ($query) use ($request) {
+        $data = Order::with(['user','company'])->whereHas('product', function ($query) use ($request) {
             if ($request->filled('number')) {
                 $query->where('number', $request->number);
             }
@@ -164,6 +164,9 @@ class ProductController extends Controller
             ->editColumn('user', function ($item) {
                 return '<a href="'.route('admin.users.show',['id'=>$item->user_id]).'"> '.$item->user?->name.'</a>';
             })
+            ->editColumn('company', function ($item) {
+                return '<a href="'.route('admin.users.show',['id'=>$item->company_id]).'"> '.$item->company?->name.'</a>';
+            })
             ->editColumn('change_status', function ($item) {
                 $statusBtn = '';
                     if ($item->status == Order::STATUS_PENDDING) {
@@ -180,7 +183,7 @@ class ProductController extends Controller
                                 </a>';
                 return $editBtn;
             })
-            ->rawColumns([ 'status', 'change_status', 'editUrl','type','user'])
+            ->rawColumns([ 'status', 'change_status', 'editUrl','type','user','company'])
             ->make(true);
     }
 }
