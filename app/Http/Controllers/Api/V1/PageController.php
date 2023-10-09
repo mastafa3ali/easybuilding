@@ -328,12 +328,12 @@ class PageController extends Controller
         if ($data) {
             $rate = Rate::where('type', $request->type)->where('model_id', $request->model_id)->sum('value');
             $count = Rate::where('type', $request->type)->where('model_id', $request->model_id)->count();
-            if ($request->type == 1) {
+            if ($request->type == 2) {
                 $item = CompanyProduct::findOrFail($request->model_id);
                 $item->rate = $rate / $count;
                 $item->save();
             }
-            if ($request->type == 2) {
+            if ($request->type == 1) {
                 $item = Product::findOrFail($request->model_id);
                 $item->rate = $rate / $count;
                 $item->save();

@@ -27,10 +27,10 @@ class RateController extends Controller
         return FacadesDataTables::of($data)
             ->addIndexColumn()
             ->addColumn('product', function ($item) {
-                return $item->type == 1 ? $item->companyProduct?->product?->name : $item->product?->name;
+                return $item->type == 2 ? $item->companyProduct?->product?->name : $item->product?->name;
             })
             ->addColumn('company', function ($item) {
-                return $item->type == 1 ? $item->companyProduct?->company?->name : $item->company?->name;
+                return $item->type == 2 ? $item->companyProduct?->company?->name : $item->company?->name;
             })
             ->addColumn('user', function ($item) {
                 return  $item->user?->name;
