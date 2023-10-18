@@ -221,13 +221,13 @@
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
                             <br>
-                                <a href="{{ $item->checkamount }}" download>
-                                <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
-                                </a>
-                                @else
-                                <a href="{{ $item->checkamount }}" download>
-                                <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
-                                </a>
+                            <a href="{{ $item->checkamount }}" download>
+                            <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                            </a>
+                            @else
+                            <a href="{{ $item->checkamount }}" download>
+                            <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
+                            </a>
                             @endif
                         </div>
                         <div class="mb-1 col-md-4">
