@@ -23,6 +23,7 @@ class SendPushNotification extends Notification
      */
     public function __construct($message, $fcmTokens)
     {
+
         $this->title = "Aldon";
         $this->message = $message;
         $this->fcmTokens = $fcmTokens;
