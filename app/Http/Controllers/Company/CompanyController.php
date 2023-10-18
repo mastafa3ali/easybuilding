@@ -106,12 +106,13 @@ class CompanyController extends Controller
         }
         return view('admin.pages.reports.listRent');
     }
-      public function listCompanyRate(Request $request)
+    public function listCompanyRate(Request $request)
     {
         if ($request->ajax()) {
             $data = Rate::with('user')
             ->leftJoin('users','users.id','rates.user_id')
             ->where('rates.type', 3)
+            ->where('rates.model_id',auth()->user()->id)
              ->select(['rates.value','rates.message','users.name as username','rates.created_at']);
             return DataTables::of($data)
                 ->addIndexColumn()

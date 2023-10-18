@@ -1,6 +1,6 @@
 @extends('company.layouts.master')
 @section('title')
-    <title>{{ config('app.name') }} | {{ __('rates.rent_products') }}</title>
+    <title>{{ config('app.name') }} | {{ __('admin.company_rate') }}</title>
 @endsection
 @section('content')
     <div class="content-header row">
@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <h1 class="bold mb-0 mt-1 text-dark">
                         <i data-feather="box" class="font-medium-2"></i>
-                        <span>{{ __('rates.rent_products') }}</span>
+                        <span>{{ __('admin.company_rate') }}</span>
                     </h1>
                 </div>
             </div>
