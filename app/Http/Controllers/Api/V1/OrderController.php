@@ -157,7 +157,7 @@ class OrderController extends Controller
             $check_guarantee = $fileName;
         }
         $order= Order::find($request->order_id);
-        if(App::isLocale('en')) {
+        if($request->header('language')=="en") {
             $languge="en";
             $message = 'EN';
         }else{
