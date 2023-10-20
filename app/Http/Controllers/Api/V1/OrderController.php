@@ -158,7 +158,7 @@ class OrderController extends Controller
         }
         $order= Order::find($request->order_id);
         $lang = $request->header('language');
-        if($lang == "en") {
+        if($lang == 'en') {
             $languge="en";
             $message = 'The order process was completed successfully';
         }else{
