@@ -117,11 +117,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
-           
-            if($item->language=="ar") {
-                $message = ' الطلب رقم '.$item->code.' فى الطريق اليك';
+
+            $lang = auth()->user()->language;
+
+            if($lang == "ar") {
+                $message = ' الطلب رقم ' . $item->code . ' فى الطريق اليك';
             } else {
-                $message = '  Order number '.$item->code.' is on the way to you';
+                $message = '  Order number ' . $item->code . ' is on the way to you';
             }
 
             $notifications = [
@@ -149,6 +151,15 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_DELIVERD]);
             $fcmTokens[] = $item->user?->fcm_token;
+
+            // $lang = auth()->user()->language;
+
+            // if($lang == "ar") {
+            //     $message = ' الطلب رقم ' . $item->code . ' فى الطريق اليك';
+            // } else {
+            //     $message = '  Order number ' . $item->code . ' is on the way to you';
+            // }
+
             $message = __('api.order_deliverd', ['code' => $item->code]);
             $notifications = [
                     'user_id' => $item->user_id,
