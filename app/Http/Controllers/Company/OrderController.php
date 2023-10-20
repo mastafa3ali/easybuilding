@@ -121,7 +121,7 @@ class OrderController extends Controller
             $message = __('api.order_on_the_way', ['code' => $item->code]);
             $notifications = [
                     'user_id' => $item->user_id,
-                    'text' => $message,
+                    'text' => app()->getLocale(),
                     'model_id' => $item->id,
                     'day' => date('Y-m-d'),
                     'time' => date('H:i'),
