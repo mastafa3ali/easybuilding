@@ -183,7 +183,7 @@ class OrderController extends Controller
         $message = __('api.new_order_request');
         $notifications = [
                 'user_id'=>auth()->id(),
-                'text'=>$message,
+                'text'=>app()->getLocale(),
                 'model_id'=>$order->id,
                 'day'=>date('Y-m-d'),
                 'time'=>date('H:i'),
@@ -203,7 +203,7 @@ class OrderController extends Controller
 
                     <body style='direction:rtl'>
                         <p> لديك طلب جديد رقم ".$order->code." يرجى مراجعة التطبيق</p>
-                        
+
                     </body>
                 </html>
                 ";
