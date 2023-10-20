@@ -117,9 +117,8 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_on_the_way', ['code' => $item->code]);
-
-            if(App::isLocale('ar')) {
+           
+            if($item->language=="ar") {
                 $message = ' الطلب رقم '.$item->code.' فى الطريق اليك';
             } else {
                 $message = '  Order number '.$item->code.' is on the way to you';
