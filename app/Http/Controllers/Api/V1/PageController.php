@@ -23,6 +23,7 @@ use App\Models\SubCategory;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 class PageController extends Controller
@@ -52,6 +53,11 @@ class PageController extends Controller
     }
     public function getSales($id)
     {
+
+
+        $user = User::find(Auth::user()->id);
+        $user->language = request()->header('language');
+        $user->save();
 
         if(request()->sort_type == 0) {
             $sort = 'ASC';
@@ -83,6 +89,9 @@ class PageController extends Controller
     public function getRent($id)
     {
         //المواد الايجار فى السب كاتيجورى
+        $user=User::find(Auth::user()->id);
+        $user->language=request()->header('language');
+        $user->save();
         $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id', $id)->orderBy('sort', 'ASC')->get();
         return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
