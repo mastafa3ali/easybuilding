@@ -183,7 +183,7 @@ class OrderController extends Controller
         $message = __('api.new_order_request');
         $notifications = [
                 'user_id'=>auth()->id(),
-                'text'=>app()->getLocale(),
+                'text'=>$message,
                 'model_id'=>$order->id,
                 'day'=>date('Y-m-d'),
                 'time'=>date('H:i'),
