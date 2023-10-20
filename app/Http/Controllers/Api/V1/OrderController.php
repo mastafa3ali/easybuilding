@@ -159,10 +159,10 @@ class OrderController extends Controller
         $order= Order::find($request->order_id);
         if(App::isLocale('ar')) {
             $languge="ar";
-            $message ='تم اتمام عملية طلب بنجاح';
+            $message ='AR';
         }else{
             $languge="en";
-            $message = 'The order process was completed successfully';
+            $message = 'EN';
         }
         $data = [
             'status' => Order::STATUS_PENDDING,

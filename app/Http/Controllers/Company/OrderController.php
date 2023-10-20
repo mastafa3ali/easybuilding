@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\View\View;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
@@ -16,9 +17,7 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OrderController extends Controller
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
 
     public function index(Request $request)
@@ -45,7 +44,7 @@ class OrderController extends Controller
                 $query->whereRaw('DATE(created_at) = ?', $request->date);
             }
         })->where('status', '!=', Order::STATUS_PENDDING_X)
-        ->orderBy('created_at','desc')
+        ->orderBy('created_at', 'desc')
             ->select('*');
 
         return DataTables::of($data)
@@ -119,6 +118,13 @@ class OrderController extends Controller
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
             $message = __('api.order_on_the_way', ['code' => $item->code]);
+
+            if(App::isLocale('ar')) {
+                $message = ' الطلب رقم '.$item->code.' فى الطريق اليك';
+            } else {
+                $message = '  Order number '.$item->code.' is on the way to you';
+            }
+
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
@@ -170,7 +176,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_REJECTED,'reason' => $request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_canceled', ['code' => $item->code,'reason'=>$item->reason]);
+            $message = __('api.order_canceled', ['code' => $item->code,'reason' => $item->reason]);
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
