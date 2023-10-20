@@ -57,7 +57,8 @@ class Order extends Model
         'progress_date',
         'reject_date',
         'on_way_date',
-        'deliverd_date'
+        'deliverd_date',
+        'language'
     ];
     protected $appends = [
         'checkamount',
@@ -82,7 +83,7 @@ class Order extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

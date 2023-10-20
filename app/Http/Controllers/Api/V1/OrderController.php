@@ -15,6 +15,7 @@ use App\Models\CompanyProduct;
 use App\Models\User;
 use App\Notifications\SendPushNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Notification;
 
 class OrderController extends Controller
@@ -156,9 +157,17 @@ class OrderController extends Controller
             $check_guarantee = $fileName;
         }
         $order= Order::find($request->order_id);
+        if(App::isLocale('ar')) {
+            $languge="ar";
+            $message ='تم اتمام عملية طلب بنجاح';
+        }else{
+            $languge="en";
+            $message = 'The order process was completed successfully';
+        }
         $data = [
             'status' => Order::STATUS_PENDDING,
             'code' => $order->id,
+            'language' => $languge,
             'payment' => $request->payment,
             'check_guarantee' => $check_guarantee,
             'check_guarantee_amount' => $check_guarantee_amount,
@@ -168,7 +177,6 @@ class OrderController extends Controller
         $order->update($data);
         $company = User::find($order->company_id);
         $fcmTokens[] = auth()->user()->fcm_token;
-        $message = __('api.new_payment_success');
         $notifications = [
                 'user_id'=>auth()->id(),
                 'text'=>$message,
