@@ -157,12 +157,12 @@ class OrderController extends Controller
             $check_guarantee = $fileName;
         }
         $order= Order::find($request->order_id);
-        if($request->header('language')=="en") {
-            $languge="en";
-            $message = 'EN';
-        }else{
+        if($request->header('language')) {
             $languge="ar";
-            $message ='AR';
+            $message ='تم اتمام عملية طلب بنجاح';
+        }else{
+            $languge="en";
+            $message = 'The order process was completed successfully';
         }
         $data = [
             'status' => Order::STATUS_PENDDING,
