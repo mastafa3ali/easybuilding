@@ -157,12 +157,12 @@ class OrderController extends Controller
             $check_guarantee = $fileName;
         }
         $order= Order::find($request->order_id);
-        if(App::isLocale('ar')) {
-            $languge="ar";
-            $message ='AR';
-        }else{
+        if(App::isLocale('en')) {
             $languge="en";
             $message = 'EN';
+        }else{
+            $languge="ar";
+            $message ='AR';
         }
         $data = [
             'status' => Order::STATUS_PENDDING,
