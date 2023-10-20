@@ -157,12 +157,12 @@ class OrderController extends Controller
             $check_guarantee = $fileName;
         }
         $order= Order::find($request->order_id);
-        if($request->header('language')=="ar") {
-            $languge="ar";
-            $message ='تم اتمام عملية طلب بنجاح';
-        }else{
+        if($request->header('language') == "en") {
             $languge="en";
             $message = 'The order process was completed successfully';
+        }else{
+            $languge="ar";
+            $message ='تم اتمام عملية طلب بنجاح';
         }
         $data = [
             'status' => Order::STATUS_PENDDING,
@@ -188,7 +188,6 @@ class OrderController extends Controller
         Notification::send(null, new SendPushNotification($message, $fcmTokens));
 
         $fcmTokens2[] = $company?->fcm_token;
-        $message = __('api.new_order_request');
         $notifications = [
                 'user_id'=>auth()->id(),
                 'text'=>$message,
