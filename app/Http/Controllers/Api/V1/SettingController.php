@@ -27,7 +27,7 @@ class SettingController extends Controller
     {
 
         $data = [
-            'content' => Setting::where('key', 'LIKE', 'about_%')->value('value')
+            'content' => Setting::where('key', 'LIKE', 'about_content')->value('value')
         ];
 
         return apiResponse(true, $data, null, null, 200);
