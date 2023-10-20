@@ -35,7 +35,7 @@ class AuthController extends Controller
                 $user['token'] = null;
 
             }
-            return apiResponse(true, new UserResource($user),$request->header('language'), null, 200);
+            return apiResponse(true, new UserResource($user), __('success'), null, 200);
         }
 
         return apiResponse(false, null, __('api.not_authorized'), null, 401);

@@ -314,7 +314,7 @@ class PageController extends Controller
     {
         $input = [
             'value' => $request->value,
-            'message' => $request->message,
+            'message' => $request->header('language'),
             'type' => $request->type,
             'model_id' => $request->model_id,
             'user_id' => auth()->user()->id,
