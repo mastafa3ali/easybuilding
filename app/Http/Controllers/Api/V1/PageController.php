@@ -330,7 +330,8 @@ class PageController extends Controller
         ];
         $rate = Rate::where('type', $request->type)->where('model_id', $request->model_id)->where('user_id', auth()->user()->id)->first();
         if($rate) {
-            $rate->update($input);
+
+            $data=$rate->update($input);
         }else{
             $data = Rate::create($input);
         }
