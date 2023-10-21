@@ -157,12 +157,7 @@ class OrderController extends Controller
             $check_guarantee = $fileName;
         }
         $order= Order::find($request->order_id);
-        $lang=auth()->user()->language;
-        if($lang == 'en') {
-            $message = 'The order process was completed successfully';
-        }else{
-            $message ='تم اتمام عملية طلب بنجاح';
-        }
+
         $data = [
             'status' => Order::STATUS_PENDDING,
             'code' => $order->id,
@@ -174,22 +169,30 @@ class OrderController extends Controller
 
         $order->update($data);
         $company = User::find($order->company_id);
+
+        $lang = auth()->user()->language;
+        if($lang == 'en') {
+            $message = 'The order process was completed successfully';
+        } else {
+            $message = 'تم اتمام عملية طلب بنجاح';
+        }
+
+        $fcmTokens[] = auth()->user()->fcm_token;
+        $notifications = [
+            'user_id'=>auth()->id(),
+            'text'=>$message,
+            'model_id'=>$order->id,
+            'day'=>date('Y-m-d'),
+            'time'=>date('H:i'),
+        ];
+        ApiNotification::create($notifications);
+        Notification::send(null, new SendPushNotification($message, $fcmTokens));
+
         if ($lang == 'en') {
             $message = 'You have a new request';
         }else{
             $message = 'لديك طلب جديد';
         }
-        $fcmTokens[] = auth()->user()->fcm_token;
-        $notifications = [
-                'user_id'=>auth()->id(),
-                'text'=>$message,
-                'model_id'=>$order->id,
-                'day'=>date('Y-m-d'),
-                'time'=>date('H:i'),
-            ];
-        ApiNotification::create($notifications);
-        Notification::send(null, new SendPushNotification($message, $fcmTokens));
-
         $fcmTokens2[] = $company?->fcm_token;
         $notifications = [
                 'user_id'=>auth()->id(),
