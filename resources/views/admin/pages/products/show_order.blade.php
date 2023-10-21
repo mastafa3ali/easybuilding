@@ -211,7 +211,6 @@
                                 </a>
                             @endif
                         </div>
-                        @if($item->payment!=1)
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
@@ -238,7 +237,6 @@
                             </a>
                             @endif
                         </div>
-                        @endif
                     </div>
                     @endif
                     @if($item->type==1)

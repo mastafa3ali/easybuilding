@@ -68,15 +68,26 @@
                             </div>
                         </div>
 
-                        <div class="mb-1 col-md-12 @error('about_content') is-invalid @enderror">
-                            <label class="form-label" for="about_content">
+                        <div class="mb-1 col-md-12 @error('about_content_en') is-invalid @enderror">
+                            <label class="form-label" for="about_content_en">{{ __('admin.about_en') }}
                             </label>
-                            <?php $aboutContent = $items->where('key', 'about_content')->first()->value ?? old('about_content'); ?>
-                            <textarea type="text" class="form-control form-control-solid editor" name="about_content" id="about_content">{!! $aboutContent !!}</textarea>
-                            @error('about_content')
+                            <?php $aboutContent = $items->where('key', 'about_content_en')->first()->value ?? old('about_content_en'); ?>
+                            <textarea type="text" class="form-control form-control-solid " name="about_content_en" id="about_content_en">{!! $aboutContent !!}</textarea>
+                            @error('about_content_en')
                             <span class="text-danger error">{{ $message }}</span>
                             @enderror
                         </div>
+
+                        <div class="mb-1 col-md-12 @error('about_content_ar') is-invalid @enderror">
+                            <label class="form-label" for="about_content_ar">{{ __('admin.about_ar') }}
+                            </label>
+                            <?php $aboutContent = $items->where('key', 'about_content_ar')->first()->value ?? old('about_content_ar'); ?>
+                            <textarea type="text" class="form-control form-control-solid " name="about_content_ar" id="about_content_ar">{!! $aboutContent !!}</textarea>
+                            @error('about_content_ar')
+                            <span class="text-danger error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                     </div>
                 </div>
             </div>
