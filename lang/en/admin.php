@@ -141,6 +141,9 @@ return [
     'on_way_orders'=>'On Way Orders',
     'rate'=>'Rate',
     'company_rate'=>'Company Rates',
+    'about_ar' => 'Content In Arabic',
+    'about_en' => 'Content In English',
+
 
 
 ];

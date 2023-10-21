@@ -93,7 +93,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ONPROGRESS]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_progress', ['code' => $item->code]);
+            $lang = auth()->user()->language;
+            if($lang == "ar") {
+                $message = 'الطلب رقم ' . $item->code .'  قيد المعالجة';
+            } else {
+                $message = 'Request number ' . $item->code .' is being processed';
+            }
+
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
@@ -151,16 +157,13 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_DELIVERD]);
             $fcmTokens[] = $item->user?->fcm_token;
+            $lang = auth()->user()->language;
+            if($lang == "ar") {
+                $message = ' تم تسليم الطلب رقم '.$item->code;
+            } else {
+                $message = ' Order number '.$item->code.' has been delivered';
+            }
 
-            // $lang = auth()->user()->language;
-
-            // if($lang == "ar") {
-            //     $message = ' الطلب رقم ' . $item->code . ' فى الطريق اليك';
-            // } else {
-            //     $message = '  Order number ' . $item->code . ' is on the way to you';
-            // }
-
-            $message = __('api.order_deliverd', ['code' => $item->code]);
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
@@ -186,7 +189,14 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_REJECTED,'reason' => $request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $message = __('api.order_canceled', ['code' => $item->code,'reason' => $item->reason]);
+
+            $lang = auth()->user()->language;
+            if($lang == "ar") {
+                $message = 'تم رفض الطلب رقم '.$item->code.' بسبب '.$item->reason;
+            } else {
+                $message = ' Request number '.$item->code.' was rejected due to '.$item->reason;
+            }
+
             $notifications = [
                     'user_id' => $item->user_id,
                     'text' => $message,
