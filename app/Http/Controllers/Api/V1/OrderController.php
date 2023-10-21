@@ -174,6 +174,11 @@ class OrderController extends Controller
 
         $order->update($data);
         $company = User::find($order->company_id);
+        if ($lang == 'en') {
+            $message = 'You have a new request';
+        }else{
+            $message = 'لديك طلب جديد';
+        }
         $fcmTokens[] = auth()->user()->fcm_token;
         $notifications = [
                 'user_id'=>auth()->id(),
