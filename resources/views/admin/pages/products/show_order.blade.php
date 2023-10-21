@@ -211,21 +211,20 @@
                                 </a>
                             @endif
                         </div>
-                        @if($item->payment!=1)
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
                             @if(pathinfo($item->checkamount, PATHINFO_EXTENSION)=='pdf')
                             <br>
-                                <a href="{{ $item->checkamount }}" download>
+                            <a href="{{ $item->checkamount }}" download>
                                 <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
-                                </a>
-                                @else
-                                <a href="{{ $item->checkamount }}" download>
+                            </a>
+                            @else
+                            <a href="{{ $item->checkamount }}" download>
                                 <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
-                                </a>
+                            </a>
                             @endif
                         </div>
-                        @endif
+                        @if($item->payment!=1)
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
                             @if(pathinfo($item->checkguaranteeamount, PATHINFO_EXTENSION)=='pdf')
@@ -235,10 +234,11 @@
                             </a>
                             @else
                             <a href="{{ $item->checkguaranteeamount }}" download>
-                            <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
+                                <img src="{{ $item->checkguaranteeamount }}" class="img-fluid img-thumbnail">
                             </a>
                             @endif
                         </div>
+                        @endif
                     </div>
                     @endif
                     @if($item->type==1)
