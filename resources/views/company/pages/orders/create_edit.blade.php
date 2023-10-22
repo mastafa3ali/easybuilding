@@ -215,7 +215,6 @@
                                 </a>
                             @endif
                         </div>
-                        @if($item->payment!=1)
 
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee') }}</label>
@@ -223,13 +222,14 @@
                             <br>
                             <a href="{{ $item->checkamount }}" download>
                             <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
-                            </a>
-                            @else
-                            <a href="{{ $item->checkamount }}" download>
+                        </a>
+                        @else
+                        <a href="{{ $item->checkamount }}" download>
                             <img src="{{ $item->checkamount }}" class="img-fluid img-thumbnail">
-                            </a>
-                            @endif
-                        </div>
+                        </a>
+                        @endif
+                    </div>
+                    @if($item->payment!=1)
                         <div class="mb-1 col-md-4">
                             <label class="form-label">{{ __('orders.check_guarantee_amount') }}</label>
                             @if(pathinfo($item->checkguaranteeamount, PATHINFO_EXTENSION)=='pdf')
