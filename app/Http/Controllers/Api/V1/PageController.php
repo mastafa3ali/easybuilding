@@ -86,9 +86,11 @@ class PageController extends Controller
     public function getRent($id)
     {
         //المواد الايجار فى السب كاتيجورى
-        $user=User::find(Auth::user()->id);
-        $user->language=request()->header('language');
-        $user->save();
+if(Auth::check()) {
+    $user = User::find(Auth::user()->id);
+    $user->language = request()->header('language');
+    $user->save();
+}
         $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id', $id)->orderBy('sort', 'ASC')->get();
         return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
