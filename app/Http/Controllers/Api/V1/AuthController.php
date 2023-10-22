@@ -106,7 +106,6 @@ class AuthController extends Controller
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $stringToPost);
         $result = curl_exec($ch);
-
         if($viewResult) {
             $result = [trim($result) , $arraySendMsg];
         }
@@ -144,9 +143,10 @@ class AuthController extends Controller
             $user->licence = storeFile($request->file('licence'), 'users');
         }
         if ($user->save()) {
-
+            
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
             return apiResponse(true, new UserResource($user), __('success'), null, 200);
+
         }
     }
     public function resetPassword(Request $request)

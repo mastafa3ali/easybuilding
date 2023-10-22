@@ -46,6 +46,7 @@ Route::group(['prefix' => 'v1'], function () {
 
         Route::group(['middleware' => 'auth:sanctum'], function () {
 
+            Route::get('change-language/{language}', [App\Http\Controllers\Api\V1\PageController::class, 'changeLang']);
             Route::get('auth-get-companies/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanies']);
             Route::get('auth-get-company-product/{company_id}/{category_id}', [App\Http\Controllers\Api\V1\PageController::class, 'getCompanyProduct']);
             Route::get('auth-get-sales/{id}', [App\Http\Controllers\Api\V1\PageController::class, 'getSales']);

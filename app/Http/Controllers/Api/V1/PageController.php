@@ -28,6 +28,13 @@ use Illuminate\Support\Facades\Notification;
 
 class PageController extends Controller
 {
+    public function changeLang($language)
+    {
+        $user = User::find(Auth::user()->id);
+        $user->language = $language;
+        $user->save();
+        return apiResponse(true, $user, null, null, 200);
+    }
     public function home(Request $request)
     {
 
