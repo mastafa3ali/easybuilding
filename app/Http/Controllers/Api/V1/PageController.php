@@ -30,6 +30,9 @@ class PageController extends Controller
 {
     public function home(Request $request)
     {
+        $user = User::find(Auth::user()->id);
+        $user->language = request()->header('language');
+        $user->save();
         $data['sliders'] = Slider::latest()->take(15)->get();
         $data['categories'] = Category::orderBy('sort', 'ASC')->get();
         return apiResponse(false, $data, null, null, 200);
@@ -53,12 +56,6 @@ class PageController extends Controller
     }
     public function getSales($id)
     {
-
-
-        $user = User::find(Auth::user()->id);
-        $user->language = request()->header('language');
-        $user->save();
-
         if(request()->sort_type == 0) {
             $sort = 'ASC';
         } elseif(request()->sort_type == 1) {
