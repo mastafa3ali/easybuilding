@@ -30,9 +30,13 @@ class PageController extends Controller
 {
     public function home(Request $request)
     {
-        $user = User::find(Auth::user()->id);
-        $user->language = request()->header('language');
-        $user->save();
+
+        if (Auth::check()) {
+            $user = User::find(Auth::user()->id);
+            $user->language = request()->header('language');
+            $user->save();
+        }
+
         $data['sliders'] = Slider::latest()->take(15)->get();
         $data['categories'] = Category::orderBy('sort', 'ASC')->get();
         return apiResponse(false, $data, null, null, 200);
@@ -86,11 +90,11 @@ class PageController extends Controller
     public function getRent($id)
     {
         //المواد الايجار فى السب كاتيجورى
-if(Auth::check()) {
-    $user = User::find(Auth::user()->id);
-    $user->language = request()->header('language');
-    $user->save();
-}
+        if (Auth::check()) {
+            $user = User::find(Auth::user()->id);
+            $user->language = request()->header('language');
+            $user->save();
+        }
         $data = SubCategory::with(['products.category','products.subcategory'])->where('category_id', $id)->orderBy('sort', 'ASC')->get();
         return apiResponse(true, SubCategoryResource::collection($data), null, null, 200);
     }
@@ -330,8 +334,8 @@ if(Auth::check()) {
         $rate = Rate::where('type', $request->type)->where('model_id', $request->model_id)->where('user_id', auth()->user()->id)->first();
         if($rate) {
 
-            $data=$rate->update($input);
-        }else{
+            $data = $rate->update($input);
+        } else {
             $data = Rate::create($input);
         }
         if ($data) {
