@@ -93,7 +93,8 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_ONPROGRESS]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $lang = auth()->user()->language;
+            $lang = $item->user?->language;
+
             if($lang == "ar") {
                 $message = 'الطلب رقم ' . $item->code .'  قيد المعالجة';
             } else {
@@ -124,7 +125,7 @@ class OrderController extends Controller
             $item->update(['status' => Order::STATUS_ON_WAY]);
             $fcmTokens[] = $item->user?->fcm_token;
 
-            $lang = auth()->user()->language;
+            $lang = $item->user?->language;
 
             if($lang == "ar") {
                 $message = ' الطلب رقم ' . $item->code . ' فى الطريق اليك';
@@ -157,7 +158,7 @@ class OrderController extends Controller
             $item = Order::findOrFail($request->order_id);
             $item->update(['status' => Order::STATUS_DELIVERD]);
             $fcmTokens[] = $item->user?->fcm_token;
-            $lang = auth()->user()->language;
+            $lang = $item->user?->language;
             if($lang == "ar") {
                 $message = ' تم تسليم الطلب رقم '.$item->code;
             } else {
@@ -190,7 +191,8 @@ class OrderController extends Controller
             $item->update(['status' => Order::STATUS_REJECTED,'reason' => $request->reason]);
             $fcmTokens[] = $item->user?->fcm_token;
 
-            $lang = auth()->user()->language;
+            $lang = $item->user?->language;
+
             if($lang == "ar") {
                 $message = 'تم رفض الطلب رقم '.$item->code.' بسبب '.$item->reason;
             } else {
