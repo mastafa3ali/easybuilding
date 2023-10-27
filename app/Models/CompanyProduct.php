@@ -17,7 +17,7 @@ class CompanyProduct extends Model
     ];
     public function getPhotoAttribute()
     {
-        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/products/' . $this->attributes['image']) : null) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('public/storage/products/' . $this->attributes['image']) : null) : null;
 
     }
     public function getPhotosAttribute()
@@ -25,7 +25,7 @@ class CompanyProduct extends Model
         $images = [];
         if(array_key_exists('images', $this->attributes) && $this->attributes['images'] != null) {
             foreach (json_decode($this->attributes['images']) as $image) {
-                $images[] = asset('storage/products/' . $image);
+                $images[] = asset('public/storage/products/' . $image);
             }
         }
         return $images;
