@@ -47,15 +47,15 @@ class User extends Authenticatable
     protected $appends = ['photo','licence','passport'];
     public function getPhotoAttribute()
     {
-        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/users/' . $this->attributes['image']) : null) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('public/storage/users/' . $this->attributes['image']) : null) : null;
     }
     public function getPassportAttribute()
     {
-        return array_key_exists('passport', $this->attributes) ? ($this->attributes['passport'] != null ? asset('storage/users/' . $this->attributes['passport']) : null) : null;
+        return array_key_exists('passport', $this->attributes) ? ($this->attributes['passport'] != null ? asset('public/storage/users/' . $this->attributes['passport']) : null) : null;
     }
     public function getLicenceAttribute()
     {
-        return array_key_exists('licence', $this->attributes) ? ($this->attributes['licence'] != null ? asset('storage/users/' . $this->attributes['licence']) : null) : null;
+        return array_key_exists('licence', $this->attributes) ? ($this->attributes['licence'] != null ? asset('public/storage/users/' . $this->attributes['licence']) : null) : null;
     }
     public function compleatTrack()
     {

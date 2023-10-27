@@ -15,7 +15,7 @@ class Product extends Model
     protected $fillable = ['name_en','name_ar', 'description_en','description_ar', 'type','category_id', 'guarantee_amount', 'properties', 'price','sub_category_id','image','company_id','images','rate','available'];
     protected $appends = ['photo','photos','name','description','text'];
     protected $casts = [
-        'images'=>'array'
+        'images' => 'array'
     ];
     public const Properity_NONE = 1;
     public const Properity_LENGTH_WIDTH = 2;
@@ -23,38 +23,39 @@ class Product extends Model
     public const TYPE_SALE = 1;
     public const TYPE_RENT = 2;
 
-    public function comapny():?BelongsTo
+    public function comapny(): ?BelongsTo
     {
-        return $this->belongsTo(User::class,'company_id');
+        return $this->belongsTo(User::class, 'company_id');
     }
-    public function category():?BelongsTo
+    public function category(): ?BelongsTo
     {
-        return $this->belongsTo(Category::class,'category_id');
+        return $this->belongsTo(Category::class, 'category_id');
     }
-    public function subcategory():?BelongsTo
+    public function subcategory(): ?BelongsTo
     {
-        return $this->belongsTo(SubCategory::class,'sub_category_id');
+        return $this->belongsTo(SubCategory::class, 'sub_category_id');
     }
 
     public static function saved($id)
     {
         if (auth()->check()) {
-            return Saved::where('user_id',auth()->id())->where('model_id',$id)->where('model_type',Saved::TYPE_PRODUCT)->first() ? 1 : 0;
+            return Saved::where('user_id', auth()->id())->where('model_id', $id)->where('model_type', Saved::TYPE_PRODUCT)->first() ? 1 : 0;
         }
         return 0;
     }
 
     public function getPhotoAttribute()
     {
-        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/products/' . $this->attributes['image']) : null) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('public/storage/products/' . $this->attributes['image']) : null) : null;
 
     }
     public function getPhotosAttribute()
     {
         $images = [];
-        if(array_key_exists('images', $this->attributes) && $this->attributes['images'] != null){
-            foreach (json_decode($this->attributes['images']) as $image)
-                $images[] = asset('storage/products/' . $image);
+        if(array_key_exists('images', $this->attributes) && $this->attributes['images'] != null) {
+            foreach (json_decode($this->attributes['images']) as $image) {
+                $images[] = asset('public/storage/products/' . $image);
+            }
         }
         return $images;
     }
@@ -77,7 +78,7 @@ class Product extends Model
             return $this->attributes['description_ar'] ?? $this->attributes['description_en'];
         }
     }
-        public function getTextAttribute()
+    public function getTextAttribute()
     {
         if(App::isLocale('en')) {
             return $this->attributes['name_en'] ?? $this->attributes['name_ar'];

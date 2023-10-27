@@ -13,6 +13,6 @@ class Team extends Model
     protected $appends = ['photo'];
     public function getPhotoAttribute()
     {
-        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/teams/' . $this->attributes['image']) : null) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('public/storage/teams/' . $this->attributes['image']) : null) : null;
     }
 }

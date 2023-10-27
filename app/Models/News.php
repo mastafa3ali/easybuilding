@@ -22,7 +22,7 @@ class News extends Model
     protected $appends = ['photo'];
     public function getPhotoAttribute()
     {
-        return $this->attributes['image'] != null ? asset('storage/news/' . $this->attributes['image']) : null;
+        return $this->attributes['image'] != null ? asset('public/storage/news/' . $this->attributes['image']) : null;
     }
     public function user()
     {

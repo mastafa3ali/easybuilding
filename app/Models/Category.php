@@ -21,7 +21,7 @@ class Category extends Model
 
     public function getPhotoAttribute()
     {
-        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/categories/' . $this->attributes['image']) : null) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('public/storage/categories/' . $this->attributes['image']) : null) : null;
 
     }
     public function subcategories()

@@ -11,26 +11,27 @@ use Illuminate\Support\Facades\App;
 
 class SubCategory extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory;
+    use SoftDeletes;
     protected $table = 'sub_categories';
     protected $fillable = ['name_en','name_ar', 'image','category_id','properties','sort'];
     protected $appends = ['photo','name','text'];
 
-    public function category():?BelongsTo
+    public function category(): ?BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
-    public function products():?HasMany
+    public function products(): ?HasMany
     {
-        return $this->hasMany(Product::class)->where('available',1)
+        return $this->hasMany(Product::class)->where('available', 1)
         ;
     }
-    public function getPhotoAttribute():?string
+    public function getPhotoAttribute(): ?string
     {
-        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('storage/sub_categories/' . $this->attributes['image']) : null) : null;
+        return array_key_exists('image', $this->attributes) ? ($this->attributes['image'] != null ? asset('public/storage/sub_categories/' . $this->attributes['image']) : null) : null;
 
     }
-        public function getTextAttribute()
+    public function getTextAttribute()
     {
         if(App::isLocale('en')) {
             return $this->attributes['name_en'] ?? $this->attributes['name_ar'];
