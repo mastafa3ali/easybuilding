@@ -143,7 +143,7 @@ return [
     'company_rate'=>'Company Rates',
     'about_ar' => 'Content In Arabic',
     'about_en' => 'Content In English',
-
+    'register' => 'Register',
 
 
 ];

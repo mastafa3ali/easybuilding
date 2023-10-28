@@ -80,8 +80,8 @@
                                             <a href="{{ route('password.request') }}">
                                                 <small>{{ __('admin.forgot_password') }}</small>
                                             </a>
-                                        @endif
-                                    </div>
+                                            @endif
+                                        </div>
                                     <div class="input-group input-group-merge form-password-toggle @error('password') is-invalid @enderror">
                                         <input class="form-control form-control-merge" id="login-password" type="password" name="password" placeholder="············" aria-describedby="login-password" tabindex="2" />
                                         <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
@@ -97,6 +97,11 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-primary w-100" tabindex="4">{{ __('admin.login') }}</button>
+                                <br>
+                                <br>
+                                <a href="{{ route('register') }}">
+                                    <small>{{ __('admin.register') }}</small>
+                                </a>
                             </form>
                         </div>
                     </div>
