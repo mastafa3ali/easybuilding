@@ -113,7 +113,7 @@ class PageController extends Controller
     {
 
         $data = [];
-        $user = auth()->user();
+        $user = User::findOrFail(auth()->user()->id);
         $data['profile'] = [
             'name' => $user->name,
             'phone_code' => $user->phone_code,

@@ -11,13 +11,13 @@ class SettingController extends Controller
 {
     public function contact()
     {
-        $items = Setting::whereIn('key', ['general_email','general_phone','general_whatsapp','general_address'])->get();
+        $items = Setting::whereIn('key', ['general_email','general_phone','general_whatsapp','general_company_address'])->get();
 
         $data = [
             'email' => $items->where('key', 'general_email')->first()->value ?? '',
             'phone' => $items->where('key', 'general_phone')->first()->value ?? '',
             'whatsapp' => $items->where('key', 'general_whatsapp')->first()->value ?? '',
-            'address' => $items->where('key', 'general_address')->first()->value ?? '',
+            'address' => $items->where('key', 'general_company_address')->first()->value ?? '',
         ];
 
         return apiResponse(true, $data, null, null, 200);
