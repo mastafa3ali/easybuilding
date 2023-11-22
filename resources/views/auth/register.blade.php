@@ -74,6 +74,63 @@
                             <span class="error">{{ $message }}</span>
                             @enderror
                         </div>
+                      
+                        <div class="mb-1 col-md-6 @error('image') is-invalid @enderror">
+                            <label class="form-label" for="image">{{ __('users.image') }}</label>
+                            <input type="file" class="form-control input" name="image" id="image">
+                            @error('image')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(!empty($item->image))
+                                    <img src="{{ $item->photo }}"
+                                         class="img-fluid img-thumbnail">
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-6 @error('passport') is-invalid @enderror">
+                            <label class="form-label" for="passport">{{ __('users.passport') }}</label>
+                            <input type="file" class="form-control input" name="passport" id="passport">
+                            @error('passport')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                @if(isset($item) && !empty($item->passport))
+                                    @if(pathinfo($item->passport, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->passport }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->passport }}" download>
+                                        <img src="{{ $item->passport }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+                        <div class="mb-1 col-md-6 @error('licence') is-invalid @enderror">
+                            <label class="form-label" for="licence">{{ __('users.licence') }}</label>
+                            <input type="file" class="form-control input" name="licence" id="licence">
+                            @error('licence')
+                            <span class="error">{{ $message }}</span>
+                            @enderror
+                            <div>
+                                <br>
+                                 @if(isset($item) && !empty($item->licence))
+                                    @if(pathinfo($item->licence, PATHINFO_EXTENSION)=='pdf')
+                                        <a href="{{ $item->licence }}" download>
+                                        <img src="{{ asset('default.jpg') }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                        @else
+                                        <a href="{{ $item->licence }}" download>
+                                        <img src="{{ $item->licence }}" class="img-fluid img-thumbnail">
+                                        </a>
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
                     </div>
 
                     <div class="row">
@@ -86,7 +143,7 @@
                         </div>
                     </div>
 
-                    
+
 
                         <div class="form-group">
                             <div class="d-grid gap-2">

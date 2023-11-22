@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,7 +25,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    // use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -47,6 +50,68 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
+
+
+    public function showRegistrationForm()
+    {
+        return view('auth.register');
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $user = new User();
+        $user->name = $request->name;
+        $user->type = User::TYPE_COMPANY;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+
+        if ($request->hasFile('image')) {
+            $user->image = storeFile($request->file('image'), 'users');
+            $user->save();
+        }
+        if ($request->hasFile('passport')) {
+            $user->passport = storeFile($request->file('passport'), 'users');
+            $user->save();
+        }
+        if ($request->hasFile('licence')) {
+            $user->licence = storeFile($request->file('licence'), 'users');
+            $user->save();
+        }
+
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect('company/login');
+    }
+
+    protected function guard()
+    {
+        return Auth::guard();
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        //
+    }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -67,9 +132,11 @@ class RegisterController extends Controller
     {
         $user = new User();
         $user->name = $data['name'];
-        $user->type =User::TYPE_COMPANY;
+        $user->type = User::TYPE_COMPANY;
         $user->phone = $data['phone'];
         $user->email = $data['email'];
+
+
         $user->password = Hash::make($data['password']);
 
         $user->save();
