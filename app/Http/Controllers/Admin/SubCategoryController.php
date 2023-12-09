@@ -59,21 +59,21 @@ class SubCategoryController extends Controller
     }
     public function select(Request $request): JsonResponse|string
     {
-       $data = SubCategory::distinct()
-            ->where(function ($query) use ($request) {
-                if ($request->filled('q')) {
-                    $query->where('name', 'LIKE', '%' . $request->q . '%');
-                }
-                if ($request->filled('category_id')) {
-                    $query->where('category_id',$request->category_id);
-                }
-            })
-            ->select('id', 'name AS text')
-            ->get();
+        $data = SubCategory::distinct()
+             ->where(function ($query) use ($request) {
+                 if ($request->filled('q')) {
+                     $query->where('name', 'LIKE', '%' . $request->q . '%');
+                 }
+                 if ($request->filled('category_id')) {
+                     $query->where('category_id', $request->category_id);
+                 }
+             })
+             ->select('id', 'name_en', 'name_ar')
+             ->get();
         if ($request->filled('pure_select')) {
-            $html = '<option value="">'. __('categories.select') .'</option>';
+            $html = '<option value="">' . __('categories.select') . '</option>';
             foreach ($data as $row) {
-                $html .= '<option value="'.$row->id.'">'.$row->text.'</option>';
+                $html .= '<option value="' . $row->id . '">' . $row->text . '</option>';
             }
             return $html;
         }
@@ -92,12 +92,12 @@ class SubCategoryController extends Controller
     protected function processForm($request, $id = null): SubCategory|null
     {
         $item = $id == null ? new SubCategory() : SubCategory::find($id);
-        $data= $request->except(['_token', '_method']);
+        $data = $request->except(['_token', '_method']);
 
         $item = $item->fill($data);
         if ($item->save()) {
             if ($request->hasFile('image')) {
-                $image= $request->file('image');
+                $image = $request->file('image');
                 $fileName = time() . rand(0, 999999999) . '.' . $image->getClientOriginalExtension();
                 $item->image->move(public_path('storage/sub_categories'), $fileName);
                 $item->image = $fileName;
@@ -114,16 +114,16 @@ class SubCategoryController extends Controller
         return FacadesDataTables::of($data)
         ->addIndexColumn()
         ->addColumn('photo', function ($item) {
-                return '<img src="' . $item->photo . '" height="100px" width="100px">';
+            return '<img src="' . $item->photo . '" height="100px" width="100px">';
         })
         ->addColumn('category', function ($item) {
-                return $item->category?->title;
+            return $item->category?->title;
         })
         ->filterColumn('name', function ($query, $keyword) {
             if(App::isLocale('en')) {
-                return $query->where('name_en', 'like', '%'.$keyword.'%');
+                return $query->where('name_en', 'like', '%' . $keyword . '%');
             } else {
-                return $query->where('name_ar', 'like', '%'.$keyword.'%');
+                return $query->where('name_ar', 'like', '%' . $keyword . '%');
             }
         })
         ->rawColumns(['photo','category'])
