@@ -69,6 +69,8 @@ return [
         1 => 'Cash',
         2 => 'A current Cheque',
         3 => 'Post-dated Cheque',
+        4 => 'Credit Card',
+        5 => 'Banck Transfer',
     ],
     'check_amount' => 'A Cheque for the order value',
     'change_to_progress' => 'Processing',

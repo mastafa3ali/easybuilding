@@ -47,6 +47,14 @@
                             <input class="form-check-input" name="payment[]" value=3 type="checkbox" {{ isset($item)? in_array(3,$item->payments)?'checked':'':''  }} />
                             <label class="form-check-label" for="inlineCheckbox3">{{ __('orders.payments.3') }}</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=4 type="checkbox" checked  disabled />
+                            <label class="form-check-label" for="inlineCheckbox4">{{ __('orders.payments.4') }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=5 type="checkbox" disabled checked/>
+                            <label class="form-check-label" for="inlineCheckbox5">{{ __('orders.payments.5') }}</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,6 +75,14 @@
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" name="payment2[]" value=3 type="checkbox" {{ isset($item2)? in_array(3,$item2->payments)?'checked':'':''  }} />
                             <label class="form-check-label" for="inlineCheckbox3">{{ __('orders.payments.3') }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=4 type="checkbox" checked  disabled />
+                            <label class="form-check-label" for="inlineCheckbox4">{{ __('orders.payments.4') }}</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="payment[]" value=5 type="checkbox" disabled checked/>
+                            <label class="form-check-label" for="inlineCheckbox5">{{ __('orders.payments.5') }}</label>
                         </div>
                     </div>
                 </div>
