@@ -303,7 +303,7 @@ class PageController extends Controller
         if($request->filled('name')) {
             $companies = User::where('name', 'like', '%' . $request->name . '%')->get();
             $products = Product::where('available', 1)
-        ->where('name', 'like', '%' . $request->name . '%')->get();
+        ->where('name_en', 'like', '%' . $request->name . '%')->orWhere('name_ar', 'like', '%' . $request->name . '%')->get();
             $result = [];
             $allcompanies = [];
             $doublicate = [];
